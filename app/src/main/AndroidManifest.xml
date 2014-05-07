@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Events"
+            android:name="com.id11413010.circle.app.Event"
             android:label="@string/title_activity_events" >
         </activity>
         <activity
