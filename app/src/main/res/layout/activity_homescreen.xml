@@ -88,7 +88,8 @@
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
-            android:focusableInTouchMode="false" />
+            android:focusableInTouchMode="false"
+            android:onClick="openFriends"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -12,4 +12,9 @@
     <string name="title_activity_friend">Friend</string>
     <string name="title_activity_leaderboard">Leaderboard</string>
 
+    <string name="newFriend"></string>
+    <string name="title_activity_friend__add">Add a new friend</string>
+    <string name="add_friend">Add Friends</string>
+    <string name="back">BACK</string>
+    <string name="newFriendName">Name</string>
 </resources>

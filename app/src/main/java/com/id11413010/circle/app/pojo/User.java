@@ -1,4 +1,4 @@
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.pojo;
 
 /**
  * Created by Calvin on 7/05/2014.

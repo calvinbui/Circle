@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.id11413010.circle.app.MainActivity"
+            android:name="com.id11413010.circle.app.HomeScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,20 +33,20 @@
             android:label="@string/title_activity_competition" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Event"
-            android:label="@string/title_activity_event" >
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.Voting"
             android:label="@string/title_activity_voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Friend"
+            android:name="com.id11413010.circle.app.friends.Friend"
             android:label="@string/title_activity_friend" >
         </activity>
         <activity
             android:name="com.id11413010.circle.app.Leaderboard"
             android:label="@string/title_activity_leaderboard" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.friends.Friend_Add"
+            android:label="@string/title_activity_friend__add" >
         </activity>
     </application>
 
