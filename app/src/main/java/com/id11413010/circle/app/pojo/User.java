@@ -7,10 +7,13 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
-    private int circle;
-    private String username;
-    private String password;
     private String picture;
+
+    public User(String firstName, String lastName) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public String getName() {
         return firstName + " " + lastName;
@@ -24,20 +27,8 @@ public class User {
         return lastName;
     }
 
-    public int getCircle() {
-        return circle;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getPicture() {

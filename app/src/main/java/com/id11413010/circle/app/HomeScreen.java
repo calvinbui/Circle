@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.id11413010.circle.app.friends.Friend;
+import com.id11413010.circle.app.friends.Friend_List;
 
 public class HomeScreen extends Activity {
 
@@ -36,7 +36,7 @@ public class HomeScreen extends Activity {
     }
 
     public void openFriends(View v) {
-        startActivity(new Intent(this, Friend.class));
+        startActivity(new Intent(HomeScreen.this, Friend_List.class));
     }
 
 }
