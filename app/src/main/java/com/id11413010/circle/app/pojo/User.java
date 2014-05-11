@@ -12,10 +12,6 @@ public class User {
     private String password;
     private String picture;
 
-    public User() {
-
-    }
-
     public String getName() {
         return firstName + " " + lastName;
     }
@@ -47,6 +43,5 @@ public class User {
     public String getPicture() {
         return picture;
     }
-
 
 }

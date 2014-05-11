@@ -14,7 +14,7 @@
         android:inputType="textPersonName"
         android:hint="@string/newFriendName"
         android:ems="10"
-        android:id="@+id/addFriendName"
+        android:id="@+id/addFriendFirstName"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -34,6 +34,17 @@
         android:layout_height="wrap_content"
         android:text="@string/add_friend"
         android:id="@+id/addFriendBtn"
-        android:layout_below="@+id/addFriendName"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/addFriendLastName"
+        android:layout_centerHorizontal="true"
+        android:onClick="createFriend"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addFriendLastName"
+        android:layout_below="@+id/addFriendImg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/addFriendImg"
+        android:hint="@string/newFriendLastName"/>
 </RelativeLayout>
