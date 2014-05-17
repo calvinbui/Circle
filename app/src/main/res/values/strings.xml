@@ -11,13 +11,9 @@
     <string name="title_activity_voting">Voting</string>
     <string name="title_activity_friend">Friend</string>
     <string name="title_activity_leaderboard">Leaderboard</string>
-    <string name="title_activity_friend__add">Add a new friend</string>
-    <string name="add_friend">Add Friend</string>
     <string name="back">BACK</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
-    <string name="emptyName">Please fill in their name!</string>
-    <string name="title_activity_friend_database_helper">FriendDatabaseHelper</string>
     <string name="userAdded">Friend has been added!</string>
     <string name="title_activity_login">Login</string>
     <string name="username">Email/Username</string>
@@ -30,6 +26,11 @@
     <string name="lastNameMissing">Please enter Last Name</string>
     <string name="emailMissing">Please enter Email</string>
     <string name="passwordMissing">Please enter Password</string>
+    <string name="circleMissing">Please enter a Circle</string>
     <string name="connectionError">Could not connect to db</string>
     <string name="loginError">Login Incorrect or Not Found</string>
+    <string name="welcomeMsg">Welcome, </string>
+    <string name="tester">Tester</string>
+    <string name="circle">Circle</string>
+    <string name="registerCircle">Enter the name of the circle you wish to join. If wish to create a new circle, please enter the name of the new circle to create</string>
 </resources>

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -29,6 +28,7 @@ public class Register extends Activity {
     private EditText lastName;
     private EditText email;
     private EditText password;
+    private EditText circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class Register extends Activity {
         lastName = (EditText)findViewById(R.id.lastNameRegister_et);
         email = (EditText)findViewById(R.id.emailRegister_et);
         password = (EditText)findViewById(R.id.passwordRegister_et);
+        circle = (EditText)findViewById(R.id.circleRegister_et);
     }
 
 
@@ -80,6 +81,10 @@ public class Register extends Activity {
             makeToast(getText(R.string.passwordMissing).toString());
             return false;
         }
+        else if (circle.getText().toString().equals("")) {
+            makeToast(getText(R.string.circleMissing).toString());
+            return false;
+        }
         return true;
     }
 
@@ -89,31 +94,34 @@ public class Register extends Activity {
 
     private class RegisterTask extends AsyncTask<Void, Void, Void> {
 
-        String firstNameString;
-        String lastNameString;
-        String emailString;
-        String passwordString;
+        private String firstNameString;
+        private String lastNameString;
+        private String emailString;
+        private String passwordString;
+        private String circleString;
 
         protected void onPreExecute() {
             firstNameString = firstName.getText().toString();
             lastNameString = lastName.getText().toString();
             emailString = email.getText().toString();
             passwordString = password.getText().toString();
+            circleString = circle.getText().toString();
         }
 
         protected Void doInBackground(Void... params) {
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://calvinbui.no-ip.biz/android/register.php?");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+            HttpPost httppost = new HttpPost("http://calvinbui.no-ip.biz/android/register.php");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
             nameValuePairs.add(new BasicNameValuePair("firstName", firstNameString));
             nameValuePairs.add(new BasicNameValuePair("lastName",lastNameString));
             nameValuePairs.add(new BasicNameValuePair("email",emailString));
             nameValuePairs.add(new BasicNameValuePair("password",passwordString));
+            nameValuePairs.add(new BasicNameValuePair("circle",circleString));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
+                httpclient.execute(httppost);
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
