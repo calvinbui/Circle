@@ -31,4 +31,5 @@
     <string name="emailMissing">Please enter Email</string>
     <string name="passwordMissing">Please enter Password</string>
     <string name="connectionError">Could not connect to db</string>
+    <string name="loginError">Login Incorrect or Not Found</string>
 </resources>

@@ -42,10 +42,6 @@
             android:label="@string/title_activity_leaderboard" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.friends.Friend_Add"
-            android:label="@string/title_activity_friend__add" >
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.Login"
             android:label="@string/title_activity_login" >
             <intent-filter>
