@@ -1,9 +1,12 @@
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.events;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.id11413010.circle.app.R;
 
 
 public class Event extends Activity {
@@ -28,8 +31,8 @@ public class Event extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.addEventMenu) {
+            startActivity(new Intent(this, Event_Add.class));
         }
         return super.onOptionsItemSelected(item);
     }

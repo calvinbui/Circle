@@ -21,6 +21,7 @@
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
+            android:onClick="openEvents"
             />
         <ImageButton
             android:layout_height="match_parent"
