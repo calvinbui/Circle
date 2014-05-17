@@ -19,8 +19,8 @@
     <string name="emptyName">Please fill in their name!</string>
     <string name="title_activity_friend_database_helper">FriendDatabaseHelper</string>
     <string name="userAdded">Friend has been added!</string>
-    <string name="title_activity_login">login</string>
-    <string name="username">Username</string>
+    <string name="title_activity_login">Login</string>
+    <string name="username">Email/Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>

@@ -54,39 +54,12 @@ public class Register extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     public void registerUser(View v) {
         if (checkText()) {
-            try {
-
-                String firstNameString = firstName.getText().toString();
-                String lastNameString = lastName.getText().toString();
-                String emailString = email.getText().toString();
-                String passwordString = password.getText().toString();
-
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://calvinbui.no-ip.biz/android/register.php?");
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
-                nameValuePairs.add(new BasicNameValuePair("firstName", firstNameString));
-                nameValuePairs.add(new BasicNameValuePair("lastName",lastNameString));
-                nameValuePairs.add(new BasicNameValuePair("email",emailString));
-                nameValuePairs.add(new BasicNameValuePair("password",passwordString));
-
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                HttpResponse response = httpclient.execute(httppost);
-
-                startActivity(new Intent(this, Login.class));
-            } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            } catch (IOException e) {
-            e.printStackTrace();
-            }
+            new RegisterTask().execute();
         }
     }
 
@@ -128,15 +101,30 @@ public class Register extends Activity {
             passwordString = password.getText().toString();
         }
 
-        protected void doInBackground(Void... params) {
-            //here you execute the post request
-            // You can call postData() here
+        protected Void doInBackground(Void... params) {
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost("http://calvinbui.no-ip.biz/android/register.php?");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+            nameValuePairs.add(new BasicNameValuePair("firstName", firstNameString));
+            nameValuePairs.add(new BasicNameValuePair("lastName",lastNameString));
+            nameValuePairs.add(new BasicNameValuePair("email",emailString));
+            nameValuePairs.add(new BasicNameValuePair("password",passwordString));
+
+            try {
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                HttpResponse response = httpclient.execute(httppost);
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
 
-        protected void onPostExecute() {
-            //onPostExecute is called when background task executed
-            //this is the place to update the interface
-
+        @Override
+        protected void onPostExecute(Void result) {
+            startActivity(new Intent(Register.this, Login.class));
         }
     }
 }
