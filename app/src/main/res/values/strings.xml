@@ -14,10 +14,21 @@
     <string name="title_activity_friend__add">Add a new friend</string>
     <string name="add_friend">Add Friend</string>
     <string name="back">BACK</string>
-    <string name="newFriendName">First Name</string>
-    <string name="newFriendLastName">Last Name</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
     <string name="emptyName">Please fill in their name!</string>
     <string name="title_activity_friend_database_helper">FriendDatabaseHelper</string>
     <string name="userAdded">Friend has been added!</string>
-
+    <string name="title_activity_login">login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="title_activity_register">Register</string>
+    <string name="email">Email address</string>
+    <string name="firstNameMissing">Please enter First Name</string>
+    <string name="lastNameMissing">Please enter Last Name</string>
+    <string name="emailMissing">Please enter Email</string>
+    <string name="passwordMissing">Please enter Password</string>
+    <string name="connectionError">Could not connect to db</string>
 </resources>
