@@ -1,9 +1,13 @@
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.money;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.id11413010.circle.app.R;
 
 
 public class Money extends Activity {
@@ -28,9 +32,14 @@ public class Money extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+    }
+
+    public void openSplitBill(View v) {
+        startActivity(new Intent(this, Money_Split_Bill.class));
+    }
+
+    public void openMoneyOwing(View v) {
+        startActivity(new Intent(this, Money_Owing.class));
     }
 }

@@ -34,10 +34,10 @@
     <string name="circle">Circle</string>
     <string name="registerCircle">Enter the name of the circle you wish to join. If wish to create a new circle, please enter the name of the new circle to create</string>
     <string name="title_activity_event__add">Create a new event</string>
-    <string name="noStartDate">Start Date&#58;</string>
-    <string name="noStartTime">Start Time&#58;</string>
-    <string name="noEndDate">End Date&#58;</string>
-    <string name="noEndTime">End Time&#58;</string>
+    <string name="noStartDate">Start Date:</string>
+    <string name="noStartTime">Start Time:</string>
+    <string name="noEndDate">End Date:</string>
+    <string name="noEndTime">End Time:</string>
     <string name="eventName">Event Name</string>
     <string name="eventDetails">Details</string>
     <string name="location">Location</string>
@@ -46,4 +46,11 @@
     <string name="eventEnd">Finishing at...</string>
     <string name="select">Select</string>
     <string name="done">Done</string>
+    <string name="title_activity_money__owing">Money Owing</string>
+    <string name="title_activity_money__split__bill">Split Bill</string>
+    <string name="blankMoney">&#36;0.00</string>
+    <string name="dollarSign">&#36;</string>
+    <string name="perPerson">Per Person:</string>
+    <string name="totalPrice">Total Price:</string>
+    <string name="numPeople">No. of People</string>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.id11413010.circle.app.events.Event;
 import com.id11413010.circle.app.friends.Friend_List;
+import com.id11413010.circle.app.money.Money;
 
 public class HomeScreen extends Activity {
 
@@ -48,4 +49,7 @@ public class HomeScreen extends Activity {
         startActivity(new Intent(HomeScreen.this, Event.class));
     }
 
+    public void openMoney(View v) {
+        startActivity(new Intent(HomeScreen.this, Money.class));
+    }
 }
