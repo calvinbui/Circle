@@ -1,24 +1,24 @@
-package com.id11413010.circle.app.money;
+package com.id11413010.circle.app;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.id11413010.circle.app.R;
 
-public class Money_Owing extends Activity {
+
+public class login extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money__owing);
+        setContentView(R.layout.activity_login);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.money__owing, menu);
+        getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }
 
@@ -28,8 +28,9 @@ public class Money_Owing extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
-
-
 }
