@@ -177,7 +177,7 @@ public class Register extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            startActivity(new Intent(Register.this, login.class));
+            startActivity(new Intent(Register.this, Login.class));
         }
     }
 }

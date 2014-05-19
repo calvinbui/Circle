@@ -19,7 +19,7 @@ import com.id11413010.circle.app.money.Money;
 
 /**
  * This activity is a 'home screen' for navigation between the various activities and functions of
- * the application. It is presented to the user after a success 'login'. It shows six buttons which
+ * the application. It is presented to the user after a success 'Login'. It shows six buttons which
  * start a different type of activity for each.
  */
 public class HomeScreen extends Activity {
@@ -39,7 +39,6 @@ public class HomeScreen extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
