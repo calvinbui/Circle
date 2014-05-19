@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) Trungthi (Calvin) Bui 2014
+ */
 package com.id11413010.circle.app.money;
 
 import android.app.Activity;
@@ -9,7 +12,10 @@ import android.view.View;
 
 import com.id11413010.circle.app.R;
 
-
+/**
+ The class is used for navigating between the two different money features of the application,
+ to split a bill and; to create and view money owed to one another.
+ */
 public class Money extends Activity {
 
     @Override
@@ -17,7 +23,6 @@ public class Money extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,11 +40,17 @@ public class Money extends Activity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Linked to a Button onClick within the XML to open the Split Bill activity
+     */
     public void openSplitBill(View v) {
         startActivity(new Intent(this, Money_Split_Bill.class));
     }
 
+    /**
+     * Linked to a Button onClick within the XML to open the money owing activity
+     */
     public void openMoneyOwing(View v) {
-        startActivity(new Intent(this, Money_Owing.class));
+        //startActivity(new Intent(this, Money_Owing.class));
     }
 }

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Login extends Activity {
+public class login extends Activity {
 
     private EditText username_et;
     private EditText password_et;
@@ -41,7 +41,6 @@ public class Login extends Activity {
         username_et = (EditText)findViewById(R.id.username_et);
         password_et = (EditText)findViewById(R.id.password_et);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -111,7 +110,7 @@ public class Login extends Activity {
                 editor.putString(Constants.LASTNAME, parts[3]);
                 editor.putString(Constants.CIRCLE, parts[4]);
                 editor.commit();
-                startActivity(new Intent(Login.this, HomeScreen.class));
+                startActivity(new Intent(login.this, HomeScreen.class));
             }
             else {
                 Toast.makeText(getApplicationContext(),R.string.loginError, Toast.LENGTH_SHORT).show();

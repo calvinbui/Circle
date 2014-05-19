@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) Trungthi (Calvin) Bui 2014
+ */
+
 package com.id11413010.circle.app;
 
 import android.app.Activity;
@@ -22,25 +26,44 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This activity allows the user to create a new account. The new account will permit them access
+ * to the application's features once they have logged in. The activity receives user input and
+ * passes this information to be stored into a database.
+ */
 public class Register extends Activity {
-
+    /**
+     * EditText representing a first name
+     */
     private EditText firstName;
+    /**
+     * EditText representing a last name
+     */
     private EditText lastName;
+    /**
+     * EditText representing an email
+     */
     private EditText email;
+    /**
+     * EditText representing a password
+     */
     private EditText password;
+    /**
+     * EditText representing a circle/group of friends
+     */
     private EditText circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firstName = (EditText)findViewById(R.id.firstNameRegister_et);
-        lastName = (EditText)findViewById(R.id.lastNameRegister_et);
-        email = (EditText)findViewById(R.id.emailRegister_et);
-        password = (EditText)findViewById(R.id.passwordRegister_et);
-        circle = (EditText)findViewById(R.id.circleRegister_et);
+        //finds and stores a view that was identified by the id attribute
+        firstName = (EditText)findViewById(R.id.firstNameRegister_et); //EditText for first name
+        lastName = (EditText)findViewById(R.id.lastNameRegister_et); //EditText for last name
+        email = (EditText)findViewById(R.id.emailRegister_et); //EditText for email
+        password = (EditText)findViewById(R.id.passwordRegister_et); //EditText for password
+        circle = (EditText)findViewById(R.id.circleRegister_et); //EditText for circle/group
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,14 +81,27 @@ public class Register extends Activity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
+    /**
+     * A method called by a button widget within the layout XML. Will execute an AsyncTask if there
+     * all fields are completed. The AsyncTask will register create a new row in the database.
+     * @param v View object;
+     */
     public void registerUser(View v) {
+        // check if all fields are complete
         if (checkText()) {
+            // executes the AsyncTask to create a new user.
             new RegisterTask().execute();
         }
     }
 
+    /**
+     * Checks for any incomplete EditText fields in the registration form. If there are, it will
+     * present a toast to the user stating which field is missing.
+     * @return boolean 'true' if all fields are complete, else 'false'.
+     */
     private boolean checkText() {
         if (firstName.getText().toString().equals("")) {
+            // create a toast with a message of what is missing.
             makeToast(getText(R.string.firstNameMissing).toString());
             return false;
         }
@@ -88,10 +124,19 @@ public class Register extends Activity {
         return true;
     }
 
+    /**
+     * Create a new toast when given a String. The String becomes the toast message.
+     * @param message String for the toast.
+     */
     private void makeToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * An AsyncTask which captures the information inputed by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread.
+     */
     private class RegisterTask extends AsyncTask<Void, Void, Void> {
 
         private String firstNameString;
@@ -111,13 +156,13 @@ public class Register extends Activity {
         protected Void doInBackground(Void... params) {
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://calvinbui.no-ip.biz/android/register.php");
+            HttpPost httppost = new HttpPost(Constants.DB_URL + "register.php");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-            nameValuePairs.add(new BasicNameValuePair("firstName", firstNameString));
-            nameValuePairs.add(new BasicNameValuePair("lastName",lastNameString));
-            nameValuePairs.add(new BasicNameValuePair("email",emailString));
-            nameValuePairs.add(new BasicNameValuePair("password",passwordString));
-            nameValuePairs.add(new BasicNameValuePair("circle",circleString));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, firstNameString));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_LASTNAME, lastNameString));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, emailString));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, passwordString));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circleString));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -132,7 +177,7 @@ public class Register extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            startActivity(new Intent(Register.this, Login.class));
+            startActivity(new Intent(Register.this, login.class));
         }
     }
 }
