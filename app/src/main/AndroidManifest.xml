@@ -42,15 +42,6 @@
             android:label="@string/title_activity_leaderboard" >
         </activity>
         <activity
-            android:name=".Login"
-            android:label="@string/title_activity_login" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.Register"
             android:label="@string/title_activity_register" >
         </activity>
@@ -61,6 +52,10 @@
         <activity
             android:name="com.id11413010.circle.app.money.Money_Split_Bill"
             android:label="@string/title_activity_money__split__bill" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.Login"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 
