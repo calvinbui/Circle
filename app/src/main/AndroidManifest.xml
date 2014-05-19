@@ -59,10 +59,6 @@
             android:label="@string/title_activity_event__add" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.money.Money_Owing"
-            android:label="@string/title_activity_money__owing" >
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.money.Money_Split_Bill"
             android:label="@string/title_activity_money__split__bill" >
         </activity>

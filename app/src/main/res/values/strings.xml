@@ -48,9 +48,10 @@
     <string name="done">Done</string>
     <string name="title_activity_money__owing">Money Owing</string>
     <string name="title_activity_money__split__bill">Split Bill</string>
-    <string name="blankMoney">&#36;0.00</string>
-    <string name="dollarSign">&#36;</string>
+    <string name="blankMoney">$0.00</string>
+    <string name="dollarSign">$</string>
     <string name="perPerson">Per Person:</string>
     <string name="totalPrice">Total Price:</string>
     <string name="numPeople">No. of People</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
