@@ -14,20 +14,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.id11413010.circle.app.dao.User_DAO;
+import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.User;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This activity allows the user to create a new account. The new account will permit them access
@@ -142,32 +130,9 @@ public class Register extends Activity {
      */
     private class RegisterTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
-            /*HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(Constants.DB_URL + "register.php");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, ));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_LASTNAME, ));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, ));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, ));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle.getText().toString()));
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                httpclient.execute(httppost);
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-            User user = new User(
-                    firstName.getText().toString(),
-                    lastName.getText().toString(),
-                    email.getText().toString(),
-                    password.getText().toString(),
-                    circle.getText().toString()
-            );
-
-            User_DAO.createUser(user);
-
+            User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),
+                    password.getText().toString(),circle.getText().toString());
+            UserDAO.createUser(user);
             return null;
         }
 
