@@ -15,7 +15,7 @@ import com.id11413010.circle.app.R;
  The class is used for listing the current and future 'events' each group of friends has created.
  Events are retrieved from a database and shown within a List Activity.
  */
-public class Event extends Activity {
+public class Events extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

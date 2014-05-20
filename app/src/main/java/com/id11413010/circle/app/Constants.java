@@ -26,7 +26,7 @@ public class Constants {
     /**
      * Tag for User's circle
      */
-    public static final String CIRCLE = "Circle";
+    public static final String CIRCLE = "Events";
     /**
      * A URL of where the web service.
      */

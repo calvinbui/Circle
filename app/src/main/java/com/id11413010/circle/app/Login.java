@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) Trungthi (Calvin) Bui 2014
+ */
 package com.id11413010.circle.app;
 
 import android.app.Activity;
@@ -27,10 +30,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Allows individuals to logon as a user and access features of the application as a registered
+ * member part of a circle/group of friends. Users enter a username and password which is authenticated
+ * with the database. If never before registered, activity also provides a button to register as
+ * a new member.
+ */
 public class Login extends Activity {
-
+    /**
+     * An EditText representing a username
+     */
     private EditText username_et;
+    /**
+     * An EditText representing a password
+     */
     private EditText password_et;
 
     @Override
@@ -82,7 +95,7 @@ public class Login extends Activity {
             HttpPost httppost = new HttpPost(Constants.DB_URL + "login.php?");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("username", username));
-            nameValuePairs.add(new BasicNameValuePair("password", password));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, password));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -100,18 +113,27 @@ public class Login extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
+            // create a new array from the database response, broken up into individual objects by
+            // a colon.
             String[] parts = htmlResponse.split(":");
+            // If the login is successful, store session information into Shared Preferences.
             if (parts[0].equals("loginCorrect")) {
+                // create a new shared preference object
                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                // edit shared preferences
                 SharedPreferences.Editor editor = sp.edit();
+                // insert userid, first name, last name and circle into shared preferences
                 editor.putString(Constants.USERID, parts[1]);
                 editor.putString(Constants.FIRSTNAME, parts[2]);
                 editor.putString(Constants.LASTNAME, parts[3]);
                 editor.putString(Constants.CIRCLE, parts[4]);
+                // save the preferences
                 editor.commit();
+                // login in the user, redirect them to the home page.
                 startActivity(new Intent(Login.this, HomeScreen.class));
             }
             else {
+                // if login unsuccessful, toast the user with an error message.
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
             }
         }

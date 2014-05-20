@@ -7,16 +7,30 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
-    private String picture;
+    private String password;
+    private String email;
 
-    public User(String firstName, String lastName) {
-        super();
-        this.firstName = firstName;
+    public User(String firstName, String lastName, String email, String password, String circle) {
+        this.circle = circle;
+        this.email = email;
+        this.password = password;
         this.lastName = lastName;
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
+    public String getCircle() {
+        return circle;
+    }
+
+    public void setCircle(String circle) {
+        this.circle = circle;
+    }
+
+    private String circle;
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -31,8 +45,31 @@ public class User {
         return id;
     }
 
-    public String getPicture() {
-        return picture;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

@@ -21,23 +21,13 @@ import android.widget.TimePicker;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.pojo.Event;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
- * This class is used to create a new Event. Users can fill out the details of their event which is
+ * This class is used to create a new Events. Users can fill out the details of their event which is
  * then created within the database. The event requires a name, description, location, start and
  * end date as well as time. When the event has been created, the user is redirected to the class
  * listing all events within their group of friends.
@@ -200,20 +190,15 @@ public class Event_Add extends Activity {
                 e.printStackTrace();
             }
 
-            nameString = name.getText().toString();
-            locationString = location.getText().toString();
-            detailsString = details.getText().toString();
-            startTimeString = startTime.getText().toString();
-            endTimeString = endTime.getText().toString();
 
-            // retrieves the User's Circle ID stored within the Shared Preferences and store it
+            // retrieves the User's Events ID stored within the Shared Preferences and store it
             // within the String circle.
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             circle = sp.getString(Constants.CIRCLE, null);
         }
 
         protected Void doInBackground(Void... params) {
-            // Create a new HttpClient to connect to the Internet and access a web page.
+            /*// Create a new HttpClient to connect to the Internet and access a web page.
             HttpClient httpclient = new DefaultHttpClient();
             // POST data to the specified URL
             HttpPost httppost = new HttpPost(Constants.DB_URL + "create_event.php");
@@ -221,19 +206,19 @@ public class Event_Add extends Activity {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
             // name
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, nameString));
-            // Event description
+            // Events description
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_DESCRIPTION, detailsString));
-            // Event location
+            // Events location
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_LOCATION, locationString));
-            // Event start date
+            // Events start date
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_STARTDATE, startDateString));
-            // Event end date
+            // Events end date
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_ENDDATE,endDateString));
-            // Event start time
+            // Events start time
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_STARTTIME, startTimeString));
-            // Event end time
+            // Events end time
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_ENDTIME, endTimeString));
-            // User Circle ID
+            // User Events ID
             nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
             try {
                 // set the information (ArrayList) that will be contained in the POST
@@ -244,14 +229,26 @@ public class Event_Add extends Activity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
+
+            Event event = new Event(
+                name.getText().toString(),
+                details.getText().toString(),
+                location.getText().toString(),
+                startDateString,
+                endDateString,
+                endTime.getText().toString(),
+                startTime.getText().toString(),
+                circle
+            );
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             // return the user to the activity Listing the events.
-            startActivity(new Intent(Event_Add.this, Event.class));
+            startActivity(new Intent(Event_Add.this, Events.class));
         }
     }
 }

@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.id11413010.circle.app.events.Event;
+import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friend_List;
 import com.id11413010.circle.app.money.Money;
 
@@ -62,7 +62,7 @@ public class HomeScreen extends Activity {
 
     public void openEvents(View v) {
         // start the event activity
-        startActivity(new Intent(HomeScreen.this, Event.class));
+        startActivity(new Intent(HomeScreen.this, Events.class));
     }
 
     public void openMoney(View v) {

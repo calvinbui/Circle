@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.id11413010.circle.app.dao.User_DAO;
+import com.id11413010.circle.app.pojo.User;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -133,37 +136,20 @@ public class Register extends Activity {
     }
 
     /**
-     * An AsyncTask which captures the information inputed by the User and sends it via Internet
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
      */
     private class RegisterTask extends AsyncTask<Void, Void, Void> {
-
-        private String firstNameString;
-        private String lastNameString;
-        private String emailString;
-        private String passwordString;
-        private String circleString;
-
-        protected void onPreExecute() {
-            firstNameString = firstName.getText().toString();
-            lastNameString = lastName.getText().toString();
-            emailString = email.getText().toString();
-            passwordString = password.getText().toString();
-            circleString = circle.getText().toString();
-        }
-
         protected Void doInBackground(Void... params) {
-
-            HttpClient httpclient = new DefaultHttpClient();
+            /*HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(Constants.DB_URL + "register.php");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, firstNameString));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_LASTNAME, lastNameString));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, emailString));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, passwordString));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circleString));
-
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, ));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_LASTNAME, ));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, ));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, ));
+            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle.getText().toString()));
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                 httpclient.execute(httppost);
@@ -171,7 +157,17 @@ public class Register extends Activity {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
+            User user = new User(
+                    firstName.getText().toString(),
+                    lastName.getText().toString(),
+                    email.getText().toString(),
+                    password.getText().toString(),
+                    circle.getText().toString()
+            );
+
+            User_DAO.createUser(user);
+
             return null;
         }
 
