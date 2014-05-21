@@ -1,24 +1,26 @@
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.voting;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.id11413010.circle.app.R;
 
-public class Competition extends Activity {
+
+public class Voting extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_competition);
+        setContentView(R.layout.activity_voting);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.competition, menu);
+        getMenuInflater().inflate(R.menu.voting, menu);
         return true;
     }
 

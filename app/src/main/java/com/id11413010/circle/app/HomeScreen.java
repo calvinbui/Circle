@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friend_List;
 import com.id11413010.circle.app.money.Money;
+import com.id11413010.circle.app.voting.Voting;
 
 /**
  * This activity is a 'home screen' for navigation between the various activities and functions of
@@ -68,5 +69,10 @@ public class HomeScreen extends Activity {
     public void openMoney(View v) {
         // start the money activity
         startActivity(new Intent(HomeScreen.this, Money.class));
+    }
+
+    public void openVoting(View v) {
+        // start the money activity
+        startActivity(new Intent(HomeScreen.this, Voting.class));
     }
 }

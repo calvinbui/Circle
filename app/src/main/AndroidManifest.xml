@@ -26,11 +26,11 @@
             android:label="@string/title_activity_money" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Competition"
+            android:name="com.id11413010.circle.app.competitions.Competitions"
             android:label="@string/title_activity_competition" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Voting"
+            android:name="com.id11413010.circle.app.voting.Voting"
             android:label="@string/title_activity_voting" >
         </activity>
         <activity
@@ -38,7 +38,7 @@
             android:label="@string/title_activity_friend" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Leaderboard"
+            android:name="com.id11413010.circle.app.leaderboards.Leaderboards"
             android:label="@string/title_activity_leaderboard" >
         </activity>
         <activity
@@ -46,22 +46,41 @@
             android:label="@string/title_activity_register" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.events.Event_Add"
+            android:name="com.id11413010.circle.app.events.EventAdd"
             android:label="@string/title_activity_event__add" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.money.Money_Split_Bill"
+            android:name=".money.MoneySplit"
             android:label="@string/title_activity_money__split__bill" >
         </activity>
         <activity
             android:name="com.id11413010.circle.app.Login"
             android:label="@string/title_activity_login" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.voting.VotingAdd"
+            android:label="@string/title_activity_voting_add" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.competitions.CompetitionAdd"
+            android:label="@string/title_activity_competition_add" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.leaderboards.LeaderboardAdd"
+            android:label="@string/title_activity_leaderboard_add" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.leaderboards.LeaderboardView"
+            android:label="@string/title_activity_leaderboard_view" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.voting.VotingView"
+            android:label="@string/title_activity_voting_view" >
         </activity>
     </application>
 

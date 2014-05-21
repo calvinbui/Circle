@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.id11413010.circle.app.dao.UserDAO;
+import com.id11413010.circle.app.pojo.User;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -80,40 +83,17 @@ public class Login extends Activity {
 
     private class LoginTask extends AsyncTask<Void, Void, Void> {
 
-        String username;
-        String password;
+        User user;
         String htmlResponse;
 
-        protected void onPreExecute() {
-            username = username_et.getText().toString();
-            password = password_et.getText().toString();
-        }
-
         protected Void doInBackground(Void... params) {
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(Constants.DB_URL + "login.php?");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("username", username));
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, password));
-
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                htmlResponse = EntityUtils.toString(entity);
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            user = UserDAO.retrieveUser(username_et.getText().toString(), password_et.getText().toString());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            // create a new array from the database response, broken up into individual objects by
+            /*// create a new array from the database response, broken up into individual objects by
             // a colon.
             String[] parts = htmlResponse.split(":");
             // If the login is successful, store session information into Shared Preferences.
@@ -135,6 +115,21 @@ public class Login extends Activity {
             else {
                 // if login unsuccessful, toast the user with an error message.
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
+            }*/
+            if(user.getEmail().equals(username_et.getText().toString()) && user.getPassword().equals(password_et.getText().toString())) {
+                SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                // edit shared preferences
+                SharedPreferences.Editor editor = sp.edit();
+                // insert userid, first name, last name and circle into shared preferences
+                editor.putString(Constants.FIRSTNAME, user.getFirstName());
+                editor.putString(Constants.LASTNAME, user.getLastName());
+                editor.putString(Constants.CIRCLE, user.getCircle());
+                // save the preferences
+                editor.commit();
+                startActivity(new Intent(Login.this, HomeScreen.class));
+            } else {
+            // if login unsuccessful, toast the user with an error message.
+            Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
             }
         }
     }

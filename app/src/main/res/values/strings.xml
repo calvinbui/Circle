@@ -54,4 +54,10 @@
     <string name="totalPrice">Total Price:</string>
     <string name="numPeople">No. of People</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_voting_add">VotingAdd</string>
+    <string name="title_activity_competition_add">CompetitionAdd</string>
+    <string name="title_activity_leaderboard_add">LeaderboardAdd</string>
+    <string name="title_activity_leaderboard_view">LeaderboardView</string>
+    <string name="title_activity_voting_view">VotingView</string>
+
 </resources>

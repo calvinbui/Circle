@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.EventDAO;
 import com.id11413010.circle.app.pojo.Event;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ import java.util.Calendar;
  * end date as well as time. When the event has been created, the user is redirected to the class
  * listing all events within their group of friends.
  */
-public class Event_Add extends Activity {
+public class EventAdd extends Activity {
     /**
      * These TextViews will represent the dates and times selected by the user
      */
@@ -231,16 +232,11 @@ public class Event_Add extends Activity {
                 e.printStackTrace();
             }*/
 
-            Event event = new Event(
-                name.getText().toString(),
-                details.getText().toString(),
-                location.getText().toString(),
-                startDateString,
-                endDateString,
-                endTime.getText().toString(),
-                startTime.getText().toString(),
-                circle
-            );
+            Event event = new Event(name.getText().toString(), details.getText().toString(),
+                location.getText().toString(), startDateString, endDateString, endTime.getText().toString(),
+                startTime.getText().toString(),circle);
+
+            EventDAO.addEvent(event);
 
             return null;
         }
@@ -248,7 +244,7 @@ public class Event_Add extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             // return the user to the activity Listing the events.
-            startActivity(new Intent(Event_Add.this, Events.class));
+            startActivity(new Intent(EventAdd.this, Events.class));
         }
     }
 }

@@ -1,5 +1,9 @@
 package com.id11413010.circle.app.dao;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
 import com.id11413010.circle.app.pojo.User;
@@ -14,6 +18,9 @@ import java.util.List;
  * Created by CalvinLaptop on 20/05/2014.
  */
 public class UserDAO {
+
+    private static Gson gson;
+
     public static void createUser(User user) {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, user.getFirstName()));
@@ -21,6 +28,23 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, user.getEmail()));
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, user.getPassword()));
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, user.getCircle()));
-        Network.httpConnection(Constants.DB_URL + "register.php", nameValuePairs);
+        Network.httpConnection("register.php", nameValuePairs);
+    }
+
+    public static User retrieveUser(String username, String password) {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("username", username));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, password));
+        String response = Network.httpConnection("login.php", nameValuePairs);
+        User user = gson.fromJson(response, User.class);
+        return user;
+    }
+
+    public static String retrieveCircleMemberCount(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        String circle = sp.getString(Constants.CIRCLE, null);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        return Network.httpConnection("circle_member_count.php", nameValuePairs);
     }
 }

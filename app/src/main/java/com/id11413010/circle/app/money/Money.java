@@ -44,7 +44,7 @@ public class Money extends Activity {
      * Linked to a Button onClick within the XML to open the Split Bill activity
      */
     public void openSplitBill(View v) {
-        startActivity(new Intent(this, Money_Split_Bill.class));
+        startActivity(new Intent(this, MoneySplit.class));
     }
 
     /**

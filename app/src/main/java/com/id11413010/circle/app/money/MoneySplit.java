@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.UserDAO;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,7 +47,7 @@ import java.util.List;
  * update the 'per person' amount of the bill dynamically using a TextWatcher and ValueChange
  * listener.
  */
-public class Money_Split_Bill extends Activity implements NumberPicker.OnValueChangeListener{
+public class MoneySplit extends Activity implements NumberPicker.OnValueChangeListener{
     /**
      * A NumberPicker representing values between 1 and the amount of people within a circle. Used
      * to divide the total amount.
@@ -145,38 +146,20 @@ public class Money_Split_Bill extends Activity implements NumberPicker.OnValueCh
      * thread.
      */
     private class getCircleMembersCount extends AsyncTask<Void, Void, Void> {
-        private String s;
+        private String amount;
 
         @Override
         protected Void doInBackground(Void... params) {
             // retrieves the User's Circle ID stored within the Shared Preferences and store it
             // within the String circle.
-            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            String circle = sp.getString(Constants.CIRCLE, null);
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(Constants.DB_URL + "circle_member_count.php");
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                // store the response containing the amount of people within the circle.
-                HttpEntity entity = response.getEntity();
-                // store the amount of people in a String.
-                s = EntityUtils.toString(entity);
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            amount = UserDAO.retrieveCircleMemberCount(MoneySplit.this);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             // convert the amount of people from a String to an Integer
-            int count = Integer.valueOf(s);
+            int count = Integer.valueOf(amount);
             // set the minimum amount of the NumberPicker to 1 as there will always be at least one person paying the bill
             peopleCount.setMinValue(1);
             // sets the max amount of the NumberPicker to the number of people in the circle

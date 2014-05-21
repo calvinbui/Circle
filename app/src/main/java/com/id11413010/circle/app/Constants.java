@@ -28,10 +28,6 @@ public class Constants {
      */
     public static final String CIRCLE = "Events";
     /**
-     * A URL of where the web service.
-     */
-    public static final String DB_URL = "http://calvinbui.no-ip.biz/android/";
-    /**
      * Tag for a name
      */
     public static final String DB_NAME = "name";
@@ -79,7 +75,4 @@ public class Constants {
      * Tag for a password
      */
     public static final String DB_PASSWORD = "password";
-    /**
-     *
-     */
 }
