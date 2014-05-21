@@ -18,21 +18,6 @@ import android.widget.Toast;
 import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.User;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Allows individuals to logon as a user and access features of the application as a registered
  * member part of a circle/group of friends. Users enter a username and password which is authenticated
@@ -43,7 +28,7 @@ public class Login extends Activity {
     /**
      * An EditText representing a username
      */
-    private EditText username_et;
+    private EditText email_et;
     /**
      * An EditText representing a password
      */
@@ -53,7 +38,7 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username_et = (EditText)findViewById(R.id.username_et);
+        email_et = (EditText)findViewById(R.id.username_et);
         password_et = (EditText)findViewById(R.id.password_et);
     }
 
@@ -82,41 +67,21 @@ public class Login extends Activity {
     }
 
     private class LoginTask extends AsyncTask<Void, Void, Void> {
-
         User user;
-        String htmlResponse;
-
         protected Void doInBackground(Void... params) {
-            user = UserDAO.retrieveUser(username_et.getText().toString(), password_et.getText().toString());
+            // create a new user object based on username and password entered.
+            user = UserDAO.retrieveUser(email_et.getText().toString(), password_et.getText().toString());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            /*// create a new array from the database response, broken up into individual objects by
-            // a colon.
-            String[] parts = htmlResponse.split(":");
-            // If the login is successful, store session information into Shared Preferences.
-            if (parts[0].equals("loginCorrect")) {
-                // create a new shared preference object
-                SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-                // edit shared preferences
-                SharedPreferences.Editor editor = sp.edit();
-                // insert userid, first name, last name and circle into shared preferences
-                editor.putString(Constants.USERID, parts[1]);
-                editor.putString(Constants.FIRSTNAME, parts[2]);
-                editor.putString(Constants.LASTNAME, parts[3]);
-                editor.putString(Constants.CIRCLE, parts[4]);
-                // save the preferences
-                editor.commit();
-                // login in the user, redirect them to the home page.
-                startActivity(new Intent(Login.this, HomeScreen.class));
-            }
-            else {
-                // if login unsuccessful, toast the user with an error message.
+            // if login unsuccessful, toast the user with an error message.
+            if (user == null) {
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
-            }*/
-            if(user.getEmail().equals(username_et.getText().toString()) && user.getPassword().equals(password_et.getText().toString())) {
+            }
+            // If the login is successful, store session information into Shared Preferences.
+            else if(user.getEmail().equals(email_et.getText().toString()) && user.getPassword().equals(password_et.getText().toString())) {
                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
                 // edit shared preferences
                 SharedPreferences.Editor editor = sp.edit();
@@ -127,9 +92,6 @@ public class Login extends Activity {
                 // save the preferences
                 editor.commit();
                 startActivity(new Intent(Login.this, HomeScreen.class));
-            } else {
-            // if login unsuccessful, toast the user with an error message.
-            Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
             }
         }
     }

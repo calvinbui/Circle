@@ -15,11 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by CalvinLaptop on 20/05/2014.
+ * TODO
  */
 public class UserDAO {
-
-    private static Gson gson;
 
     public static void createUser(User user) {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
@@ -32,12 +30,16 @@ public class UserDAO {
     }
 
     public static User retrieveUser(String username, String password) {
+        Gson gson = new Gson();
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("username", username));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, username));
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, password));
         String response = Network.httpConnection("login.php", nameValuePairs);
-        User user = gson.fromJson(response, User.class);
-        return user;
+        if (response.equals("")) {
+            return null;
+        } else {
+            return gson.fromJson(response, User.class);
+        }
     }
 
     public static String retrieveCircleMemberCount(Context context) {
