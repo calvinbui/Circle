@@ -8,9 +8,8 @@ public class Ballot {
     private Questions[] questions;
     private String circle;
 
-    public Ballot(String name, Questions[] questions, String circle) {
+    public Ballot(String name, String circle) {
         this.name = name;
-        this.questions = questions;
         this.circle = circle;
     }
 

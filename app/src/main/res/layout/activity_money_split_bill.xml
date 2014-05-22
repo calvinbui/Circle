@@ -22,7 +22,7 @@
             android:text="@string/perPerson"
             android:id="@+id/textView2"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/splitPrice_tv"
+            android:layout_toLeftOf="@+id/splitPrice"
             android:singleLine="true" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/blankMoney"
-            android:id="@+id/splitPrice_tv"
+            android:id="@+id/splitPrice"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
     </LinearLayout>
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
-            android:id="@+id/totalPrice_et"
+            android:id="@+id/totalPrice"
             android:layout_weight="0.1"
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true" />
@@ -86,7 +86,7 @@
         <NumberPicker
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/numOfPeople_np"
+            android:id="@+id/numOfPeople"
             android:layout_weight="0.2"
             android:layout_gravity="right" />
     </LinearLayout>

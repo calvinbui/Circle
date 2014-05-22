@@ -49,21 +49,21 @@ public class EventAdd extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event__add);
+        setContentView(R.layout.activity_event_add);
         //finds and stores a view that was identified by the id attribute
-        name = (EditText)findViewById(R.id.eventName_et); //EditText for the event name
-        location = (EditText)findViewById(R.id.eventLocation_et); //EditText for event location
-        details = (EditText)findViewById(R.id.eventDescription_et); //EditText for event details
-        startDate = (TextView)findViewById(R.id.eventStartDate_tv); //TextView for start date
-        endDate =(TextView)findViewById(R.id.eventEndDate_tv); //TextView for end date
-        startTime = (TextView)findViewById(R.id.eventStartTime_tv); //TextView for start time
-        endTime = (TextView)findViewById(R.id.eventEndTime_tv); //TextView for end time
+        name = (EditText)findViewById(R.id.eventName); //EditText for the event name
+        location = (EditText)findViewById(R.id.eventLocation); //EditText for event location
+        details = (EditText)findViewById(R.id.eventDescription); //EditText for event details
+        startDate = (TextView)findViewById(R.id.eventStartDate); //TextView for start date
+        endDate =(TextView)findViewById(R.id.eventEndDate); //TextView for end date
+        startTime = (TextView)findViewById(R.id.eventStartTime); //TextView for start time
+        endTime = (TextView)findViewById(R.id.eventEndTime); //TextView for end time
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.event__add, menu);
+        getMenuInflater().inflate(R.menu.event_add, menu);
         return true;
     }
 
@@ -76,7 +76,7 @@ public class EventAdd extends Activity {
             when the user clicks on this option, it will execute an AsyncTask to add the event to
             the database.
              */
-            new createEventTask().execute();
+            new CreateEventTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -168,14 +168,9 @@ public class EventAdd extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
      */
-    private class createEventTask extends AsyncTask<Void, Void, Void> {
-        private String nameString;
-        private String locationString;
-        private String detailsString;
+    private class CreateEventTask extends AsyncTask<Void, Void, Void> {
         private String startDateString;
-        private String startTimeString;
         private String endDateString;
-        private String endTimeString;
         private String circle;
 
         protected void onPreExecute() {

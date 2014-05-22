@@ -28,18 +28,18 @@ public class Login extends Activity {
     /**
      * An EditText representing a username
      */
-    private EditText email_et;
+    private EditText emailET;
     /**
      * An EditText representing a password
      */
-    private EditText password_et;
+    private EditText passwordET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        email_et = (EditText)findViewById(R.id.username_et);
-        password_et = (EditText)findViewById(R.id.password_et);
+        emailET = (EditText)findViewById(R.id.username_et);
+        passwordET = (EditText)findViewById(R.id.password_et);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Login extends Activity {
         User user;
         protected Void doInBackground(Void... params) {
             // create a new user object based on username and password entered.
-            user = UserDAO.retrieveUser(email_et.getText().toString(), password_et.getText().toString());
+            user = UserDAO.retrieveUser(emailET.getText().toString(), passwordET.getText().toString());
             return null;
         }
 
@@ -81,7 +81,7 @@ public class Login extends Activity {
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
             }
             // If the login is successful, store session information into Shared Preferences.
-            else if(user.getEmail().equals(email_et.getText().toString()) && user.getPassword().equals(password_et.getText().toString())) {
+            else if(user.getEmail().equals(emailET.getText().toString()) && user.getPassword().equals(passwordET.getText().toString())) {
                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
                 // edit shared preferences
                 SharedPreferences.Editor editor = sp.edit();

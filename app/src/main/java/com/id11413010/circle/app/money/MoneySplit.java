@@ -5,8 +5,6 @@
 package com.id11413010.circle.app.money;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,25 +15,10 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is to calculate the divide a payment within a specified amount of individuals (friends).
@@ -65,12 +48,12 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money__split__bill);
+        setContentView(R.layout.activity_money_split_bill);
 
         // finds and stores a view that was identified by the id attribute
-        peopleCount = (NumberPicker)findViewById(R.id.numOfPeople_np); // NumberPicker for people within circle
-        totalPrice = (EditText)findViewById(R.id.totalPrice_et); // EditText for total bill price
-        splitPrice = (TextView)findViewById(R.id.splitPrice_tv); //TextView for the bill split price
+        peopleCount = (NumberPicker)findViewById(R.id.numOfPeople); // NumberPicker for people within circle
+        totalPrice = (EditText)findViewById(R.id.totalPrice); // EditText for total bill price
+        splitPrice = (TextView)findViewById(R.id.splitPrice); //TextView for the bill split price
 
         // execute an AsyncTask which will retrieve the amount of people within the circle and configure the NumberPicker
         new getCircleMembersCount().execute();

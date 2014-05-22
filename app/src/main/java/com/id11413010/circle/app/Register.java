@@ -49,11 +49,11 @@ public class Register extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         //finds and stores a view that was identified by the id attribute
-        firstName = (EditText)findViewById(R.id.firstNameRegister_et); //EditText for first name
-        lastName = (EditText)findViewById(R.id.lastNameRegister_et); //EditText for last name
-        email = (EditText)findViewById(R.id.emailRegister_et); //EditText for email
-        password = (EditText)findViewById(R.id.passwordRegister_et); //EditText for password
-        circle = (EditText)findViewById(R.id.circleRegister_et); //EditText for circle/group
+        firstName = (EditText)findViewById(R.id.firstNameRegister); //EditText for first name
+        lastName = (EditText)findViewById(R.id.lastNameRegister); //EditText for last name
+        email = (EditText)findViewById(R.id.emailRegister); //EditText for email
+        password = (EditText)findViewById(R.id.passwordRegister); //EditText for password
+        circle = (EditText)findViewById(R.id.circleRegister); //EditText for circle/group
     }
 
     @Override

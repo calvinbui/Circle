@@ -59,5 +59,11 @@
     <string name="title_activity_leaderboard_add">LeaderboardAdd</string>
     <string name="title_activity_leaderboard_view">LeaderboardView</string>
     <string name="title_activity_voting_view">VotingView</string>
+    <string name="question">Question</string>
+    <string name="questionAsk">Questions to ask</string>
+
+    <String name="questionOptions">Options</String>
+
+    <string name="title_activity_voting_add_question">Add Question</string>
 
 </resources>
