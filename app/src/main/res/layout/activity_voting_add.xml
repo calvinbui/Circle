@@ -23,31 +23,16 @@
         android:id="@+id/question"
         android:hint="@string/questionAsk"
         android:layout_below="@+id/questionAsk"
-        android:layout_alignLeft="@+id/questionOptionLabel"
-        android:layout_alignStart="@+id/questionOptionLabel"
-        android:text="@string/questionAsk" />
+        android:text="@string/questionAsk"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/questionOptionLabel"
-        style="?android:attr/listSeparatorTextViewStyle"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="baladsasd"
+        android:id="@+id/submitBallotName"
         android:layout_below="@+id/question"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/questionOption1"
-        android:layout_below="@+id/questionOptionLabel"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/questionOption2"
-        android:layout_below="@+id/questionOption1"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="createBallot"
+        android:text="@string/startToAddQuestions" />
 
 </RelativeLayout>

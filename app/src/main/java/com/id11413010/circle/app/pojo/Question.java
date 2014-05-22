@@ -3,12 +3,12 @@ package com.id11413010.circle.app.pojo;
 /**
  * Created by CalvinLaptop on 21/05/2014.
  */
-public class Questions {
+public class Question {
     private String question;
     private int votes;
     private int ballot;
 
-    public Questions(String question, int votes, int ballot) {
+    public Question(String question, int votes, int ballot) {
         this.question = question;
         this.votes = votes;
         this.ballot =  ballot;

@@ -2,10 +2,13 @@ package com.id11413010.circle.app.voting;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
@@ -23,35 +26,36 @@ public class VotingAdd extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_add);
         question = (EditText)findViewById(R.id.question);
-        option1 = (EditText)findViewById(R.id.questionOption1);
-        option2 = (EditText)findViewById(R.id.questionOption2);
     }
 
-    private class CreatePollTask extends AsyncTask<Void, Void, Void> {
+    public void createBallot(View v) {
+        if (question.getText().toString().matches(""))
+            Toast.makeText(getApplicationContext(), getString(R.string.blankEventName), Toast.LENGTH_SHORT).show();
+        else
+            new CreateBallotTask().execute();
+    }
+
+    private class CreateBallotTask extends AsyncTask<Void, Void, Void> {
         private String circle;
-//        private Questions[] questions;
         private Ballot ballot;
+        private int ballotID;
 
         protected void onPreExecute() {
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             circle = sp.getString(Constants.CIRCLE, null);
-
-            /*questions = new Questions[2];
-            questions[1] = new Questions(option1.getText().toString(), 0);
-            questions[2] = new Questions(option1.getText().toString(), 1);*/
-
-
             ballot = new Ballot(question.getText().toString(), circle);
         }
 
         protected Void doInBackground(Void... params) {
-            BallotDAO.createPoll(ballot);
+            ballotID = BallotDAO.createBallot(ballot);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-
+            Intent i = new Intent(VotingAdd.this, VotingAddQuestion.class);
+            i.putExtra(Constants.DB_POLL, ballotID);
+            startActivity(i);
         }
     }
 }

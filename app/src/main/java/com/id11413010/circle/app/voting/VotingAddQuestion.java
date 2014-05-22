@@ -1,25 +1,30 @@
 package com.id11413010.circle.app.voting;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.BallotDAO;
+import com.id11413010.circle.app.pojo.Question;
 
 public class VotingAddQuestion extends Activity {
-
-    private Button finish;
-    private Button addQuestion;
     private EditText question;
+    private int pollID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_add_question);
+        String s = getIntent().getExtras().getString(Constants.DB_POLL); //TODO convert to int?
+        pollID = Integer.valueOf(s);
+        question = (EditText)findViewById(R.id.question);
     }
 
 
@@ -42,8 +47,24 @@ public class VotingAddQuestion extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClick(View v) {
-        // execute AsyncTask but also open a new activity to add another one.
-        // do not make the AsyncTask start activity because what if we're done?!
+    public void addQuestion(View v) {
+        // capture the ID via the Voting name add first...
+        new CreateQuestionTask().execute();
+        Intent i  = new Intent(this, VotingAddQuestion.class);
+        i.putExtra(Constants.DB_POLL, pollID);
+        startActivity(i);
+    }
+
+    public void addQuestionFinish(View v) {
+        new CreateQuestionTask().execute();
+        startActivity(new Intent(this, Voting.class));
+    }
+
+    private class CreateQuestionTask extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            Question q = new Question(question.getText().toString(), 0, pollID);
+            BallotDAO.createQuestion(q);
+            return null;
+        }
     }
 }

@@ -26,7 +26,7 @@ public class Constants {
     /**
      * Tag for User's circle
      */
-    public static final String CIRCLE = "Events";
+    public static final String CIRCLE = "circle";
     /**
      * Tag for a name
      */
@@ -75,4 +75,12 @@ public class Constants {
      * Tag for a password
      */
     public static final String DB_PASSWORD = "password";
+    /**
+     * Tag for Poll ID
+     */
+    public static final String DB_POLL = "poll";
+    /**
+     * Tag for Poll Votes
+     */
+    public static final String DB_VOTES = "votes";
 }

@@ -5,7 +5,6 @@ package com.id11413010.circle.app.pojo;
  */
 public class Ballot {
     private String name;
-    private Questions[] questions;
     private String circle;
 
     public Ballot(String name, String circle) {
@@ -19,14 +18,6 @@ public class Ballot {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Questions[] getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Questions[] questions) {
-        this.questions = questions;
     }
 
     public String getCircle() {
