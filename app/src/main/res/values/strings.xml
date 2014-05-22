@@ -59,11 +59,11 @@
     <string name="title_activity_leaderboard_view">LeaderboardView</string>
     <string name="title_activity_voting_view">VotingView</string>
     <string name="question">Question</string>
-    <string name="questionAsk">Questions to ask</string>
+    <string name="questionAsk">Ask something...</string>
     <string name="questionOptions">Options</string>
-    <string name="title_activity_voting_add_question">Add Question</string>
+    <string name="title_activity_voting_add_question">Add Poll Option</string>
     <string name="questionAdd">Add</string>
     <string name="questionAddFinish">Add and Finish</string>
-    <string name="startToAddQuestions">Add Questions</string>
-    <string name="blankEventName">Please add an event name</string>
+    <string name="startToAddQuestions">Add Poll Options</string>
+    <string name="noPollQuestion">Please add a Poll question</string>
 </resources>

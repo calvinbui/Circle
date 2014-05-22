@@ -12,14 +12,12 @@ import android.widget.Toast;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
-import com.id11413010.circle.app.dao.BallotDAO;
-import com.id11413010.circle.app.pojo.Ballot;
+import com.id11413010.circle.app.dao.PollDAO;
+import com.id11413010.circle.app.pojo.Poll;
 
 public class VotingAdd extends Activity {
 
     private EditText question;
-    private EditText option1;
-    private EditText option2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +28,24 @@ public class VotingAdd extends Activity {
 
     public void createBallot(View v) {
         if (question.getText().toString().matches(""))
-            Toast.makeText(getApplicationContext(), getString(R.string.blankEventName), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.noPollQuestion), Toast.LENGTH_SHORT).show();
         else
             new CreateBallotTask().execute();
     }
 
     private class CreateBallotTask extends AsyncTask<Void, Void, Void> {
         private String circle;
-        private Ballot ballot;
+        private Poll poll;
         private int ballotID;
 
         protected void onPreExecute() {
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             circle = sp.getString(Constants.CIRCLE, null);
-            ballot = new Ballot(question.getText().toString(), circle);
+            poll = new Poll(question.getText().toString(), circle);
         }
 
         protected Void doInBackground(Void... params) {
-            ballotID = BallotDAO.createBallot(ballot);
+            ballotID = PollDAO.createBallot(poll);
             return null;
         }
 

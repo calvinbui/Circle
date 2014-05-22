@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
-import com.id11413010.circle.app.dao.BallotDAO;
+import com.id11413010.circle.app.dao.PollDAO;
 import com.id11413010.circle.app.pojo.Question;
 
 public class VotingAddQuestion extends Activity {
@@ -22,8 +22,8 @@ public class VotingAddQuestion extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_add_question);
-        String s = getIntent().getExtras().getString(Constants.DB_POLL); //TODO convert to int?
-        pollID = Integer.valueOf(s);
+        Intent intent = getIntent();
+        pollID = intent.getIntExtra(Constants.DB_POLL, 0);
         question = (EditText)findViewById(R.id.question);
     }
 
@@ -41,8 +41,8 @@ public class VotingAddQuestion extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.createVoting) {
-            // execute AsyncTask AND then open the main Event page
+        if (id == R.id.finishCreatingQuestions) {
+            startActivity(new Intent(this, Voting.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -63,7 +63,7 @@ public class VotingAddQuestion extends Activity {
     private class CreateQuestionTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
             Question q = new Question(question.getText().toString(), 0, pollID);
-            BallotDAO.createQuestion(q);
+            PollDAO.createQuestion(q);
             return null;
         }
     }

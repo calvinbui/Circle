@@ -1,13 +1,13 @@
 package com.id11413010.circle.app.pojo;
 
 /**
- * Created by CalvinLaptop on 21/05/2014.
+ * TODO
  */
-public class Ballot {
+public class Poll {
     private String name;
     private String circle;
 
-    public Ballot(String name, String circle) {
+    public Poll(String name, String circle) {
         this.name = name;
         this.circle = circle;
     }

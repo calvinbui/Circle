@@ -2,7 +2,7 @@ package com.id11413010.circle.app.dao;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
-import com.id11413010.circle.app.pojo.Ballot;
+import com.id11413010.circle.app.pojo.Poll;
 import com.id11413010.circle.app.pojo.Question;
 
 import org.apache.http.NameValuePair;
@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by CalvinLaptop on 21/05/2014.
+ * TODO
  */
-public class BallotDAO {
+public class PollDAO {
 
-    public static int createBallot(Ballot ballot) {
+    public static int createBallot(Poll poll) {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         // Ballot name
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, ballot.getName()));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, poll.getName()));
         // Ballot circle
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, ballot.getCircle()));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, poll.getCircle()));
         String s = Network.httpConnection("create_poll.php", nameValuePairs);
         return Integer.valueOf(s);
     }
@@ -33,8 +33,8 @@ public class BallotDAO {
     public static void createQuestion(Question question) {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, question.getQuestion()));
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_VOTES, question.getVotes() + ""));
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_POLL, question.getBallot() + ""));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_VOTES, Integer.toString(question.getVotes())));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_POLL, Integer.toString(question.getBallot())));
         Network.httpConnection("create_question.php", nameValuePairs);
     }
 }
