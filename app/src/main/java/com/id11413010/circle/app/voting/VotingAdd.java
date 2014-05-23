@@ -49,6 +49,14 @@ public class VotingAdd extends Activity {
             new CreatePollTask().execute();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(VotingAdd.this, Voting.class));
+        finish();
+    }
+
     private class CreatePollTask extends AsyncTask<Void, Void, Void> {
         /**
          * A String representing the user's circle

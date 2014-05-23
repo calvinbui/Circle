@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 
 /**
@@ -42,5 +43,13 @@ public class Events extends Activity {
             startActivity(new Intent(this, EventAdd.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeScreen.class));
+        finish();
     }
 }

@@ -101,7 +101,7 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
         // Double values representing the total price and amount of people selected.
         Double total, people;
         // A decimal formatter to round the double to two decimal places.
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         // Retrieve and store the amount of people selected on the NumberPicker
         people = (double) peopleCount.getValue();
         // An if statement obtain the total price entered.

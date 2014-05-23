@@ -91,6 +91,7 @@ public class Login extends Activity {
                 editor.commit();
                 // start the home screen activity
                 startActivity(new Intent(Login.this, HomeScreen.class));
+                finish();
             }
         }
     }

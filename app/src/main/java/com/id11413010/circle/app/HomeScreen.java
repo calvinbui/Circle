@@ -32,7 +32,7 @@ public class HomeScreen extends Activity {
         // store the first name into a String variable
         String firstName = sp.getString(Constants.FIRSTNAME, getText(R.string.tester).toString());
         // present a toast welcoming the user upon logging in
-        Toast.makeText(getApplicationContext(), getText(R.string.welcomeMsg).toString() + firstName, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getText(R.string.welcomeMsg).toString() + " " + firstName, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -41,21 +41,31 @@ public class HomeScreen extends Activity {
      */
     public void openFriends(View v) {
         // start the friend_list activity
-        startActivity(new Intent(HomeScreen.this, Friend_List.class));
+        startActivity(new Intent(this, Friend_List.class));
+        finish();
     }
 
     public void openEvents(View v) {
         // start the event activity
-        startActivity(new Intent(HomeScreen.this, Events.class));
+        startActivity(new Intent(this, Events.class));
+        finish();
     }
 
     public void openMoney(View v) {
         // start the money activity
-        startActivity(new Intent(HomeScreen.this, Money.class));
+        startActivity(new Intent(this, Money.class));
+        finish();
     }
 
     public void openVoting(View v) {
         // start the money activity
-        startActivity(new Intent(HomeScreen.this, Voting.class));
+        startActivity(new Intent(this, Voting.class));
+        finish();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        finish();
     }
 }
