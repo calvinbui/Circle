@@ -18,15 +18,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Calvin on 22/05/2014.
+ * TODO
  */
 public class EventAdapter extends ArrayAdapter<Event>{
     int resource;
     /**
      * Initialise the adapter
-     * @param context
-     * @param resource
-     * @param events
      */
     public EventAdapter(Context context, int resource, List<Event> events) {
         super(context, resource, events);
@@ -75,7 +72,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
     private String getMonthYearFormatDate(Event event) {
         try {
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(event.getStartDate());
-            DateFormat df = new SimpleDateFormat("MMM-yy");
+            DateFormat df = new SimpleDateFormat("MMM-yyyy");
             return df.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
