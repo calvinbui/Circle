@@ -23,7 +23,6 @@ public class Events extends Activity {
         setContentView(R.layout.activity_event);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -37,7 +36,9 @@ public class Events extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        // if the action bar item is the add event menu button
         if (id == R.id.addEventMenu) {
+            // start an activity to add a new event
             startActivity(new Intent(this, EventAdd.class));
         }
         return super.onOptionsItemSelected(item);

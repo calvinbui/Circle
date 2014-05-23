@@ -30,7 +30,7 @@
         android:id="@+id/submitBallotName"
         android:layout_below="@+id/question"
         android:layout_centerHorizontal="true"
-        android:onClick="createBallot"
+        android:onClick="createPoll"
         android:text="@string/startToAddQuestions" />
 
 </RelativeLayout>

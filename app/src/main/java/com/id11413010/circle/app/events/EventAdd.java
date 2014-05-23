@@ -35,16 +35,35 @@ import java.util.Calendar;
  */
 public class EventAdd extends Activity {
     /**
-     * These TextViews will represent the dates and times selected by the user
+     * These TextViews will represent the start date selected by the user
      */
-    private TextView startDate, endDate, startTime, endTime;
-    // TO-DO
+    private TextView startDate;
+    /**
+     * These TextViews will represent the end date selected by the user
+     */
+    private TextView endDate;
+    /**
+     * These TextViews will represent the start time selected by the user
+     */
+    private TextView startTime;
+    /**
+     * These TextViews will represent the end time selected by the user
+     */
+    private TextView endTime;
+    //TODO
     private int mYear, mMonth, mDay, mHour, mMinute;
     /**
-     * The EditTexts representing the name, location and details of the event being created by the
-     * user. TO-DO
+     * The EditTexts representing the name of the event being created by the user.
      */
-    private EditText name, location, details;
+    private EditText name;
+    /**
+     * The EditTexts representing the location of the event being created by the user
+     */
+    private EditText location;
+    /**
+     * The EditTexts representing the details of the event being created by the user
+     */
+    private EditText details;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +107,19 @@ public class EventAdd extends Activity {
     public void pickEndDate(View v) {
         // Process to get current date (today)
         final Calendar c = Calendar.getInstance();
+        //TODO
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a DatePickerDialog using the current date captured above as the starting position
         DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
-                    // Display selected date in TextView upon selection.
-                    endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                }
-            }, mYear, mMonth, mDay);
+            @Override
+            public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
+                // Display selected date in TextView upon selection.
+                endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+            }
+        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         // show the DatePickerDialog.
         dpd.show();
     }
@@ -113,13 +133,13 @@ public class EventAdd extends Activity {
 
         // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(this,
-            new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    // Display Selected date in textbox
-                    startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-                }
-            }, mYear, mMonth, mDay);
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        // Display Selected date in textbox
+                        startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                    }
+                }, mYear, mMonth, mDay);
         dpd.show();
     }
 
@@ -135,12 +155,12 @@ public class EventAdd extends Activity {
 
         // Create new TimePickerDialog using the time captured above as the starting position.
         TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
-                    // Display selected time in TextView
-                    startTime.setText(hourOfDay + ":" + minute);
-                }
-            }, mHour, mMinute, false);
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
+                // Display selected time in TextView
+                startTime.setText(hourOfDay + ":" + minute);
+            }
+        }, mHour, mMinute, false);
         // show the the created TimePickerDialog
         tpd.show();
     }
@@ -153,13 +173,13 @@ public class EventAdd extends Activity {
 
         // Launch Time Picker Dialog
         TimePickerDialog tpd = new TimePickerDialog(this,
-            new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
-                    // Display Selected time in textbox
-                    endTime.setText(hourOfDay + ":" + minute);
-                }
-            }, mHour, mMinute, false);
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
+                        // Display Selected time in textbox
+                        endTime.setText(hourOfDay + ":" + minute);
+                    }
+                }, mHour, mMinute, false);
         tpd.show();
     }
 
@@ -167,72 +187,44 @@ public class EventAdd extends Activity {
      * An AsyncTask which captures the information inputed by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
+     *
+     * Creates a new event into the database.
      */
     private class CreateEventTask extends AsyncTask<Void, Void, Void> {
+        /**
+         * A String representing the Starting Date
+         */
         private String startDateString;
+        /**
+         * A String representing the End Date
+         */
         private String endDateString;
+        /**
+         * A String representing a circle
+         */
         private String circle;
 
         protected void onPreExecute() {
-            String SDateString = startDate.getText().toString();
-            String EDateString = endDate.getText().toString();
-            // format the date inputted by the user using the DatePickerDialog to a date readable by
-            // the database in the format YYYY-MM-DD.
+            // format the date inputted by the user using the DatePickerDialog to a date readable by the database in the format YYYY-MM-DD.
             try {
                 // format the start and end date from DD-MM-YYYY format to YYYY-MM-DD format.
-                startDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(SDateString));
-                endDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(EDateString));
+                startDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(startDate.getText().toString()));
+                endDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(endDate.getText().toString()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-            // retrieves the User's Events ID stored within the Shared Preferences and store it
-            // within the String circle.
+            // retrieves the User's Events ID stored within the Shared Preferences and store it within the String circle.
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             circle = sp.getString(Constants.CIRCLE, null);
         }
 
         protected Void doInBackground(Void... params) {
-            /*// Create a new HttpClient to connect to the Internet and access a web page.
-            HttpClient httpclient = new DefaultHttpClient();
-            // POST data to the specified URL
-            HttpPost httppost = new HttpPost(Constants.DB_URL + "create_event.php");
-            // Create a new ArrayList containing values and data to POST
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
-            // name
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, nameString));
-            // Events description
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_DESCRIPTION, detailsString));
-            // Events location
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_LOCATION, locationString));
-            // Events start date
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_STARTDATE, startDateString));
-            // Events end date
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_ENDDATE,endDateString));
-            // Events start time
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_STARTTIME, startTimeString));
-            // Events end time
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_ENDTIME, endTimeString));
-            // User Events ID
-            nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
-            try {
-                // set the information (ArrayList) that will be contained in the POST
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                // perform the POST
-                httpclient.execute(httppost);
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-
+            // create a new Event object containing event data.
             Event event = new Event(name.getText().toString(), details.getText().toString(),
-                location.getText().toString(), startDateString, endDateString, endTime.getText().toString(),
-                startTime.getText().toString(),circle);
-
+                    location.getText().toString(), startDateString, endDateString, endTime.getText().toString(),
+                    startTime.getText().toString(),circle);
+            // pass the object to the data-access-object class to add it to the database
             EventDAO.addEvent(event);
-
             return null;
         }
 

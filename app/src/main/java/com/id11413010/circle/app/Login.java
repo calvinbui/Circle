@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,36 +36,37 @@ public class Login extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        emailET = (EditText)findViewById(R.id.username_et);
-        passwordET = (EditText)findViewById(R.id.password_et);
+        //finds and stores a view that was identified by the id attribute
+        emailET = (EditText)findViewById(R.id.username_et); //email EditText
+        passwordET = (EditText)findViewById(R.id.password_et); //password EditText
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
+    /**
+     * Execute an AsyncTask to check credentials and login the user
+     */
     public void loginUser(View v) {
         new LoginTask().execute();
     }
 
+    /**
+     * Creates an intent and opens the Register activity using that intent.
+     */
     public void openRegisterPage(View v) {
         startActivity(new Intent(this, Register.class));
     }
 
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for authenticating username and password and granting access. Also caches
+     * information locally using Shared Preferences.
+     */
     private class LoginTask extends AsyncTask<Void, Void, Void> {
-        User user;
+        /**
+         * A User object representing a user of the system
+         */
+        private User user;
+
         protected Void doInBackground(Void... params) {
             // create a new user object based on username and password entered.
             user = UserDAO.retrieveUser(emailET.getText().toString(), passwordET.getText().toString());
@@ -77,9 +76,8 @@ public class Login extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             // if login unsuccessful, toast the user with an error message.
-            if (user == null) {
+            if (user == null)
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
-            }
             // If the login is successful, store session information into Shared Preferences.
             else if(user.getEmail().equals(emailET.getText().toString()) && user.getPassword().equals(passwordET.getText().toString())) {
                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
@@ -91,6 +89,7 @@ public class Login extends Activity {
                 editor.putString(Constants.CIRCLE, user.getCircle());
                 // save the preferences
                 editor.commit();
+                // start the home screen activity
                 startActivity(new Intent(Login.this, HomeScreen.class));
             }
         }

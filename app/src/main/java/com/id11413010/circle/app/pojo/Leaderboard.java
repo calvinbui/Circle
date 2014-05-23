@@ -1,7 +1,7 @@
 package com.id11413010.circle.app.pojo;
 
 /**
- * Created by CalvinLaptop on 21/05/2014.
+ * A plain old java object representing a Leaderboard. Contains getter and setter methods for its various fields.
  */
 public class Leaderboard {
 }

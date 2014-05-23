@@ -25,7 +25,7 @@ public class Network {
     private static String htmlResponse;
     private static HttpResponse response;
 
-
+    // TODO
     public static String httpConnection(String request, List<NameValuePair> nameValuePairs) {
         httpclient = new DefaultHttpClient();
         httppost = new HttpPost(Url + request);

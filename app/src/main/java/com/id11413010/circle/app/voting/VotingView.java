@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) Trungthi (Calvin) Bui 2014
+ */
 package com.id11413010.circle.app.voting;
 
 import android.app.Activity;

@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) Trungthi (Calvin) Bui 2014
+ */
 package com.id11413010.circle.app.voting;
 
 import android.app.Activity;
@@ -8,7 +11,10 @@ import android.view.MenuItem;
 
 import com.id11413010.circle.app.R;
 
-
+/**
+ * The class is used for listing the Polls each group of friends has created.
+ * Polls are retrieved from a database and shown within a List Activity.
+ */
 public class Voting extends Activity {
 
     @Override
@@ -32,6 +38,7 @@ public class Voting extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.addVotingMenu) {
+            // start an activity to add a new Poll
             startActivity(new Intent(this, VotingAdd.class));
         }
         return super.onOptionsItemSelected(item);
