@@ -14,7 +14,8 @@
         android:id="@+id/username_et"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="@string/username" />
+        android:hint="@string/username"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
         android:id="@+id/password_et"
         android:layout_below="@+id/username_et"
         android:layout_centerHorizontal="true"
-        android:hint="@string/password" />
+        android:hint="@string/password"
+        android:singleLine="true" />
 
     <Button
         android:layout_width="match_parent"

@@ -5,23 +5,61 @@ package com.id11413010.circle.app.events;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.EventDAO;
+import com.id11413010.circle.app.pojo.Event;
+
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 /**
  The class is used for listing the current and future 'events' each group of friends has created.
  Events are retrieved from a database and shown within a List Activity.
  */
 public class Events extends Activity {
+    /**
+     * ListView that will hold our items references back to main.xml
+     */
+    private ListView listView;
+    /**
+     * Array Adapter that will hold our ArrayList and display the items on the ListView
+     */
+    private EventAdapter adapter;
+
+    /**
+     * List that will host our items and allow us to modify the EventAdapter
+     */
+    private ArrayList<Event> arrayList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        // initialise list view
+        listView = (ListView)findViewById(R.id.eventList);
+        // initialise arrayList
+        arrayList = new ArrayList<Event>();
+        // initialise our array adapter with references to this activity, the list activity and array list
+        adapter = new EventAdapter(this, R.layout.listevents, arrayList);
+        // set the adapter for the list
+        listView.setAdapter(adapter);
+        new retrieveEventsTask().execute();
+
     }
 
     @Override
@@ -51,5 +89,40 @@ public class Events extends Activity {
         super.onBackPressed();
         startActivity(new Intent(this, HomeScreen.class));
         finish();
+    }
+
+    public class retrieveEventsTask extends AsyncTask<Void, Void, Void> {
+        String json;
+
+        protected Void doInBackground(Void... params) {
+            json = EventDAO.retrieveEvents();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Type collectionType = new TypeToken<ArrayList<Event>>(){}.getType();
+            List<Event> list = new Gson().fromJson(json, collectionType);
+            for (Event e : list)
+                arrayList.add(e);
+
+            Collections.sort(arrayList, new Comparator<Event>() {
+                public int compare(Event o1, Event o2) {
+                    Date o1Date;
+                    Date o2Date;
+                    int i = 0;
+                    try{
+                        o1Date = new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate());
+                        o2Date = new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate());
+                        return o1Date.compareTo(o2Date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    return i;
+                }
+            });
+
+            adapter.notifyDataSetChanged();
+        }
     }
 }
