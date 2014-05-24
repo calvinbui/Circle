@@ -74,7 +74,7 @@ public class UserDAO {
         // create a list array containing the circle ID to send to the web service
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
-        // return the String response from the web service containing the amoutn of users.
+        // return the String response from the web service containing the amount of users.
         return Network.httpConnection("circle_member_count.php", nameValuePairs);
     }
 

@@ -131,7 +131,7 @@ public class Register extends Activity {
     private class RegisterTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
             // create a new User object containing user data
-            User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString(),circle.getText().toString());
+            User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString(),circle.getText().toString(), null);
             // pass the object to the data-access-object class to add it to the database
             UserDAO.createUser(user);
             return null;

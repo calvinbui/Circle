@@ -4,21 +4,22 @@ package com.id11413010.circle.app.pojo;
  * TODO
  */
 public class Money {
-    private int id;
-    private int circle;
+    private Integer id;
+    private String circle;
     private int from;
     private int to;
-    private int amount;
+    private double amount;
     private int paid;
     private String description;
 
-    public Money(int circle, int from, int to, int amount, int paid, String description) {
+    public Money(String circle, int from, int to, double amount, int paid, String description, Integer id) {
         this.circle = circle;
         this.from = from;
         this.to = to;
         this.amount = amount;
         this.paid = paid;
         this.description = description;
+        this.id = id;
     }
 
     public int getId() {
@@ -29,11 +30,11 @@ public class Money {
         this.id = id;
     }
 
-    public int getCircle() {
+    public String getCircle() {
         return circle;
     }
 
-    public void setCircle(int circle) {
+    public void setCircle(String circle) {
         this.circle = circle;
     }
 
@@ -53,11 +54,11 @@ public class Money {
         this.to = to;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

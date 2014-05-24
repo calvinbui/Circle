@@ -10,7 +10,7 @@ public class User {
     /**
      * An integer representing the User ID
      */
-    private int id;
+    private Integer id;
     /**
      * A String representing the User's first name
      */
@@ -40,7 +40,7 @@ public class User {
      * @param password The value to set the User's password to.
      * @param circle The value to set the User's circle to.
      */
-    public User(String firstName, String lastName, String email, String password, String circle, int id) {
+    public User(String firstName, String lastName, String email, String password, String circle, Integer id) {
         this.circle = circle;
         this.email = email;
         this.password = password;
