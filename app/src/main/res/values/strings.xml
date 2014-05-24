@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Circle</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -67,4 +68,8 @@
     <string name="startToAddQuestions">Add Poll Options</string>
     <string name="noPollQuestion">Please add a Poll question</string>
     <string name="enterOption">Enter a poll option</string>
+    <string name="oK">OK</string>
+    <string name="title_activity_money_owing">Money Owing</string>
+    <string name="owes">owes you...</string>
+    <string name="oweReason">because...</string>
 </resources>

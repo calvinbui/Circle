@@ -22,7 +22,7 @@
             android:label="@string/title_activity_events" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.money.Money"
+            android:name=".money.MoneyHome"
             android:label="@string/title_activity_money" >
         </activity>
         <activity
@@ -30,7 +30,7 @@
             android:label="@string/title_activity_voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.friends.Friend_List"
+            android:name="com.id11413010.circle.app.friends.Friends"
             android:label="@string/title_activity_friend" >
         </activity>
         <activity
@@ -71,12 +71,12 @@
             android:label="@string/title_activity_leaderboard_view" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.voting.VotingView"
-            android:label="@string/title_activity_voting_view" >
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.voting.VotingAddQuestion"
             android:label="@string/title_activity_voting_add_question" >
+        </activity>
+        <activity
+            android:name="com.id11413010.circle.app.money.MoneyOwing"
+            android:label="@string/title_activity_money_owing" >
         </activity>
     </application>
 

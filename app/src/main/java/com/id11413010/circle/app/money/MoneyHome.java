@@ -16,7 +16,7 @@ import com.id11413010.circle.app.R;
  The class is used for navigating between the two different money features of the application,
  to split a bill and; to create and view money owed to one another.
  */
-public class Money extends Activity {
+public class MoneyHome extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,6 @@ public class Money extends Activity {
      * Linked to a Button onClick within the XML to open the money owing activity
      */
     public void openMoneyOwing(View v) {
-        //startActivity(new Intent(this, Money_Owing.class));
+        startActivity(new Intent(this, MoneyOwing.class));
     }
 }

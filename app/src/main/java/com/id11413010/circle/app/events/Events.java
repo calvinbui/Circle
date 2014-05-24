@@ -28,7 +28,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +70,7 @@ public class Events extends Activity {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Events.this);
                 builder.setTitle(item.getName())
                 .setMessage(item.getDescription())
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.oK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
@@ -132,8 +131,6 @@ public class Events extends Activity {
         private void sort() {
             Collections.sort(arrayList, new Comparator<Event>() {
                 public int compare(Event o1, Event o2) {
-                    Date o1Date;
-                    Date o2Date;
                     int i = 0;
                     try{
                         return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));

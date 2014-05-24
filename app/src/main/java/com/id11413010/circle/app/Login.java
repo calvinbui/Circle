@@ -87,6 +87,7 @@ public class Login extends Activity {
                 editor.putString(Constants.FIRSTNAME, user.getFirstName());
                 editor.putString(Constants.LASTNAME, user.getLastName());
                 editor.putString(Constants.CIRCLE, user.getCircle());
+                editor.putInt(Constants.USERID, user.getId());
                 // save the preferences
                 editor.commit();
                 // start the home screen activity

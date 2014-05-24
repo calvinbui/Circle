@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.id11413010.circle.app.events.Events;
-import com.id11413010.circle.app.friends.Friend_List;
-import com.id11413010.circle.app.money.Money;
+import com.id11413010.circle.app.friends.Friends;
+import com.id11413010.circle.app.money.MoneyHome;
 import com.id11413010.circle.app.voting.Voting;
 
 /**
@@ -41,7 +41,7 @@ public class HomeScreen extends Activity {
      */
     public void openFriends(View v) {
         // start the friend_list activity
-        startActivity(new Intent(this, Friend_List.class));
+        startActivity(new Intent(this, Friends.class));
         finish();
     }
 
@@ -53,7 +53,7 @@ public class HomeScreen extends Activity {
 
     public void openMoney(View v) {
         // start the money activity
-        startActivity(new Intent(this, Money.class));
+        startActivity(new Intent(this, MoneyHome.class));
         finish();
     }
 

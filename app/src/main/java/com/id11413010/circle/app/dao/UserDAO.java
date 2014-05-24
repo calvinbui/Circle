@@ -77,4 +77,12 @@ public class UserDAO {
         // return the String response from the web service containing the amoutn of users.
         return Network.httpConnection("circle_member_count.php", nameValuePairs);
     }
+
+    public static String retrieveAllUsers(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        String circle = sp.getString(Constants.CIRCLE, null);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        return Network.httpConnection("get_all_users.php", nameValuePairs);
+    }
 }
