@@ -49,8 +49,8 @@ public class EventAdapter extends ArrayAdapter<Event>{
         TextView time = (TextView)eventList.findViewById(R.id.eventListTime);
         TextView location = (TextView)eventList.findViewById(R.id.eventListLocation);
 
-        monthYear.setText(getMonthYearFormatDate(e));
-        day.setText(getDayFormatDate(e));
+        monthYear.setText(formatDate(e, "MMM-yyyy"));
+        day.setText(formatDate(e, "d"));
         name.setText(e.getName());
         time.setText(formatTime(e.getStartTime()) + " - " + formatTime(e.getEndTime()));
         location.setText(e.getLocation());
@@ -58,21 +58,10 @@ public class EventAdapter extends ArrayAdapter<Event>{
         return eventList;
     }
 
-    private String getDayFormatDate(Event event) {
+    private String formatDate(Event event, String format) {
         try {
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(event.getStartDate());
-            DateFormat df = new SimpleDateFormat("d");
-            return df.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private String getMonthYearFormatDate(Event event) {
-        try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(event.getStartDate());
-            DateFormat df = new SimpleDateFormat("MMM-yyyy");
+            DateFormat df = new SimpleDateFormat(format);
             return df.format(date);
         } catch (ParseException e) {
             e.printStackTrace();

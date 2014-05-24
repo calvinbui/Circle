@@ -4,11 +4,15 @@
 package com.id11413010.circle.app.events;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -60,6 +64,22 @@ public class Events extends Activity {
         listView.setAdapter(adapter);
         new retrieveEventsTask().execute();
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                Event item = (Event)adapterView.getItemAtPosition(position);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Events.this);
+                builder.setTitle(item.getName())
+                .setMessage(item.getDescription())
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                // Set the Icon for the Dialog
+                builder.show();
+            }
+        });
     }
 
     @Override
@@ -105,24 +125,24 @@ public class Events extends Activity {
             List<Event> list = new Gson().fromJson(json, collectionType);
             for (Event e : list)
                 arrayList.add(e);
+            sort();
+            adapter.notifyDataSetChanged();
+        }
 
+        private void sort() {
             Collections.sort(arrayList, new Comparator<Event>() {
                 public int compare(Event o1, Event o2) {
                     Date o1Date;
                     Date o2Date;
                     int i = 0;
                     try{
-                        o1Date = new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate());
-                        o2Date = new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate());
-                        return o1Date.compareTo(o2Date);
+                        return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     return i;
                 }
             });
-
-            adapter.notifyDataSetChanged();
         }
     }
 }
