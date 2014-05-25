@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friends;
+import com.id11413010.circle.app.leaderboards.Leaderboards;
 import com.id11413010.circle.app.money.MoneyHome;
 import com.id11413010.circle.app.voting.Voting;
 
@@ -59,9 +60,14 @@ public class HomeScreen extends Activity {
         startActivity(new Intent(this, Voting.class));
     }
 
+    public void openLeaderboard(View v) {
+        startActivity(new Intent(this, Leaderboards.class));
+    }
+
     @Override
     public void onBackPressed()
     {
         finish();
+        System.exit(0);
     }
 }

@@ -1,38 +1,93 @@
 package com.id11413010.circle.app.leaderboards;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.pojo.Ranking;
+
+import java.util.ArrayList;
 
 
-public class Leaderboards extends Activity {
+public class Leaderboards extends ListActivity {
 
+    private ArrayList<Ranking> arrayList = null;
+    private LeaderboardAdapter leaderboardAdapter;
+
+    /** Called when the activity is first created. */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboard);
-    }
 
+        setContentView(R.layout.listleaderboard);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.leaderboard, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        ArrayList<String> content = new ArrayList<String>(mListContent.length);
+        for (int i=0; i < mListContent.length; i++) {
+            content.add(mListContent[i]);
         }
-        return super.onOptionsItemSelected(item);
+        leaderboardAdapter = new LeaderboardAdapter(this, new int[]{R.layout.leaderboarddragitem}, new int[]{R.id.TextView01}, content);
+        setListAdapter(leaderboardAdapter);//new DragNDropAdapter(this,content)
+        ListView listView = getListView();
+
+        if (listView instanceof DragNDropListView) {
+            ((DragNDropListView) listView).setDropListener(mDropListener);
+            ((DragNDropListView) listView).setRemoveListener(mRemoveListener);
+            ((DragNDropListView) listView).setDragListener(mDragListener);
+        }
     }
+
+    private DropListener mDropListener =
+            new DropListener() {
+                public void onDrop(int from, int to) {
+                    ListAdapter adapter = getListAdapter();
+                    if (adapter instanceof LeaderboardAdapter) {
+                        ((LeaderboardAdapter)adapter).onDrop(from, to);
+                        getListView().invalidateViews();
+                    }
+                }
+            };
+
+    private RemoveListener mRemoveListener =
+            new RemoveListener() {
+                public void onRemove(int which) {
+                    ListAdapter adapter = getListAdapter();
+                    if (adapter instanceof LeaderboardAdapter) {
+                        ((LeaderboardAdapter)adapter).onRemove(which);
+                        getListView().invalidateViews();
+                    }
+                }
+            };
+
+    private DragListener mDragListener =
+            new DragListener() {
+
+                int backgroundColor = 0xe0103010;
+                int defaultBackgroundColor;
+
+                public void onDrag(int x, int y, ListView listView) {
+                    // TODO Auto-generated method stub
+                }
+
+                public void onStartDrag(View itemView) {
+                    itemView.setVisibility(View.INVISIBLE);
+                    defaultBackgroundColor = itemView.getDrawingCacheBackgroundColor();
+                    itemView.setBackgroundColor(backgroundColor);
+                    ImageView iv = (ImageView)itemView.findViewById(R.id.ImageView01);
+                    if (iv != null) iv.setVisibility(View.INVISIBLE);
+                }
+
+                public void onStopDrag(View itemView) {
+                    itemView.setVisibility(View.VISIBLE);
+                    itemView.setBackgroundColor(defaultBackgroundColor);
+                    ImageView iv = (ImageView)itemView.findViewById(R.id.ImageView01);
+                    if (iv != null) iv.setVisibility(View.VISIBLE);
+                }
+
+            };
+
+    private static String[] mListContent={"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7"};
 }

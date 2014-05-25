@@ -67,10 +67,6 @@
             android:label="@string/title_activity_leaderboard_add" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.leaderboards.LeaderboardView"
-            android:label="@string/title_activity_leaderboard_view" >
-        </activity>
-        <activity
             android:name="com.id11413010.circle.app.voting.VotingAddQuestion"
             android:label="@string/title_activity_voting_add_question" >
         </activity>
