@@ -5,8 +5,10 @@ package com.id11413010.circle.app.events;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.EventDAO;
@@ -114,7 +117,8 @@ public class Events extends Activity {
         String json;
 
         protected Void doInBackground(Void... params) {
-            json = EventDAO.retrieveEvents();
+            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+            json = EventDAO.retrieveEvents(sp.getString(Constants.CIRCLE, null));
             return null;
         }
 

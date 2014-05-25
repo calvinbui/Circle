@@ -38,7 +38,9 @@ public class EventDAO {
         Network.httpConnection("create_event.php", nameValuePairs);
     }
 
-    public static String retrieveEvents() {
-        return Network.httpConnection("get_events.php", new ArrayList<NameValuePair>(0));
+    public static String retrieveEvents(String circle) {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); // circle
+        return Network.httpConnection("get_events.php", nameValuePairs);
     }
 }
