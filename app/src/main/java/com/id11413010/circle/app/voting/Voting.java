@@ -5,23 +5,53 @@ package com.id11413010.circle.app.voting;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.PollDAO;
+import com.id11413010.circle.app.pojo.Poll;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The class is used for listing the Polls each group of friends has created.
  * Polls are retrieved from a database and shown within a List Activity.
  */
 public class Voting extends Activity {
-
+    /**
+     * ListView that will hold our items references back to main.xml
+     */
+    private ListView listView;
+    /**
+     * Array Adapter that will hold our ArrayList and display the items on the ListView
+     */
+    private VotingAdapter adapter;
+    /**
+     * List that will host our items and allow us to modify the VotingAdapter
+     */
+    private ArrayList<Poll> arrayList = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
+
+        listView = (ListView)findViewById(R.id.pollList);
+        // initialise arrayList
+        arrayList = new ArrayList<Poll>();
+        // initialise our array adapter with references to this activity, the list activity and array list
+        adapter = new VotingAdapter(this, R.layout.listpolls, arrayList);
+        // set the adapter for the list
+        listView.setAdapter(adapter);
+        new retrievePollsTask().execute();
     }
 
 
@@ -51,5 +81,23 @@ public class Voting extends Activity {
         super.onBackPressed();
         startActivity(new Intent(this, HomeScreen.class));
         finish();
+    }
+
+    public class retrievePollsTask extends AsyncTask<Void, Void, Void> {
+        String json;
+
+        protected Void doInBackground(Void... params) {
+            json = PollDAO.retrieveAllPolls(Voting.this);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Type collectionType = new TypeToken<ArrayList<Poll>>(){}.getType();
+            List<Poll> list = new Gson().fromJson(json, collectionType);
+            for (Poll p : list)
+                arrayList.add(p);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

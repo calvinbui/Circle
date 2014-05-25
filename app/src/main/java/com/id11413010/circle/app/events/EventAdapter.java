@@ -21,7 +21,7 @@ import java.util.List;
  * TODO
  */
 public class EventAdapter extends ArrayAdapter<Event>{
-    int resource;
+    private int resource;
     /**
      * Initialise the adapter
      */

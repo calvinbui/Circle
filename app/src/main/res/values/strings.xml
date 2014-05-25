@@ -72,4 +72,6 @@
     <string name="title_activity_money_owing">Money Owing</string>
     <string name="owes">owes you...</string>
     <string name="oweReason">because...</string>
+    <string name="title_activity_voting_adapter">VotingAdapter</string>
+
 </resources>

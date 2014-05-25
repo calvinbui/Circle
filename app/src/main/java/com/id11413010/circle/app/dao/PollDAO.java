@@ -3,6 +3,9 @@
  */
 package com.id11413010.circle.app.dao;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
 import com.id11413010.circle.app.pojo.Poll;
@@ -34,8 +37,12 @@ public class PollDAO {
         return Integer.valueOf(Network.httpConnection("create_poll.php", nameValuePairs));
     }
 
-    public static void retrievePoll() {
-
+    public static String retrieveAllPolls(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        String circle = sp.getString(Constants.CIRCLE, null);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        return Network.httpConnection("get_all_polls.php", nameValuePairs);
     }
 
     /**
