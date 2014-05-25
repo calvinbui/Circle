@@ -16,14 +16,17 @@ public class Poll {
      */
     private String circle;
 
-    /**
+    private Integer id;
+
+     /**
      * The constructor for the Question class. Creates a poll given its various fields.
      * @param name The value to set the poll's name to.
      * @param circle The value to set the poll's circle to.
      */
-    public Poll(String name, String circle) {
+    public Poll(String name, String circle, Integer id) {
         this.name = name;
         this.circle = circle;
+        this.id = id;
     }
     /**
      * Returns the value of the poll's name
@@ -52,5 +55,13 @@ public class Poll {
      */
     public void setCircle(String circle) {
         this.circle = circle;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

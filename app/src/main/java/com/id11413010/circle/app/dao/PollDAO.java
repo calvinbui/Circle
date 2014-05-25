@@ -51,11 +51,30 @@ public class PollDAO {
      */
     public static void createQuestion(Question question) {
         // creates a list array which will contain information about the User
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, question.getQuestion())); //name
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_VOTES, Integer.toString(question.getVotes()))); //votes
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_POLL, Integer.toString(question.getBallot()))); //poll linked to
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_POLL, Integer.toString(question.getPoll()))); //poll linked to
         // start a network task with the page to access and information (array list) to process.
         Network.httpConnection("create_question.php", nameValuePairs);
+    }
+
+    public static String retrievePollQuestions(int pollID) {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID)));
+        return Network.httpConnection("get_poll_options.php", nameValuePairs);
+    }
+
+    public static String createVote(int pollID, int user, int option) {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+        nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(user)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(option)));
+        return Network.httpConnection("create_vote.php", nameValuePairs);
+    }
+
+    public static int retrieveVotes(int id) {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(id)));
+        return Integer.valueOf(Network.httpConnection("get_votes.php", nameValuePairs));
     }
 }

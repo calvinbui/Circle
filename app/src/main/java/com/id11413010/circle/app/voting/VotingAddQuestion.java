@@ -109,7 +109,7 @@ public class VotingAddQuestion extends Activity {
     private class CreateQuestionTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
             // creates a new poll option given the name, default amount of votes and poll ID.
-            Question q = new Question(question.getText().toString(), 0, pollID);
+            Question q = new Question(question.getText().toString(), pollID, null);
             // pass the object to the data-access-object class to add it to the database
             PollDAO.createQuestion(q);
             return null;

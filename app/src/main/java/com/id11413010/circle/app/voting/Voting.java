@@ -9,10 +9,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.PollDAO;
@@ -52,8 +55,18 @@ public class Voting extends Activity {
         // set the adapter for the list
         listView.setAdapter(adapter);
         new retrievePollsTask().execute();
-    }
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                Poll item = (Poll)adapterView.getItemAtPosition(position);
+                Intent i = new Intent(Voting.this, VotingView.class);
+                i.putExtra(Constants.POLL_ID, item.getId());
+                i.putExtra(Constants.POLL_NAME, item.getName());
+                startActivity(i);
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,7 +97,7 @@ public class Voting extends Activity {
     }
 
     public class retrievePollsTask extends AsyncTask<Void, Void, Void> {
-        String json;
+        private String json;
 
         protected Void doInBackground(Void... params) {
             json = PollDAO.retrieveAllPolls(Voting.this);

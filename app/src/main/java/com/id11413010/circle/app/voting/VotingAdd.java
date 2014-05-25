@@ -76,7 +76,7 @@ public class VotingAdd extends Activity {
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             circle = sp.getString(Constants.CIRCLE, null);
             // create a new poll object with information entered by the user and the circle id
-            poll = new Poll(question.getText().toString(), circle);
+            poll = new Poll(question.getText().toString(), circle, null);
         }
 
         protected Void doInBackground(Void... params) {

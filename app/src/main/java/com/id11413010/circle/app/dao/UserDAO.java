@@ -67,10 +67,7 @@ public class UserDAO {
      * Retrieves the number of users within the same circle as the current user.
      * @return A String containing the amount of users within the same circle
      */
-    public static String retrieveCircleMemberCount(Context context) {
-        // retrieves the circle ID from Shared Preferences
-        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-        String circle = sp.getString(Constants.CIRCLE, null);
+    public static String retrieveCircleMemberCount(String circle) {
         // create a list array containing the circle ID to send to the web service
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));

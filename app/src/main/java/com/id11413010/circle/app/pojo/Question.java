@@ -14,22 +14,18 @@ public class Question {
     /**
      * An integer representing the number of votes on the question
      */
-    private int votes;
-    /**
-     * An integer representing what poll it concides with
-     */
-    private int ballot;
+    private int poll;
 
+    private Integer id;
     /**
      * The constructor for the Question class. Creates a question given its various fields.
      * @param question The value to set the question's option to.
-     * @param votes The value to set the question's vote to.
-     * @param ballot The value to set the question's ballot to.
+     * @param poll The value to set the question's poll to.
      */
-    public Question(String question, int votes, int ballot) {
+    public Question(String question, int poll, Integer id) {
         this.question = question;
-        this.votes = votes;
-        this.ballot =  ballot;
+        this.poll = poll;
+        this.id = id;
     }
     /**
      * Returns the value of the question's option
@@ -46,31 +42,25 @@ public class Question {
         this.question = question;
     }
     /**
-     * Returns the value of the question's votes
-     * @return A integer containing the question's votes
-     */
-    public int getVotes() {
-        return votes;
-    }
-    /**
      * Returns the value of the question's poll
      * @return An integer containing the question's poll
      */
-    public int getBallot() {
-        return ballot;
+    public int getPoll() {
+        return poll;
     }
     /**
-     * Set the value of the Question's ballot
-     * @param ballot The value to set the question's ballot to.
+     * Set the value of the Question's poll
+     * @param poll The value to set the question's poll to.
      */
-    public void setBallot(int ballot) {
-        this.ballot = ballot;
+    public void setPoll(int poll) {
+        this.poll = poll;
     }
-    /**
-     * Set the value of the Question's votes
-     * @param votes The value to set the question's vote to.
-     */
-    public void setVotes(int votes) {
-        this.votes = votes;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

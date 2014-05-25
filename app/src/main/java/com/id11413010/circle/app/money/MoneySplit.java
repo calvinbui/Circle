@@ -5,6 +5,8 @@
 package com.id11413010.circle.app.money;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 
@@ -133,9 +136,12 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
 
         @Override
         protected Void doInBackground(Void... params) {
+            // retrieves the circle ID from Shared Preferences
+            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+            String circle = sp.getString(Constants.CIRCLE, null);
             // retrieves the User's Circle ID stored within the Shared Preferences and store it
             // within the String circle.
-            amount = UserDAO.retrieveCircleMemberCount(MoneySplit.this);
+            amount = UserDAO.retrieveCircleMemberCount(circle);
             return null;
         }
 
