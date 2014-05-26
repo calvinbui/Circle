@@ -73,7 +73,7 @@ public class Events extends Activity {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Events.this);
                 builder.setTitle(item.getName())
                 .setMessage(item.getDescription())
-                .setPositiveButton(R.string.oK, new DialogInterface.OnClickListener() {
+                .setNeutralButton(R.string.oK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }

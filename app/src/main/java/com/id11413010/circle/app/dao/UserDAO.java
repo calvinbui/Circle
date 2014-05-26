@@ -82,4 +82,11 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
         return Network.httpConnection("get_all_users.php", nameValuePairs);
     }
+
+    public static String retrieveUserNames(Integer userId) {
+        // create a list array containing the circle ID to send to the web service
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId)));
+        return Network.httpConnection("get_user_firstname.php", nameValuePairs);
+    }
 }

@@ -1,44 +1,83 @@
 package com.id11413010.circle.app.money;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.MoneyDAO;
-import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.Money;
-import com.id11413010.circle.app.pojo.User;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoneyOwing extends Activity {
-    private Spinner spinner;
-    private Integer userId;
-    private List<Integer> userIdList;
-    private EditText amount;
-    private EditText description;
-
+    /**
+     * ListView that will hold our items references back to main.xml
+     */
+    private ListView listView;
+    /**
+     * Array Adapter that will hold our ArrayList and display the items on the ListView
+     */
+    private MoneyAdapter adapter;
+    /**
+     * List that will host our items and allow us to modify the UserAdapter
+     */
+    private ArrayList<Money> arrayList = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_money_owing);
-        spinner = (Spinner)findViewById(R.id.moneyOwer);
-        amount = (EditText)findViewById(R.id.moneyAmountOwed);
-        description = (EditText)findViewById(R.id.moneyOwedDescription);
-        new retrieveUsersTask().execute();
+        setContentView(R.layout.activity_money_owing_home);
+        listView = (ListView)findViewById(R.id.moneyList);
+        // initialise arrayList
+        arrayList = new ArrayList<Money>();
+        // initialise our array adapter with references to this activity, the list activity and array list
+        adapter = new MoneyAdapter(this, R.layout.listmoney, arrayList);
+        // set the adapter for the list
+        listView.setAdapter(adapter);
+        new RetrieveMoneyTask().execute();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final Money item = (Money)adapterView.getItemAtPosition(i);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MoneyOwing.this);
+                builder.setTitle(Double.toString(item.getAmount()))
+                .setMessage(item.getDescription())
+                .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                })
+                .setPositiveButton(R.string.removeOwing, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                        if (sp.getInt(Constants.USERID, 0) == item.getTo()) {
+                            new DeleteMoneyTask(item).execute();
+                            dialogInterface.cancel();
+                        } else {
+                            Toast.makeText(getApplicationContext(), getString(R.string.moneyNotUser), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
 
@@ -55,52 +94,41 @@ public class MoneyOwing extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.createMoneyOwing) {
-            new createMoneyOwingTask().execute();
+        if (id == R.id.action_settings) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void createSpinner(List<User> names) {
-        List<String> list = new ArrayList<String>();
-        userIdList = new ArrayList<Integer>();
-        for(User name : names) {
-            list.add(name.getFirstName());
-            userIdList.add(name.getId());
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
-    }
-
-    private class retrieveUsersTask extends AsyncTask<Void, Void, String> {
-
+    public class RetrieveMoneyTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... params) {
-            return UserDAO.retrieveAllUsers(MoneyOwing.this);
+            return MoneyDAO.retrieveOwing(MoneyOwing.this);
         }
 
         @Override
         protected void onPostExecute(String json) {
-            Type collectionType = new TypeToken<ArrayList<User>>(){}.getType();
-            List<User> list = new Gson().fromJson(json, collectionType);
-            createSpinner(list);
+            Type collectionType = new TypeToken<ArrayList<Money>>(){}.getType();
+            List<Money> list = new Gson().fromJson(json, collectionType);
+            for (Money m : list)
+                arrayList.add(m);
+            adapter.notifyDataSetChanged();
         }
     }
 
-    private class createMoneyOwingTask extends AsyncTask<Void, Void, Void> {
+    public class DeleteMoneyTask extends AsyncTask<Void, Void, Void> {
         private Money money;
 
-        protected void onPreExecute() {
-            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            String circle = sp.getString(Constants.CIRCLE, null);
-            int currentUser = sp.getInt(Constants.USERID, 0);
-            userId = userIdList.get(spinner.getSelectedItemPosition());
-            money = new Money(circle, currentUser,userId,Double.parseDouble(amount.getText().toString()),0,description.getText().toString(), null);
+        private DeleteMoneyTask(Money money) {
+            this.money = money;
         }
 
         protected Void doInBackground(Void... params) {
-            MoneyDAO.createOwing(money);
+            MoneyDAO.deleteOwing(money);
             return null;
+        }
+
+        protected void onPostExecute() {
+            adapter.notifyDataSetChanged();
         }
     }
 }

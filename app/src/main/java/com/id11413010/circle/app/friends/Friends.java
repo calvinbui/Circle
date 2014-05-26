@@ -42,19 +42,16 @@ public class Friends extends Activity {
         adapter = new FriendAdapter(this, R.layout.listfriends, arrayList);
         // set the adapter for the list
         listView.setAdapter(adapter);
-        new retrieveUsersTask().execute();
+        new RetrieveUsersTask().execute();
     }
 
-    public class retrieveUsersTask extends AsyncTask<Void, Void, Void> {
-        String json;
-
-        protected Void doInBackground(Void... params) {
-            json = UserDAO.retrieveAllUsers(Friends.this);
-            return null;
+    public class RetrieveUsersTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... params) {
+            return UserDAO.retrieveAllUsers(Friends.this);
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String json) {
             Type collectionType = new TypeToken<ArrayList<User>>(){}.getType();
             List<User> list = new Gson().fromJson(json, collectionType);
             for (User u : list)

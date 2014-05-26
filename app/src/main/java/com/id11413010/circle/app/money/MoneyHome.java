@@ -51,6 +51,6 @@ public class MoneyHome extends Activity {
      * Linked to a Button onClick within the XML to open the money owing activity
      */
     public void openMoneyOwing(View v) {
-        startActivity(new Intent(this, MoneyOwing.class));
+        startActivity(new Intent(this, MoneyOwingAdd.class));
     }
 }

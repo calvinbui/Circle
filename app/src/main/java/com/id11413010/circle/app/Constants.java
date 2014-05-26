@@ -82,11 +82,11 @@ public class Constants {
     /**
      * Tag for Poll Votes
      */
-    public static final String DB_VOTES = "votes";
     public static final String DB_PAYER = "from";
     public static final String DB_LENDER = "to";
     public static final String DB_AMOUNT = "amount";
     public static final String POLL_NAME = "pollName";
     public static final String POLL_ID = "pollID";
     public static final String OPTION_ID = "optionID";
+    public static final String MONEY_ID = "moneyId";
 }

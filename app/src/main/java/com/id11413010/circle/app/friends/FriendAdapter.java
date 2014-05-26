@@ -17,7 +17,7 @@ import java.util.List;
  * TODO
  */
 public class FriendAdapter extends ArrayAdapter<User> {
-    int resource;
+    private int resource;
     /**
      * Initialise the adapter
      */

@@ -73,5 +73,7 @@
     <string name="owes">owes you...</string>
     <string name="oweReason">because...</string>
     <string name="title_activity_voting_adapter">VotingAdapter</string>
-
+    <string name="owe">owes</string>
+    <string name="removeOwing">Paid (Delete)</string>
+    <string name="moneyNotUser">You did not create this</string>
 </resources>
