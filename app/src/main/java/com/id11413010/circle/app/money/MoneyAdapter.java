@@ -43,8 +43,8 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
 
         TextView ower = (TextView)moneyList.findViewById(R.id.owerFirstNamelist);
         TextView lendor = (TextView)moneyList.findViewById(R.id.lenderFirstNamelist);
-        TextView amount = (TextView)moneyList.findViewById(R.id.moneyAmountOwed);
-        amount.setText(R.string.dollarSign + Double.toString(m.getAmount()));
+        TextView amount = (TextView)moneyList.findViewById(R.id.moneyAmountOwing);
+        amount.setText(Double.toString(m.getAmount()));
         new GetUserNames(ower, lendor).execute(m.getFrom(), m.getTo());
 
         return moneyList;

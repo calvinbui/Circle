@@ -78,8 +78,10 @@ public class UserDAO {
     public static String retrieveAllUsers(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
         String circle = sp.getString(Constants.CIRCLE, null);
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        int id = sp.getInt(Constants.USERID, 0);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(id)));
         return Network.httpConnection("get_all_users.php", nameValuePairs);
     }
 

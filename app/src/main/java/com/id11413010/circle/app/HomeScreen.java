@@ -4,12 +4,9 @@
 package com.id11413010.circle.app;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friends;
@@ -28,12 +25,6 @@ public class HomeScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
-        // retrieve the user's first name from the application's shared preferences
-        SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-        // store the first name into a String variable
-        String firstName = sp.getString(Constants.FIRSTNAME, getText(R.string.tester).toString());
-        // present a toast welcoming the user upon logging in
-        Toast.makeText(getApplicationContext(), getText(R.string.welcomeMsg).toString() + " " + firstName, Toast.LENGTH_LONG).show();
     }
 
     /**

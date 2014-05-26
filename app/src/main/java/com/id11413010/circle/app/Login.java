@@ -93,6 +93,9 @@ public class Login extends Activity {
                 // start the home screen activity
                 startActivity(new Intent(Login.this, HomeScreen.class));
                 finish();
+
+                Toast.makeText(getApplicationContext(), getText(R.string.welcomeMsg).toString() + " " + user.getFirstName(), Toast.LENGTH_LONG).show();
+
             }
         }
     }

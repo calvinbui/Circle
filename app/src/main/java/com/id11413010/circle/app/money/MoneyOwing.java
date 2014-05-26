@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -69,17 +70,18 @@ public class MoneyOwing extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
                         if (sp.getInt(Constants.USERID, 0) == item.getTo()) {
-                            new DeleteMoneyTask(item).execute();
+                            new DeleteMoneyTask(item, i).execute();
                             dialogInterface.cancel();
+                            Toast.makeText(getApplicationContext(), getString(R.string.moneyDeleted), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), getString(R.string.moneyNotUser), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+                builder.show();
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,8 +96,9 @@ public class MoneyOwing extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.createMoneyOwing) {
+            startActivity(new Intent(this, MoneyOwingAdd.class));
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -117,9 +120,11 @@ public class MoneyOwing extends Activity {
 
     public class DeleteMoneyTask extends AsyncTask<Void, Void, Void> {
         private Money money;
+        private int position;
 
-        private DeleteMoneyTask(Money money) {
+        private DeleteMoneyTask(Money money, int position) {
             this.money = money;
+            this.position = position;
         }
 
         protected Void doInBackground(Void... params) {
@@ -127,7 +132,9 @@ public class MoneyOwing extends Activity {
             return null;
         }
 
-        protected void onPostExecute() {
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.remove(money);
             adapter.notifyDataSetChanged();
         }
     }

@@ -2,6 +2,7 @@ package com.id11413010.circle.app.money;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
+import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.MoneyDAO;
 import com.id11413010.circle.app.dao.UserDAO;
@@ -45,7 +47,7 @@ public class MoneyOwingAdd extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.money_owing, menu);
+        getMenuInflater().inflate(R.menu.money_owing_add, menu);
         return true;
     }
 
@@ -55,7 +57,7 @@ public class MoneyOwingAdd extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.createMoneyOwing) {
+        if (id == R.id.createOwing) {
             new createMoneyOwingTask().execute();
         }
         return super.onOptionsItemSelected(item);
@@ -71,6 +73,14 @@ public class MoneyOwingAdd extends Activity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, MoneyOwing.class));
+        finish();
     }
 
     private class retrieveUsersTask extends AsyncTask<Void, Void, String> {
@@ -101,6 +111,11 @@ public class MoneyOwingAdd extends Activity {
         protected Void doInBackground(Void... params) {
             MoneyDAO.createOwing(money);
             return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            startActivity(new Intent(MoneyOwingAdd.this, MoneyOwing.class));
+            finish();
         }
     }
 }

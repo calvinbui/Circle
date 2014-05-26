@@ -84,7 +84,7 @@ public class VotingView extends Activity {
             List<Question> list = new Gson().fromJson(json, collectionType);
             for (Question q : list)
                 arrayList.add(q);
-            adapter.notifyDataSetChanged();
+            adapter.notifyDataSetInvalidated();
         }
     }
 }
