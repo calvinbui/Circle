@@ -107,10 +107,6 @@ public class EventAdd extends Activity {
     public void pickEndDate(View v) {
         // Process to get current date (today)
         final Calendar c = Calendar.getInstance();
-        //TODO
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a DatePickerDialog using the current date captured above as the starting position
         DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -127,9 +123,6 @@ public class EventAdd extends Activity {
     public void pickStartDate(View v) {
         // Process to get Current Date
         final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
 
         // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(this,
@@ -139,7 +132,7 @@ public class EventAdd extends Activity {
                         // Display Selected date in textbox
                         startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
-                }, mYear, mMonth, mDay);
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         dpd.show();
     }
 

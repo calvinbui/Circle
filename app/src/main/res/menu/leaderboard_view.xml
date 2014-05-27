@@ -2,8 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.id11413010.circle.app.leaderboards.LeaderboardView" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+    <item android:id="@+id/updateLeaderboard"
+        app:showAsAction="ifRoom"
+        android:title="@string/save"/>
 </menu>

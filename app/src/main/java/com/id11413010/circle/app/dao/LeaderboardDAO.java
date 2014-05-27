@@ -59,4 +59,10 @@ public class LeaderboardDAO {
         // start a network task with the page to access and information (array list) to process.
         return Network.httpConnection("get_leaderboard_rankings.php", nameValuePairs);
     }
+
+    public static void updateRankings() {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+
+        Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);
+    }
 }

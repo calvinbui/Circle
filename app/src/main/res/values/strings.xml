@@ -80,5 +80,5 @@
     <string name="moneyDeleted">Paid!</string>
     <string name="newLeadeboardName">New Leaderboard Name</string>
     <string name="title_activity_leaderboard_home">Leaderboards</string>
-
+    <string name="save">Save</string>
 </resources>

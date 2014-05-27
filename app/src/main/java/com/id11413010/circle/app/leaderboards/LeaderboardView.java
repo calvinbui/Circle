@@ -4,6 +4,8 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -15,6 +17,7 @@ import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.LeaderboardDAO;
 import com.id11413010.circle.app.pojo.Ranking;
+import com.id11413010.circle.app.voting.VotingAdd;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -46,7 +49,27 @@ public class LeaderboardView extends ListActivity {
         }
     }
 
-    private DropListener mDropListener =
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.leaderboard_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.updateLeaderboard) {
+            // start an activity to add a new Poll
+            startActivity(new Intent(this, VotingAdd.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+private DropListener mDropListener =
             new DropListener() {
                 public void onDrop(int from, int to) {
                     ListAdapter adapter = getListAdapter();
@@ -92,7 +115,6 @@ public class LeaderboardView extends ListActivity {
                     ImageView iv = (ImageView)itemView.findViewById(R.id.ImageView01);
                     if (iv != null) iv.setVisibility(View.VISIBLE);
                 }
-
             };
 
     private class RetrieveRankingsTask extends AsyncTask<Void, Void, String> {
@@ -111,4 +133,18 @@ public class LeaderboardView extends ListActivity {
             adapter.notifyDataSetInvalidated();
         }
     }
+
+    private class SaveRankingsTask extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            LeaderboardDAO.updateRankings();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            startActivity(new Intent(LeaderboardView.this, LeaderboardHome.class));
+        }
+    }
+
+
 }
