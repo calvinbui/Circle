@@ -11,7 +11,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Month"
             android:id="@+id/eventListMonthYear"
             android:clickable="false"
             android:layout_marginLeft="40dp"
@@ -25,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="DAY"
             android:id="@+id/eventListDay"
             android:layout_marginBottom="10dp"
             android:layout_below="@+id/eventListMonthYear"
@@ -36,7 +34,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time"
         android:id="@+id/eventListTime"
         android:layout_marginLeft="140dp"
         android:layout_below="@+id/eventListName"
@@ -46,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Event Name"
         android:id="@+id/eventListName"
         android:layout_marginTop="5dp"
         android:layout_alignParentTop="true"
@@ -57,7 +53,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location"
         android:id="@+id/eventListLocation"
         android:layout_below="@+id/eventListTime"
         android:layout_alignLeft="@+id/eventListTime"

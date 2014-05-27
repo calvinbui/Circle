@@ -43,8 +43,8 @@
     <string name="eventDetails">Details</string>
     <string name="location">Location</string>
     <string name="eventInfo">Event Details</string>
-    <string name="eventStart">Starting at...</string>
-    <string name="eventEnd">Finishing at...</string>
+    <string name="eventStart">Starting at&#8230;</string>
+    <string name="eventEnd">Finishing at&#8230;</string>
     <string name="select">Select</string>
     <string name="done">Done</string>
     <string name="title_activity_money__owing">Money Owing</string>
@@ -61,7 +61,7 @@
     <string name="title_activity_leaderboard_view">LeaderboardView</string>
     <string name="title_activity_voting_view">VotingView</string>
     <string name="question">Question</string>
-    <string name="questionAsk">Ask something...</string>
+    <string name="questionAsk">Ask something&#8230;</string>
     <string name="questionOptions">Options</string>
     <string name="title_activity_voting_add_question">Add Poll Option</string>
     <string name="questionAdd">Add</string>
@@ -71,8 +71,8 @@
     <string name="enterOption">Enter a poll option</string>
     <string name="oK">OK</string>
     <string name="title_activity_money_owing">Money Owing</string>
-    <string name="owes">owes you...</string>
-    <string name="oweReason">because...</string>
+    <string name="owes">owes you&#8230;</string>
+    <string name="oweReason">because&#8230;</string>
     <string name="title_activity_voting_adapter">VotingAdapter</string>
     <string name="owe">owes</string>
     <string name="removeOwing">Paid (Delete)</string>

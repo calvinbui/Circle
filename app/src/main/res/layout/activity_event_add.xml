@@ -76,9 +76,6 @@
             android:layout_height="wrap_content"
             android:text="@string/select"
             android:id="@+id/button"
-            android:layout_below="@+id/eventStartDate_btn"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:onClick="pickStartDate"/>
     </LinearLayout>
 
@@ -112,9 +109,6 @@
             android:layout_height="wrap_content"
             android:text="@string/select"
             android:id="@+id/button3"
-            android:layout_below="@+id/eventStartTime"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:onClick="pickStartTime"/>
     </LinearLayout>
 
@@ -155,9 +149,6 @@
             android:layout_height="wrap_content"
             android:text="@string/select"
             android:id="@+id/button2"
-            android:layout_below="@+id/editText2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:onClick="pickEndDate"/>
     </LinearLayout>
 
@@ -191,9 +182,6 @@
             android:layout_height="wrap_content"
             android:text="@string/select"
             android:id="@+id/startDate_btn"
-            android:layout_below="@+id/editText2"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:onClick="pickEndTime"/>
     </LinearLayout>
 
