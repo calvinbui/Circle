@@ -51,7 +51,7 @@ public class LeaderboardAdd extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            startActivity(new Intent(LeaderboardAdd.this, LeaderboardView.class));
+            startActivity(new Intent(LeaderboardAdd.this, LeaderboardHome.class));
         }
     }
 }

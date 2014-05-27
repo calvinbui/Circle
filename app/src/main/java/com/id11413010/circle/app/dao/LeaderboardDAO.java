@@ -22,7 +22,7 @@ public class LeaderboardDAO {
      * @param context The application's context
      * @param name The name of the leaderboard to create
      */
-    public static void createLeaderboard(Context context, String name) {
+    public static String createLeaderboard(Context context, String name) {
         // retrieve the user's circle id and user id from the local shared preferences
         SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
         String circle = sp.getString(Constants.CIRCLE, null);
@@ -33,7 +33,7 @@ public class LeaderboardDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId))); //user id
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_LEADERBOARD_NAME, name)); //leadeboard name
         // start a network task with the page to access and information (array list) to process.
-        Network.httpConnection("create_leaderboard.php", nameValuePairs);
+        return Network.httpConnection("create_leaderboard.php", nameValuePairs);
     }
 
     /**
