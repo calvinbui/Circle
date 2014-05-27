@@ -51,4 +51,12 @@ public class LeaderboardDAO {
         // start a network task with the page to access and information (array list) to process.
         return Network.httpConnection("get_all_leaderboards.php", nameValuePairs);
     }
+
+    public static String retrieveRankings(int leaderboardId) {
+        // creates a list array which will contain information about the leaderboard
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.LEADERBOARD_ID, Integer.toString(leaderboardId))); //circle id
+        // start a network task with the page to access and information (array list) to process.
+        return Network.httpConnection("get_leaderboard_rankings.php", nameValuePairs);
+    }
 }

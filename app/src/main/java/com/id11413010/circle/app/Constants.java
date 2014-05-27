@@ -90,4 +90,6 @@ public class Constants {
     public static final String OPTION_ID = "optionID";
     public static final String MONEY_ID = "moneyId";
     public static final String DB_LEADERBOARD_NAME = "leaderboardName";
+    public static final String LEADERBOARD_ID = "leaderboardId";
+    public static final String LEADERBOARD_NAME = "leaderboardName";
 }

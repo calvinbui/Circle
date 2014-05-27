@@ -1,36 +1,42 @@
 package com.id11413010.circle.app.leaderboards;
 
 import android.app.ListActivity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
+import com.id11413010.circle.app.dao.LeaderboardDAO;
 import com.id11413010.circle.app.pojo.Ranking;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class LeaderboardView extends ListActivity {
 
     private ArrayList<Ranking> arrayList = null;
-    private LeaderboardViewAdapter leaderboardViewAdapter;
+    private LeaderboardViewAdapter adapter;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.listleaderboard);
-
-        ArrayList<String> content = new ArrayList<String>(mListContent.length);
-        for (int i=0; i < mListContent.length; i++) {
-            content.add(mListContent[i]);
-        }
-        leaderboardViewAdapter = new LeaderboardViewAdapter(this, new int[]{R.layout.leaderboarddragitem}, new int[]{R.id.TextView01}, content);
-        setListAdapter(leaderboardViewAdapter);//new DragNDropAdapter(this,content)
+        // initialise arrayList
+        arrayList = new ArrayList<Ranking>();
+        new RetrieveRankingsTask().execute();
+        // initialise our array adapter with references to this activity, the list activity and array list
+        adapter = new LeaderboardViewAdapter(this, new int[]{R.layout.leaderboarddragitem}, new int[]{R.id.TextView01}, arrayList);
+        setListAdapter(adapter);//new DragNDropAdapter(this,content)
         ListView listView = getListView();
 
         if (listView instanceof DragNDropListView) {
@@ -89,5 +95,20 @@ public class LeaderboardView extends ListActivity {
 
             };
 
-    private static String[] mListContent={"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7"};
+    private class RetrieveRankingsTask extends AsyncTask<Void, Void, String> {
+
+        protected String doInBackground(Void... params) {
+            Intent intent = new Intent();
+            return LeaderboardDAO.retrieveRankings(intent.getIntExtra(Constants.LEADERBOARD_ID,0));
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            Type collectionType = new TypeToken<ArrayList<Ranking>>(){}.getType();
+            List<Ranking> list = new Gson().fromJson(json, collectionType);
+            for (Ranking r : list)
+                arrayList.add(r);
+            adapter.notifyDataSetInvalidated();
+        }
+    }
 }

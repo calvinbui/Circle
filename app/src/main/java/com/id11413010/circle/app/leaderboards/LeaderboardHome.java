@@ -17,7 +17,6 @@ import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.LeaderboardDAO;
 import com.id11413010.circle.app.pojo.Leaderboard;
-import com.id11413010.circle.app.pojo.Poll;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -54,10 +53,10 @@ public class LeaderboardHome extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
-                Poll item = (Poll)adapterView.getItemAtPosition(position);
+                Leaderboard item = (Leaderboard)adapterView.getItemAtPosition(position);
                 Intent i = new Intent(LeaderboardHome.this, LeaderboardView.class);
-                i.putExtra(Constants.POLL_ID, item.getId());
-                i.putExtra(Constants.POLL_NAME, item.getName());
+                i.putExtra(Constants.LEADERBOARD_ID, item.getId());
+                i.putExtra(Constants.LEADERBOARD_NAME, item.getName());
                 startActivity(i);
             }
         });

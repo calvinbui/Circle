@@ -1,11 +1,15 @@
 package com.id11413010.circle.app.leaderboards;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.id11413010.circle.app.dao.UserDAO;
+import com.id11413010.circle.app.pojo.Ranking;
 
 import java.util.ArrayList;
 
@@ -13,17 +17,17 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
     private int[] mIds;
     private int[] mLayouts;
     private LayoutInflater mInflater;
-    private ArrayList<String> mContent;
+    private ArrayList<Ranking> mContent;
 
-    public LeaderboardViewAdapter(Context context, ArrayList<String> content) {
+    public LeaderboardViewAdapter(Context context, ArrayList<Ranking> content) {
         init(context,new int[]{android.R.layout.simple_list_item_1},new int[]{android.R.id.text1}, content);
     }
 
-    public LeaderboardViewAdapter(Context context, int[] itemLayouts, int[] itemIDs, ArrayList<String> content) {
+    public LeaderboardViewAdapter(Context context, int[] itemLayouts, int[] itemIDs, ArrayList<Ranking> content) {
         init(context,itemLayouts,itemIDs, content);
     }
 
-    private void init(Context context, int[] layouts, int[] ids, ArrayList<String> content) {
+    private void init(Context context, int[] layouts, int[] ids, ArrayList<Ranking> content) {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         mInflater = LayoutInflater.from(context);
         mIds = ids;
@@ -47,7 +51,7 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
      *
      * @see android.widget.ListAdapter#getItem(int)
      */
-    public String getItem(int position) {
+    public Ranking getItem(int position) {
         return mContent.get(position);
     }
 
@@ -88,8 +92,8 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
             holder = (ViewHolder) convertView.getTag();
         }
 
+        new RetrieveUserTask(mContent.get(position), holder).execute();
         // Bind the data efficiently with the holder.
-        holder.text.setText(mContent.get(position));
 
         return convertView;
     }
@@ -104,8 +108,27 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
     }
 
     public void onDrop(int from, int to) {
-        String temp = mContent.get(from);
+        Ranking temp = mContent.get(from);
         mContent.remove(from);
         mContent.add(to,temp);
+    }
+
+    private class RetrieveUserTask extends AsyncTask<Void, Void, String> {
+        private Ranking r;
+        private ViewHolder v;
+
+        private RetrieveUserTask(Ranking r, ViewHolder v) {
+            this.r = r;
+            this.v = v;
+        }
+
+        protected String doInBackground(Void... params) {
+            return UserDAO.retrieveUserNames(r.getUser());
+        }
+
+        @Override
+        protected void onPostExecute(String json) {
+            v.text.setText(json);
+        }
     }
 }
