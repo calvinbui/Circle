@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friends;
-import com.id11413010.circle.app.leaderboards.Leaderboards;
+import com.id11413010.circle.app.leaderboards.LeaderboardHome;
 import com.id11413010.circle.app.money.MoneyHome;
 import com.id11413010.circle.app.voting.Voting;
 
@@ -52,7 +52,7 @@ public class HomeScreen extends Activity {
     }
 
     public void openLeaderboard(View v) {
-        startActivity(new Intent(this, Leaderboards.class));
+        startActivity(new Intent(this, LeaderboardHome.class));
     }
 
     @Override

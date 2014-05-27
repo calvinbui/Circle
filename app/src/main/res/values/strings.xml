@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Circle</string>
     <string name="plus">+</string>
     <string name="hello_world">Hello world!</string>
@@ -77,4 +78,7 @@
     <string name="removeOwing">Paid (Delete)</string>
     <string name="moneyNotUser">Only the creator can delete this</string>
     <string name="moneyDeleted">Paid!</string>
+    <string name="newLeadeboardName">New Leaderboard Name</string>
+    <string name="title_activity_leaderboard_home">Leaderboards</string>
+
 </resources>

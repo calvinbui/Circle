@@ -89,4 +89,5 @@ public class Constants {
     public static final String POLL_ID = "pollID";
     public static final String OPTION_ID = "optionID";
     public static final String MONEY_ID = "moneyId";
+    public static final String DB_LEADERBOARD_NAME = "leaderboardName";
 }

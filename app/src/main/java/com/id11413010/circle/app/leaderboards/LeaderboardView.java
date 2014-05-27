@@ -13,10 +13,10 @@ import com.id11413010.circle.app.pojo.Ranking;
 import java.util.ArrayList;
 
 
-public class Leaderboards extends ListActivity {
+public class LeaderboardView extends ListActivity {
 
     private ArrayList<Ranking> arrayList = null;
-    private LeaderboardAdapter leaderboardAdapter;
+    private LeaderboardViewAdapter leaderboardViewAdapter;
 
     /** Called when the activity is first created. */
     @Override
@@ -29,8 +29,8 @@ public class Leaderboards extends ListActivity {
         for (int i=0; i < mListContent.length; i++) {
             content.add(mListContent[i]);
         }
-        leaderboardAdapter = new LeaderboardAdapter(this, new int[]{R.layout.leaderboarddragitem}, new int[]{R.id.TextView01}, content);
-        setListAdapter(leaderboardAdapter);//new DragNDropAdapter(this,content)
+        leaderboardViewAdapter = new LeaderboardViewAdapter(this, new int[]{R.layout.leaderboarddragitem}, new int[]{R.id.TextView01}, content);
+        setListAdapter(leaderboardViewAdapter);//new DragNDropAdapter(this,content)
         ListView listView = getListView();
 
         if (listView instanceof DragNDropListView) {
@@ -44,8 +44,8 @@ public class Leaderboards extends ListActivity {
             new DropListener() {
                 public void onDrop(int from, int to) {
                     ListAdapter adapter = getListAdapter();
-                    if (adapter instanceof LeaderboardAdapter) {
-                        ((LeaderboardAdapter)adapter).onDrop(from, to);
+                    if (adapter instanceof LeaderboardViewAdapter) {
+                        ((LeaderboardViewAdapter)adapter).onDrop(from, to);
                         getListView().invalidateViews();
                     }
                 }
@@ -55,8 +55,8 @@ public class Leaderboards extends ListActivity {
             new RemoveListener() {
                 public void onRemove(int which) {
                     ListAdapter adapter = getListAdapter();
-                    if (adapter instanceof LeaderboardAdapter) {
-                        ((LeaderboardAdapter)adapter).onRemove(which);
+                    if (adapter instanceof LeaderboardViewAdapter) {
+                        ((LeaderboardViewAdapter)adapter).onRemove(which);
                         getListView().invalidateViews();
                     }
                 }

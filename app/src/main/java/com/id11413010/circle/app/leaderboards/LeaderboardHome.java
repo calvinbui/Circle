@@ -1,7 +1,4 @@
-/*
- * Copyright (C) Trungthi (Calvin) Bui 2014
- */
-package com.id11413010.circle.app.voting;
+package com.id11413010.circle.app.leaderboards;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,18 +15,15 @@ import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
-import com.id11413010.circle.app.dao.PollDAO;
+import com.id11413010.circle.app.dao.LeaderboardDAO;
+import com.id11413010.circle.app.pojo.Leaderboard;
 import com.id11413010.circle.app.pojo.Poll;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The class is used for listing the Polls each group of friends has created.
- * Polls are retrieved from a database and shown within a List Activity.
- */
-public class Voting extends Activity {
+public class LeaderboardHome extends Activity {
     /**
      * ListView that will hold our items references back to main.xml
      */
@@ -37,30 +31,31 @@ public class Voting extends Activity {
     /**
      * Array Adapter that will hold our ArrayList and display the items on the ListView
      */
-    private VotingAdapter adapter;
+    private LeaderboardAdapter adapter;
     /**
-     * List that will host Poll items.
+     * List that will host Leaderboard items
      */
-    private ArrayList<Poll> arrayList = null;
+    private ArrayList<Leaderboard> arrayList = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voting);
+        setContentView(R.layout.activity_leaderboard_home);
 
-        listView = (ListView)findViewById(R.id.pollList);
+        listView = (ListView)findViewById(R.id.leaderboardList);
         // initialise arrayList
-        arrayList = new ArrayList<Poll>();
+        arrayList = new ArrayList<Leaderboard>();
         // initialise our array adapter with references to this activity, the list activity and array list
-        adapter = new VotingAdapter(this, R.layout.listpolls, arrayList);
+        adapter = new LeaderboardAdapter(this, R.layout.listleaderboardsall, arrayList);
         // set the adapter for the list
         listView.setAdapter(adapter);
-        new RetrievePollsTask().execute();
+        new RetrieveLeaderboardTask().execute();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
                 Poll item = (Poll)adapterView.getItemAtPosition(position);
-                Intent i = new Intent(Voting.this, VotingView.class);
+                Intent i = new Intent(LeaderboardHome.this, LeaderboardView.class);
                 i.putExtra(Constants.POLL_ID, item.getId());
                 i.putExtra(Constants.POLL_NAME, item.getName());
                 startActivity(i);
@@ -68,10 +63,11 @@ public class Voting extends Activity {
         });
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.voting, menu);
+        getMenuInflater().inflate(R.menu.leaderboard_home, menu);
         return true;
     }
 
@@ -81,9 +77,8 @@ public class Voting extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.addVotingMenu) {
-            // start an activity to add a new Poll
-            startActivity(new Intent(this, VotingAdd.class));
+        if (id == R.id.addLeaderboard) {
+            startActivity(new Intent(this, LeaderboardAdd.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -96,18 +91,19 @@ public class Voting extends Activity {
         finish();
     }
 
-    public class RetrievePollsTask extends AsyncTask<Void, Void, String> {
+    public class RetrieveLeaderboardTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
-            return PollDAO.retrieveAllPolls(Voting.this);
+            return LeaderboardDAO.retrieveAllLeaderboards(LeaderboardHome.this);
+
         }
 
         @Override
         protected void onPostExecute(String json) {
-            Type collectionType = new TypeToken<ArrayList<Poll>>(){}.getType();
-            List<Poll> list = new Gson().fromJson(json, collectionType);
-            for (Poll p : list)
-                arrayList.add(p);
+            Type collectionType = new TypeToken<ArrayList<Leaderboard>>(){}.getType();
+            List<Leaderboard> list = new Gson().fromJson(json, collectionType);
+            for (Leaderboard l : list)
+                arrayList.add(l);
             adapter.notifyDataSetChanged();
         }
     }

@@ -22,7 +22,8 @@
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
             android:onClick="openEvents"
-            />
+            android:background="@null"
+            android:src="@drawable/events" />
         <ImageButton
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -32,8 +33,9 @@
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
+            android:background="@null"
             android:onClick="openMoney"
-            />
+            android:src="@drawable/money" />
     </LinearLayout>
     <LinearLayout
         android:layout_height="0dp"
@@ -50,8 +52,9 @@
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
+            android:background="@null"
             android:onClick="openVoting"
-            />
+            android:src="@drawable/voting" />
 
         <ImageButton
             android:layout_height="match_parent"
@@ -77,11 +80,13 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/btn_money"
+            android:background="@null"
             android:layout_marginBottom="5sp"
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
-            android:onClick="openLeaderboard"/>
+            android:onClick="openLeaderboard"
+            android:src="@drawable/leaderboard" />
         <ImageButton
             android:layout_height="match_parent"
             android:layout_width="0dp"
@@ -91,8 +96,10 @@
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
+            android:background="@null"
             android:focusableInTouchMode="false"
-            android:onClick="openFriends"/>
+            android:onClick="openFriends"
+            android:src="@drawable/friends" />
     </LinearLayout>
 
 </LinearLayout>
