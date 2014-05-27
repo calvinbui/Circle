@@ -224,7 +224,7 @@ public class EventAdd extends Activity {
                     location.getText().toString(), startDateString, endDateString, endTime.getText().toString(),
                     startTime.getText().toString(),circle);
             // pass the object to the data-access-object class to add it to the database
-            EventDAO.addEvent(event);
+            EventDAO.createEvent(event);
             return null;
         }
 

@@ -37,11 +37,19 @@ public class PollDAO {
         return Integer.valueOf(Network.httpConnection("create_poll.php", nameValuePairs));
     }
 
+    /**
+     * Retrieve all polls within the the user's group in the database
+     * @param context The application's context
+     * @return A JSON String containing all events within the circle
+     */
     public static String retrieveAllPolls(Context context) {
+        // retrieve the user's circle id and user id from the local shared preferences
         SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
         String circle = sp.getString(Constants.CIRCLE, null);
+        // creates a list array which will contain information about the leaderboard
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); //circle id
+        // start a network task with the page to access and information (array list) to process.
         return Network.httpConnection("get_all_polls.php", nameValuePairs);
     }
 
@@ -58,23 +66,45 @@ public class PollDAO {
         Network.httpConnection("create_question.php", nameValuePairs);
     }
 
+    /**
+     * Retrieve the options relating to the Poll given the Poll ID
+     * @param pollID the id of the poll
+     * @return a JSON String containing all the options for the poll
+     */
     public static String retrievePollQuestions(int pollID) {
+        // creates a list array which will contain information about the Poll
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-        nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID))); // poll id
+        // start a network task with the page to access and information (array list) to process.
         return Network.httpConnection("get_poll_options.php", nameValuePairs);
     }
 
-    public static String createVote(int pollID, int user, int option) {
+    /**
+     * Create a new vote for the user into the database
+     * @param pollID the poll id
+     * @param user the user's id
+     * @param option the option selected
+     */
+    public static void createVote(int pollID, int user, int option) {
+        // creates a list array which will contain information about the user's vote
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID)));
         nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(user)));
         nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(option)));
-        return Network.httpConnection("create_vote.php", nameValuePairs);
+        // start a network task with the page to access and information (array list) to process.
+        Network.httpConnection("create_vote.php", nameValuePairs);
     }
 
+    /**
+     * Retrieve the amount of votes for the question from the database
+     * @param id the selected option's id
+     * @return An integer of the amount of votes for the option
+     */
     public static int retrieveVotes(int id) {
+        // creates a list array which will contain information about the amount of votes for an option
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(id)));
+        // start a network task with the page to access and information (array list) to process.
         return Integer.valueOf(Network.httpConnection("get_votes.php", nameValuePairs));
     }
 }

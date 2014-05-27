@@ -15,16 +15,15 @@ import java.util.List;
 
 /**
  * A data access object class which interacts with a web service to create, retrieve, update
- * and delete objects from the Event class.
+ * and delete Event objects from the database.
  */
 public class EventDAO {
     /**
      * Creates a new event into the database by passing through Event information.
      * @param event A Event object which holds information
      */
-    public static void addEvent(Event event) {
+    public static void createEvent(Event event) {
         // creates a list array which will contain information about the User
-
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(8);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, event.getName())); // name
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_DESCRIPTION, event.getDescription())); // description
@@ -38,9 +37,16 @@ public class EventDAO {
         Network.httpConnection("create_event.php", nameValuePairs);
     }
 
+    /**
+     * Retrieve all events within the user's circle.
+     * @param circle The user's group id
+     * @return A Json String containing all the group's events
+     */
     public static String retrieveEvents(String circle) {
+        // creates a list array which will contain information about the User
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); // circle
+        // start a network task with the page to access and information (array list) to process.
         return Network.httpConnection("get_events.php", nameValuePairs);
     }
 }
