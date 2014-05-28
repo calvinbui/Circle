@@ -21,6 +21,8 @@ import com.id11413010.circle.app.voting.VotingAdd;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -69,7 +71,7 @@ public class LeaderboardView extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-private DropListener mDropListener =
+    private DropListener mDropListener =
             new DropListener() {
                 public void onDrop(int from, int to) {
                     ListAdapter adapter = getListAdapter();
@@ -146,5 +148,11 @@ private DropListener mDropListener =
         }
     }
 
-
+    private void sort() {
+        Collections.sort(arrayList, new Comparator<Ranking>() {
+            public int compare(Ranking o1, Ranking o2) {
+                return o1.getPosition().compareTo(o2.getPosition());
+            }
+        });
+    }
 }

@@ -52,6 +52,11 @@ public class LeaderboardDAO {
         return Network.httpConnection("get_all_leaderboards.php", nameValuePairs);
     }
 
+    /**
+     * Retrieve rankings for a leaderboard given it's ID
+     * @param leaderboardId The leaderboard to view
+     * @return A JSON String containing all rankings for the leaderboard
+     */
     public static String retrieveRankings(int leaderboardId) {
         // creates a list array which will contain information about the leaderboard
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -60,9 +65,15 @@ public class LeaderboardDAO {
         return Network.httpConnection("get_leaderboard_rankings.php", nameValuePairs);
     }
 
+    /**
+     * TODO
+     * Updates user rankings in the leaderboard into the database
+     */
     public static void updateRankings() {
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        // creates a list array which will contain information about the leaderboard
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(69199239);
 
+        // start a network task with the page to access and information (array list) to process.
         Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);
     }
 }
