@@ -40,7 +40,7 @@ public class LeaderboardHome extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard_home);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         listView = (ListView)findViewById(R.id.leaderboardList);
         // initialise arrayList
         arrayList = new ArrayList<Leaderboard>();

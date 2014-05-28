@@ -34,6 +34,7 @@ public class Friends extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         // initialise list view
         listView = (ListView)findViewById(R.id.friendList);
         // initialise arrayList

@@ -56,6 +56,7 @@ public class Events extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         // initialise list view
         listView = (ListView)findViewById(R.id.eventList);
         // initialise arrayList
