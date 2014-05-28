@@ -69,9 +69,9 @@ public class LeaderboardDAO {
      * TODO
      * Updates user rankings in the leaderboard into the database
      */
-    public static void updateRankings() {
+    public static void updateRankings(int[] rankingId, int[] position) {
         // creates a list array which will contain information about the leaderboard
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(69199239);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
         // start a network task with the page to access and information (array list) to process.
         Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);

@@ -17,7 +17,6 @@ import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.LeaderboardDAO;
 import com.id11413010.circle.app.pojo.Ranking;
-import com.id11413010.circle.app.voting.VotingAdd;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -65,8 +64,7 @@ public class LeaderboardView extends ListActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.updateLeaderboard) {
-            // start an activity to add a new Poll
-            startActivity(new Intent(this, VotingAdd.class));
+            new SaveRankingsTask().execute();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -122,7 +120,7 @@ public class LeaderboardView extends ListActivity {
     private class RetrieveRankingsTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
-            Intent intent = new Intent();
+            Intent intent = getIntent();
             return LeaderboardDAO.retrieveRankings(intent.getIntExtra(Constants.LEADERBOARD_ID,0));
         }
 
@@ -132,13 +130,26 @@ public class LeaderboardView extends ListActivity {
             List<Ranking> list = new Gson().fromJson(json, collectionType);
             for (Ranking r : list)
                 arrayList.add(r);
+            sort();
             adapter.notifyDataSetInvalidated();
         }
     }
 
     private class SaveRankingsTask extends AsyncTask<Void, Void, Void> {
+        private int[] rankingId;
+        private int[] position;
+
+        protected void onPreExecute() {
+            rankingId = new int[arrayList.size()+1];
+            position = new int[arrayList.size()+1];
+            for (int i = 0; i < arrayList.size(); i++) {
+                rankingId[i] = adapter.getItem(i).getId();
+                position[i] = i+1;
+            }
+        }
+
         protected Void doInBackground(Void... params) {
-            LeaderboardDAO.updateRankings();
+            LeaderboardDAO.updateRankings(rankingId, position);
             return null;
         }
 
