@@ -16,6 +16,7 @@
         <activity
             android:name="com.id11413010.circle.app.events.Events"
             android:label="@string/title_activity_events"
+            android:theme="@style/Theme.Example"
             android:parentActivityName="com.id11413010.circle.app.HomeScreen" >
         </activity>
         <activity
