@@ -25,7 +25,6 @@ public class HomeScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**

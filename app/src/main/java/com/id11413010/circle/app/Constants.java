@@ -119,4 +119,12 @@ public class Constants {
      * Tag for Leaderboard name
      */
     public static final String LEADERBOARD_NAME = "leaderboardName";
+    /**
+     * Tag for ranking id
+     */
+    public static final String RANKING_ID = "rankingId";
+    /**
+     * Tag for Leaderboard name
+     */
+    public static final String POSITION = "position";
 }

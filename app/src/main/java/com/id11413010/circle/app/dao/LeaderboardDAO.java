@@ -66,14 +66,16 @@ public class LeaderboardDAO {
     }
 
     /**
-     * TODO
      * Updates user rankings in the leaderboard into the database
      */
     public static void updateRankings(int[] rankingId, int[] position) {
         // creates a list array which will contain information about the leaderboard
-        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
-        // start a network task with the page to access and information (array list) to process.
-        Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);
+        for (int i = 0; i < rankingId.length; i++) {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair(Constants.RANKING_ID, Integer.toString(rankingId[i])));
+            nameValuePairs.add(new BasicNameValuePair(Constants.POSITION, Integer.toString(position[i])));
+            // start a network task with the page to access and information (array list) to process.
+            Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);
+        }
     }
 }
