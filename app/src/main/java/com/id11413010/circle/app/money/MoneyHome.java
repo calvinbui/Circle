@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 
 /**
@@ -35,5 +36,13 @@ public class MoneyHome extends Activity {
      */
     public void openMoneyOwing(View v) {
         startActivity(new Intent(this, MoneyOwing.class));
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeScreen.class));
+        finish();
     }
 }

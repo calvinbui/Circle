@@ -35,6 +35,7 @@ public class HomeScreen extends Activity {
     public void openFriends(View v) {
         // start the friend_list activity
         startActivity(new Intent(this, Friends.class));
+        finish();
     }
 
     /**
@@ -44,6 +45,7 @@ public class HomeScreen extends Activity {
     public void openEvents(View v) {
         // start the event activity
         startActivity(new Intent(this, Events.class));
+        finish();
     }
 
     /**
@@ -53,6 +55,7 @@ public class HomeScreen extends Activity {
     public void openMoney(View v) {
         // start the money activity
         startActivity(new Intent(this, MoneyHome.class));
+        finish();
     }
 
     /**
@@ -62,6 +65,7 @@ public class HomeScreen extends Activity {
     public void openVoting(View v) {
         // start the money activity
         startActivity(new Intent(this, Voting.class));
+        finish();
     }
 
     /**
@@ -70,6 +74,7 @@ public class HomeScreen extends Activity {
      */
     public void openLeaderboard(View v) {
         startActivity(new Intent(this, LeaderboardHome.class));
+        finish();
     }
 
     /**

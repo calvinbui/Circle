@@ -84,8 +84,10 @@ public class UserDAO {
         // retrieve the circle ID from the local shared preferences
         SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
         String circle = sp.getString(Constants.CIRCLE, null);
+        int userId = sp.getInt(Constants.USERID, 0);
         // creates a list array which will contain information about the circle
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId)));
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
         // return the String response from the web service containing the users.
         return Network.httpConnection("get_all_users.php", nameValuePairs);

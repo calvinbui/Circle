@@ -228,6 +228,7 @@ public class EventAdd extends Activity {
         protected void onPostExecute(Void result) {
             // return the user to the activity Listing the events.
             startActivity(new Intent(EventAdd.this, Events.class));
+            finish();
         }
     }
 }

@@ -1,12 +1,14 @@
 package com.id11413010.circle.app.friends;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.User;
@@ -59,5 +61,13 @@ public class Friends extends Activity {
                 arrayList.add(u);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeScreen.class));
+        finish();
     }
 }

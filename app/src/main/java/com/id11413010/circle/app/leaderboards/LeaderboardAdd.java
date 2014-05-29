@@ -75,6 +75,7 @@ public class LeaderboardAdd extends Activity {
         protected void onPostExecute(Void result) {
             // return the user to the leadebroard home page
             startActivity(new Intent(LeaderboardAdd.this, LeaderboardHome.class));
+            finish();
         }
     }
 }

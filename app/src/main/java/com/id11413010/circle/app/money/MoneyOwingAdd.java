@@ -105,7 +105,7 @@ public class MoneyOwingAdd extends Activity {
             String circle = sp.getString(Constants.CIRCLE, null);
             int currentUser = sp.getInt(Constants.USERID, 0);
             userId = userIdList.get(spinner.getSelectedItemPosition());
-            money = new Money(circle, currentUser,userId,Double.parseDouble(amount.getText().toString()),0,description.getText().toString(), null);
+            money = new Money(circle, currentUser, userId, Double.parseDouble(amount.getText().toString()),0,description.getText().toString(), null);
         }
 
         protected Void doInBackground(Void... params) {
