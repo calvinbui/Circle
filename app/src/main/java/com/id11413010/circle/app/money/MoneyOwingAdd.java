@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
-import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.MoneyDAO;
 import com.id11413010.circle.app.dao.UserDAO;
@@ -37,6 +36,7 @@ public class MoneyOwingAdd extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money_owing);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         spinner = (Spinner)findViewById(R.id.moneyOwer);
         amount = (EditText)findViewById(R.id.moneyAmountOwed);
         description = (EditText)findViewById(R.id.moneyOwedDescription);

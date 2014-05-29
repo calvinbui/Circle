@@ -28,6 +28,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+/**
+ * @author Eric Harlo
+ */
 public class DragNDropListView extends ListView {
 
     boolean mDragMode;

@@ -20,6 +20,7 @@ public class MoneyHome extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**

@@ -29,7 +29,7 @@ public class HomeScreen extends Activity {
     }
 
     /**
-     * A method called by the layout XML. Starts a new activity based upon which button  is press.
+     * A method called by the layout XML. Starts the Friends activity based upon which button is press.
      * @param v View object
      */
     public void openFriends(View v) {
@@ -37,25 +37,44 @@ public class HomeScreen extends Activity {
         startActivity(new Intent(this, Friends.class));
     }
 
+    /**
+     * A method called by the layout XML. Starts the Events activity based upon which button is press.
+     * @param v View object
+     */
     public void openEvents(View v) {
         // start the event activity
         startActivity(new Intent(this, Events.class));
     }
 
+    /**
+     * A method called by the layout XML. Starts the Money activity based upon which button is press.
+     * @param v View object
+     */
     public void openMoney(View v) {
         // start the money activity
         startActivity(new Intent(this, MoneyHome.class));
     }
 
+    /**
+     * A method called by the layout XML. Starts the Voting activity based upon which button is press.
+     * @param v View object
+     */
     public void openVoting(View v) {
         // start the money activity
         startActivity(new Intent(this, Voting.class));
     }
 
+    /**
+     * A method called by the layout XML. Starts the Leaderboard activity based upon which button is press.
+     * @param v View object
+     */
     public void openLeaderboard(View v) {
         startActivity(new Intent(this, LeaderboardHome.class));
     }
 
+    /**
+     * A method called by the layout XML. Starts the Friends activity based upon which button is press.
+     */
     @Override
     public void onBackPressed()
     {

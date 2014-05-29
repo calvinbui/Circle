@@ -37,6 +37,7 @@ public class VotingView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_view);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         intent = getIntent();
         question = (TextView)findViewById(R.id.pollQuestion);
         question.setText(intent.getStringExtra(Constants.POLL_NAME));

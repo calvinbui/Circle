@@ -33,6 +33,7 @@ public class VotingAdd extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_add);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
         question = (EditText)findViewById(R.id.question); //poll name
     }
@@ -56,7 +57,11 @@ public class VotingAdd extends Activity {
         startActivity(new Intent(VotingAdd.this, Voting.class));
         finish();
     }
-
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for creating a new poll into the database.
+     */
     private class CreatePollTask extends AsyncTask<Void, Void, Void> {
         /**
          * A String representing the user's circle

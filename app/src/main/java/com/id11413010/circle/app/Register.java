@@ -46,6 +46,7 @@ public class Register extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
         firstName = (EditText)findViewById(R.id.firstNameRegister); //EditText for first name
         lastName = (EditText)findViewById(R.id.lastNameRegister); //EditText for last name

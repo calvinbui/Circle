@@ -13,20 +13,38 @@ import com.id11413010.circle.app.pojo.Ranking;
 
 import java.util.ArrayList;
 
+/**
+ * The underlying adapter to a sortable rankings list view
+ * @author Eric Harlow
+ */
 public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveListener, DropListener {
+    /**
+     * An array to hold the Ranking IDs
+     */
     private int[] mIds;
+    /**
+     * An array to hold the Ranking layout
+     */
     private int[] mLayouts;
+    /**
+     * A layout inflater to make the layout visible
+     */
     private LayoutInflater mInflater;
+    /**
+     * An array list of the rankings within a leaderboard
+     */
     private ArrayList<Ranking> mContent;
 
-    public LeaderboardViewAdapter(Context context, ArrayList<Ranking> content) {
-        init(context,new int[]{android.R.layout.simple_list_item_1},new int[]{android.R.id.text1}, content);
-    }
-
+    /**
+     * A Constructor to initialise the adapter
+     */
     public LeaderboardViewAdapter(Context context, int[] itemLayouts, int[] itemIDs, ArrayList<Ranking> content) {
         init(context,itemLayouts,itemIDs, content);
     }
 
+    /**
+     * Values to initialise the constructor with
+     */
     private void init(Context context, int[] layouts, int[] ids, ArrayList<Ranking> content) {
         // Cache the LayoutInflate to avoid asking for a new one each time.
         mInflater = LayoutInflater.from(context);
@@ -91,7 +109,7 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
             // and the ImageView.
             holder = (ViewHolder) convertView.getTag();
         }
-
+        // an asynctask to retrieve the user's name from their user id
         new RetrieveUserTask(mContent.get(position), holder).execute();
         // Bind the data efficiently with the holder.
 
@@ -113,21 +131,37 @@ public final class LeaderboardViewAdapter extends BaseAdapter implements RemoveL
         mContent.add(to,temp);
     }
 
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for retrieving names from the database.
+     */
     private class RetrieveUserTask extends AsyncTask<Void, Void, String> {
+        /**
+         * A user ranking object
+         */
         private Ranking r;
+        /**
+         * A ViewHolder TextView widget
+         */
         private ViewHolder v;
 
+        /**
+         * Constructor which initialises the ranking and textview
+         */
         private RetrieveUserTask(Ranking r, ViewHolder v) {
             this.r = r;
             this.v = v;
         }
 
         protected String doInBackground(Void... params) {
+            // get user names from the circle
             return UserDAO.retrieveUserNames(r.getUser());
         }
 
         @Override
         protected void onPostExecute(String json) {
+            // set TextView with the user's names
             v.text.setText(json);
         }
     }

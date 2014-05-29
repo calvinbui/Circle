@@ -52,7 +52,7 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money_split_bill);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         // finds and stores a view that was identified by the id attribute
         peopleCount = (NumberPicker)findViewById(R.id.numOfPeople); // NumberPicker for people within circle
         totalPrice = (EditText)findViewById(R.id.totalPrice); // EditText for total bill price
@@ -129,7 +129,7 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
     /**
      * An AsyncTask which captures the information inputted by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
-     * thread.
+     * thread. Retrieves the amount of members within the circle.
      */
     private class getCircleMembersCount extends AsyncTask<Void, Void, Void> {
         private String amount;

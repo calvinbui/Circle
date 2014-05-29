@@ -50,8 +50,6 @@ public class EventAdd extends Activity {
      * These TextViews will represent the end time selected by the user
      */
     private TextView endTime;
-    //TODO
-    private int mYear, mMonth, mDay, mHour, mMinute;
     /**
      * The EditTexts representing the name of the event being created by the user.
      */
@@ -69,6 +67,7 @@ public class EventAdd extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_add);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
         name = (EditText)findViewById(R.id.eventName); //EditText for the event name
         location = (EditText)findViewById(R.id.eventLocation); //EditText for event location
@@ -120,6 +119,10 @@ public class EventAdd extends Activity {
         dpd.show();
     }
 
+    /**
+     * Creates and shows a DatePickerDialog for the user to select the end date. Currently
+     * attached to an onClick event within the XML.
+     */
     public void pickStartDate(View v) {
         // Process to get Current Date
         final Calendar c = Calendar.getInstance();
@@ -143,8 +146,6 @@ public class EventAdd extends Activity {
     public void pickStartTime(View v) {
         // Process to get current time (right now)
         final Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
 
         // Create new TimePickerDialog using the time captured above as the starting position.
         TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -153,16 +154,18 @@ public class EventAdd extends Activity {
                 // Display selected time in TextView
                 startTime.setText(hourOfDay + ":" + minute);
             }
-        }, mHour, mMinute, false);
+        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
         // show the the created TimePickerDialog
         tpd.show();
     }
 
+    /**
+     * Creates and shows a TimePickerDialog for the user to select an end time. Currently
+     * attached to an onClick event within the XML.
+     */
     public void pickEndTime(View v) {
         // Process to get Current Time
         final Calendar c = Calendar.getInstance();
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
 
         // Launch Time Picker Dialog
         TimePickerDialog tpd = new TimePickerDialog(this,
@@ -172,7 +175,7 @@ public class EventAdd extends Activity {
                         // Display Selected time in textbox
                         endTime.setText(hourOfDay + ":" + minute);
                     }
-                }, mHour, mMinute, false);
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
         tpd.show();
     }
 

@@ -65,21 +65,26 @@ public class Events extends Activity {
         adapter = new EventAdapter(this, R.layout.listevents, arrayList);
         // set the adapter for the list
         listView.setAdapter(adapter);
+        // start an async task to retrieve all events within the user's circle
         new retrieveEventsTask().execute();
 
+        // listen for a click on a particular row on the list and show a popup dialog of the event's description
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                // retrieve the Event object at the position clicked
                 Event item = (Event)adapterView.getItemAtPosition(position);
+                // create a new alert dialog
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Events.this);
-                builder.setTitle(item.getName())
-                .setMessage(item.getDescription())
+                builder.setTitle(item.getName()) //set the title to the event name
+                .setMessage(item.getDescription()) //set the description to the event
+                // create a button to close the dialog
                 .setNeutralButton(R.string.oK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-                // Set the Icon for the Dialog
+                // show the dialog
                 builder.show();
             }
         });
@@ -114,37 +119,48 @@ public class Events extends Activity {
         finish();
     }
 
-    public class retrieveEventsTask extends AsyncTask<Void, Void, Void> {
-        String json;
+    /**
+     * Sort the list based on start date in ascending order
+     */
+    private void sort() {
+        Collections.sort(arrayList, new Comparator<Event>() {
+            public int compare(Event o1, Event o2) {
+                int i = 0;
+                try{
+                    return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return i;
+            }
+        });
+    }
 
-        protected Void doInBackground(Void... params) {
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for retrieving Events from the database.
+     */
+    public class retrieveEventsTask extends AsyncTask<Void, Void, String> {
+
+        protected String doInBackground(Void... params) {
+            // retrieve circle id from shared preferences
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            json = EventDAO.retrieveEvents(sp.getString(Constants.CIRCLE, null));
-            return null;
+            return EventDAO.retrieveEvents(sp.getString(Constants.CIRCLE, null));
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String json) {
+            // create a new list of event objects from the json String
             Type collectionType = new TypeToken<ArrayList<Event>>(){}.getType();
             List<Event> list = new Gson().fromJson(json, collectionType);
+            // add each event from the list into the array list
             for (Event e : list)
                 arrayList.add(e);
+            // sort the list based on start date
             sort();
+            // notify the adapter that the underlying data has changed to update its view.
             adapter.notifyDataSetChanged();
-        }
-
-        private void sort() {
-            Collections.sort(arrayList, new Comparator<Event>() {
-                public int compare(Event o1, Event o2) {
-                    int i = 0;
-                    try{
-                        return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return i;
-                }
-            });
         }
     }
 }

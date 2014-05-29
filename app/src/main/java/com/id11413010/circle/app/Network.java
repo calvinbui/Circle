@@ -18,27 +18,38 @@ import java.util.List;
  *
  */
 public class Network {
-    private static HttpPost httppost;
-    private static HttpClient httpclient;
+    /**
+     * The URL for the web service.
+     */
     private static String Url = "http://calvinbui.no-ip.biz/android/";
-    private static HttpEntity entity;
-    private static String htmlResponse;
-    private static HttpResponse response;
 
-    // TODO
+    /**
+     * Connection to the database through a HTTP Client.
+     * Performs a HTTP POST containing a List of name value pairs (containing a key and value).
+     * Returns a String of containing the web service's response.
+     */
     public static String httpConnection(String request, List<NameValuePair> nameValuePairs) {
-        httpclient = new DefaultHttpClient();
-        httppost = new HttpPost(Url + request);
+        // create a new HTTP client
+        HttpClient httpclient = new DefaultHttpClient();
+        // create a new http post to the specified URL
+        HttpPost httppost = new HttpPost(Url + request);
+        // initialise a String to hold the HTML response
+        String htmlResponse = new String();
         try {
+            // post the List to the URL
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            response = httpclient.execute(httppost);
-            entity = response.getEntity();
+            // store the response from the web service
+            HttpResponse response = httpclient.execute(httppost);
+            // convert the HTML response to an entity, removing the HTTP and networking sections
+            HttpEntity entity = response.getEntity();
+            // convert the response to a String
             htmlResponse = EntityUtils.toString(entity);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // return the String
         return htmlResponse;
     }
 }

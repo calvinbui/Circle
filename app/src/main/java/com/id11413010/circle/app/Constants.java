@@ -80,16 +80,43 @@ public class Constants {
      */
     public static final String DB_POLL = "poll";
     /**
-     * Tag for Poll Votes
+     * Tag for Money lender
      */
     public static final String DB_PAYER = "from";
+    /**
+     * Tag for Money ower
+     */
     public static final String DB_LENDER = "to";
+    /**
+     * Tag for Money owing
+     */
     public static final String DB_AMOUNT = "amount";
+    /**
+     * Tag for Poll name
+     */
     public static final String POLL_NAME = "pollName";
+    /**
+     * Tag for Poll ID
+     */
     public static final String POLL_ID = "pollID";
+    /**
+     * Tag for poll option ID
+     */
     public static final String OPTION_ID = "optionID";
+    /**
+     * Tag for Money oustanding id
+     */
     public static final String MONEY_ID = "moneyId";
+    /**
+     * Tag for Leaderboard Name for database
+     */
     public static final String DB_LEADERBOARD_NAME = "leaderboardName";
+    /**
+     * Tag for Leaderboard ID
+     */
     public static final String LEADERBOARD_ID = "leaderboardId";
+    /**
+     * Tag for Leaderboard name
+     */
     public static final String LEADERBOARD_NAME = "leaderboardName";
 }

@@ -46,7 +46,7 @@ public class Voting extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
-
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         listView = (ListView)findViewById(R.id.pollList);
         // initialise arrayList
         arrayList = new ArrayList<Poll>();
@@ -54,15 +54,21 @@ public class Voting extends Activity {
         adapter = new VotingAdapter(this, R.layout.listpolls, arrayList);
         // set the adapter for the list
         listView.setAdapter(adapter);
+        // retrieve the polls for the circle from the database
         new RetrievePollsTask().execute();
 
+        // listen for a click on a particular row on the list and opens the poll.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                // get the Poll object from the row selected
                 Poll item = (Poll)adapterView.getItemAtPosition(position);
+                // create a new intent
                 Intent i = new Intent(Voting.this, VotingView.class);
+                // put the poll id and name into the intent
                 i.putExtra(Constants.POLL_ID, item.getId());
                 i.putExtra(Constants.POLL_NAME, item.getName());
+                // start the activity given the intent
                 startActivity(i);
             }
         });
@@ -96,18 +102,27 @@ public class Voting extends Activity {
         finish();
     }
 
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for Polls from the database.
+     */
     public class RetrievePollsTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
+            // return the polls from the database
             return PollDAO.retrieveAllPolls(Voting.this);
         }
 
         @Override
         protected void onPostExecute(String json) {
+            // create a new list of poll objects from the json String
             Type collectionType = new TypeToken<ArrayList<Poll>>(){}.getType();
+            // add each poll from the list into the array list
             List<Poll> list = new Gson().fromJson(json, collectionType);
             for (Poll p : list)
                 arrayList.add(p);
+            // notify the adapter that the underlying data has changed to update its view.
             adapter.notifyDataSetChanged();
         }
     }

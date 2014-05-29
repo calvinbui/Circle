@@ -22,6 +22,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used for listing leaderboards a group of friends has created.
+ * Retrieves leaderboards from the database and displays them in a list view.
+ */
 public class LeaderboardHome extends Activity {
     /**
      * ListView that will hold our items references back to main.xml
@@ -41,6 +45,7 @@ public class LeaderboardHome extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard_home);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        // initialise the list
         listView = (ListView)findViewById(R.id.leaderboardList);
         // initialise arrayList
         arrayList = new ArrayList<Leaderboard>();
@@ -48,15 +53,20 @@ public class LeaderboardHome extends Activity {
         adapter = new LeaderboardAdapter(this, R.layout.listleaderboardsall, arrayList);
         // set the adapter for the list
         listView.setAdapter(adapter);
+        // start an aysnc task to retrieve all leaderboards within the user's group
         new RetrieveLeaderboardTask().execute();
 
+        // listen for a click on a particular row on the list opens a view of that particular leaderboard.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
+                // retrieve the Leaderboard object at the position clicked
                 Leaderboard item = (Leaderboard)adapterView.getItemAtPosition(position);
+                // create a new intent containing the leaderboard id and name
                 Intent i = new Intent(LeaderboardHome.this, LeaderboardView.class);
                 i.putExtra(Constants.LEADERBOARD_ID, item.getId());
                 i.putExtra(Constants.LEADERBOARD_NAME, item.getName());
+                // start the activity with the extras
                 startActivity(i);
             }
         });
@@ -77,6 +87,7 @@ public class LeaderboardHome extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.addLeaderboard) {
+            // start an activity to add a new leaderboard
             startActivity(new Intent(this, LeaderboardAdd.class));
         }
         return super.onOptionsItemSelected(item);
@@ -90,19 +101,28 @@ public class LeaderboardHome extends Activity {
         finish();
     }
 
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for retrieving leaderboards from the database.
+     */
     public class RetrieveLeaderboardTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
+            // retrieve all leaderboards in the database within the circle of friends
             return LeaderboardDAO.retrieveAllLeaderboards(LeaderboardHome.this);
 
         }
 
         @Override
         protected void onPostExecute(String json) {
+            // create a new list of leaderboard objects from the json String
             Type collectionType = new TypeToken<ArrayList<Leaderboard>>(){}.getType();
             List<Leaderboard> list = new Gson().fromJson(json, collectionType);
+            // add each leaderboard from the list into the array list
             for (Leaderboard l : list)
                 arrayList.add(l);
+            // notify the adapter that the underlying data has changed to update its view.
             adapter.notifyDataSetChanged();
         }
     }

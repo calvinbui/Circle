@@ -63,16 +63,31 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
         return moneyList;
     }
 
+    /**
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for retrieving names from the database.
+     */
     private class GetUserNames extends AsyncTask<Integer, Void, String[]> {
+        /**
+         * A TextView for the name of the owing user
+         */
         private TextView owerName;
+        /**
+         * A TextView for the name of the lending user
+         */
         private TextView lendorName;
 
+        /**
+         * Constructor for the AsyncTask.
+         */
         private GetUserNames(TextView ower, TextView lendor) {
             owerName = ower;
             lendorName = lendor;
         }
 
         protected String[] doInBackground(Integer... params) {
+            // return the name of the ower and lender
             return new String[] {
                     UserDAO.retrieveUserNames(params[0]),
                     UserDAO.retrieveUserNames(params[1])
@@ -80,6 +95,7 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
         }
 
         protected void onPostExecute(String... result) {
+            // set the TextView to the ower and lendor names
             owerName.setText(result[0]);
             lendorName.setText(result[1]);
         }
