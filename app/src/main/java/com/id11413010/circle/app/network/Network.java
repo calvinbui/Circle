@@ -1,6 +1,8 @@
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.network;
 
 import android.util.Log;
+
+import com.id11413010.circle.app.Constants;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +33,6 @@ public class Network {
      * Returns a String of containing the web service's response.
      */
     public static String httpConnection(String request, List<NameValuePair> nameValuePairs) {
-
         // create a new HTTP client
         HttpClient httpclient = new DefaultHttpClient();
         // create a new http post to the specified URL

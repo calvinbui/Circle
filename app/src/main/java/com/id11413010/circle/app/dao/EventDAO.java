@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.id11413010.circle.app.Constants;
-import com.id11413010.circle.app.Network;
+import com.id11413010.circle.app.network.Network;
 import com.id11413010.circle.app.pojo.Event;
 
 import org.apache.http.NameValuePair;

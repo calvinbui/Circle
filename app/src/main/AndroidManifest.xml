@@ -3,6 +3,7 @@
     package="com.id11413010.circle.app" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -10,99 +11,105 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.id11413010.circle.app.HomeScreen"
+            android:name=".HomeScreen"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.events.Events"
+            android:name=".events.Events"
             android:label="@string/title_activity_events"
-            android:theme="@style/Theme.Event"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen" >
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Event" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.voting.Voting"
+            android:name=".voting.Voting"
             android:label="@string/title_activity_voting"
-            android:theme="@style/Theme.Voting"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen" >
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.friends.Friends"
+            android:name=".friends.Friends"
             android:label="@string/title_activity_friend"
-            android:theme="@style/Theme.Friends"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen" >
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Friends" >
         </activity>
         <activity
             android:name=".leaderboards.LeaderboardView"
             android:label="@string/title_activity_leaderboard"
-            android:theme="@style/Theme.Leaderboard"
-            android:parentActivityName="com.id11413010.circle.app.leaderboards.LeaderboardHome">
+            android:parentActivityName=".leaderboards.LeaderboardHome"
+            android:theme="@style/Theme.Leaderboard" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Register"
+            android:name=".Register"
             android:label="@string/title_activity_register"
-            android:parentActivityName="com.id11413010.circle.app.Login">
+            android:parentActivityName=".Login" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.events.EventAdd"
+            android:name=".events.EventAdd"
             android:label="@string/title_activity_event__add"
-            android:theme="@style/Theme.Event"
-            android:parentActivityName="com.id11413010.circle.app.events.Events">
+            android:parentActivityName=".events.Events"
+            android:theme="@style/Theme.Event" >
         </activity>
         <activity
             android:name=".moneySplit.MoneySplit"
             android:label="@string/title_activity_money__split__bill"
-            android:theme="@style/Theme.Moneycalc"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen">
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Moneycalc" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.Login"
-            android:label="@string/app_name">
+            android:name=".Login"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.voting.VotingAdd"
+            android:name=".voting.VotingAdd"
             android:label="@string/title_activity_voting_add"
-            android:theme="@style/Theme.Voting"
-            android:parentActivityName="com.id11413010.circle.app.voting.Voting">
+            android:parentActivityName=".voting.Voting"
+            android:theme="@style/Theme.Voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.leaderboards.LeaderboardAdd"
+            android:name=".leaderboards.LeaderboardAdd"
             android:label="@string/title_activity_leaderboard_add"
-            android:theme="@style/Theme.Leaderboard"
-            android:parentActivityName="com.id11413010.circle.app.leaderboards.LeaderboardHome">
+            android:parentActivityName=".leaderboards.LeaderboardHome"
+            android:theme="@style/Theme.Leaderboard" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.voting.VotingAddQuestion"
-            android:theme="@style/Theme.Voting"
-            android:label="@string/title_activity_voting_add_question" >
+            android:name=".voting.VotingAddQuestion"
+            android:label="@string/title_activity_voting_add_question"
+            android:theme="@style/Theme.Voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.moneyOwing.MoneyOwingAdd"
+            android:name=".moneyOwing.MoneyOwingAdd"
             android:label="@string/title_activity_money_owing_add"
-            android:theme="@style/Theme.Money"
-            android:parentActivityName="com.id11413010.circle.app.moneyOwing.MoneyOwing">
+            android:parentActivityName=".moneyOwing.MoneyOwing"
+            android:theme="@style/Theme.Money" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.voting.VotingView"
+            android:name=".voting.VotingView"
             android:label="@string/title_activity_voting_view"
-            android:theme="@style/Theme.Voting"
-            android:parentActivityName="com.id11413010.circle.app.voting.Voting">
+            android:parentActivityName=".voting.Voting"
+            android:theme="@style/Theme.Voting" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.moneyOwing.MoneyOwing"
+            android:name=".moneyOwing.MoneyOwing"
             android:label="@string/title_activity_money_owing"
-            android:theme="@style/Theme.Money"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen">
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Money" >
         </activity>
         <activity
-            android:name="com.id11413010.circle.app.leaderboards.LeaderboardHome"
+            android:name=".leaderboards.LeaderboardHome"
             android:label="@string/title_activity_leaderboard_home"
-            android:theme="@style/Theme.Leaderboard"
-            android:parentActivityName="com.id11413010.circle.app.HomeScreen" >
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/Theme.Leaderboard" >
         </activity>
+        <service
+            android:name=".network.NetworkCheck"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

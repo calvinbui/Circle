@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.id11413010.circle.app.Constants;
-import com.id11413010.circle.app.Network;
+import com.id11413010.circle.app.network.Network;
 import com.id11413010.circle.app.pojo.User;
 
 import org.apache.http.NameValuePair;
@@ -81,7 +81,6 @@ public class UserDAO {
 
     /**
      * Retrieves all users in the a circle from the database
-     * @param context
      * @return A JSON String containing all users within the circle
      */
     public static String retrieveAllUsers(Context context) {

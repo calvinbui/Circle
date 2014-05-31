@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.id11413010.circle.app.dao.UserDAO;
+import com.id11413010.circle.app.network.NetworkCheck;
 import com.id11413010.circle.app.pojo.User;
 
 /**
@@ -41,6 +42,8 @@ public class Login extends Activity {
         emailET = (EditText)findViewById(R.id.username_et); //email EditText
         passwordET = (EditText)findViewById(R.id.password_et); //password EditText
         Log.i(Constants.LOG, "Started Application");
+        startService(new Intent(this, NetworkCheck.class));
+        Log.i(Constants.LOG, "Starting Network Check Service");
     }
 
     /**
