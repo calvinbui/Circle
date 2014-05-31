@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.R;
@@ -34,7 +33,7 @@ public class LeaderboardAdapter extends ArrayAdapter<Leaderboard> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout LeaderboardList;
+        ViewHolder holder;
         // the object at the current array position
         Leaderboard l = getItem(position);
 
@@ -43,18 +42,28 @@ public class LeaderboardAdapter extends ArrayAdapter<Leaderboard> {
         the layout.
          */
         if(convertView == null) {
-            LeaderboardList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, LeaderboardList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.question = (TextView)convertView.findViewById(R.id.leaderboardNameList);
+            convertView.setTag(holder);
         } else {
-            LeaderboardList = (RelativeLayout)convertView;
+            holder = (ViewHolder)convertView.getTag();
         }
 
         //finds and stores a view that was identified by the id attribute
-        TextView question = (TextView)LeaderboardList.findViewById(R.id.leaderboardNameList);
+
         // set the leaderboard name
-        question.setText(l.getName());
+        holder.question.setText(l.getName());
         // return the row
-        return LeaderboardList;
+        return convertView;
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView question;
     }
 }

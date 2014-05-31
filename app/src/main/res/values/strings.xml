@@ -58,7 +58,7 @@
     <string name="numPeople">No. of People</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_voting_add">Add a new poll</string>
-    <string name="title_activity_money_owing_add">Log a new outstanding payment</string>
+    <string name="title_activity_money_owing_add">New Loan</string>
     <string name="title_activity_leaderboard_add">Add a leaderboard</string>
     <string name="title_activity_leaderboard_view">LeaderboardView</string>
     <string name="title_activity_voting_view">VotingView</string>
@@ -83,4 +83,10 @@
     <string name="newLeadeboardName">New Leaderboard Name</string>
     <string name="title_activity_leaderboard_home">Leaderboards</string>
     <string name="save">Save</string>
+    <string name="leaderboardName">Leaderboard Name</string>
+    <string name="whoOwesYou">Select the person who owes you</string>
+    <string name="amountOwed">Specify amount owed</string>
+    <string name="moneyOwingReason">Loan Description</string>
+    <string name="amountHint">312.85</string>
+    <string name="descriptionHint">Lent money to purchase a burger</string>
 </resources>

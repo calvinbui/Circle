@@ -15,16 +15,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.EventDAO;
 import com.id11413010.circle.app.pojo.Event;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  The class is used for listing the current and future 'events' each group of friends has created.
@@ -134,16 +138,21 @@ public class Events extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving Events from the database.
      */
-    public class retrieveEventsTask extends AsyncTask<Void, Void, Void> {
+    public class retrieveEventsTask extends AsyncTask<Void, Void, String> {
 
-        protected Void doInBackground(Void... params) {
-            // retrieve and store the events in an array list
-            EventDAO.retrieveEvents(Events.this, arrayList);
-            return null;
+        protected String doInBackground(Void... params) {
+            // retrieve circle id from shared preferences
+            return EventDAO.retrieveEvents(Events.this);
         }
 
         @Override
-        protected void onPostExecute(Void results) {
+        protected void onPostExecute(String json) {
+            // create a new list of event objects from the json String
+            Type collectionType = new TypeToken<ArrayList<Event>>(){}.getType();
+            List<Event> list = new Gson().fromJson(json, collectionType);
+            // add each event from the list into the array list
+            for (Event e : list)
+                arrayList.add(e);
             // sort the list based on start date
             sort();
             // notify the adapter that the underlying data has changed to update its view.

@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/perPerson"
-            android:id="@+id/textView2"
+            android:id="@+id/dollarsign"
             android:singleLine="true" />
 
         <TextView

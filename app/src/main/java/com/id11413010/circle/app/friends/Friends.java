@@ -6,14 +6,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.User;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-
+/**
+ * The class is used for listing friends.
+ * Friends are retrieved from a database and shown within a listview.
+ */
 public class Friends extends Activity {
     /**
      * ListView that will hold our items references back to main.xml
@@ -44,14 +51,17 @@ public class Friends extends Activity {
         new RetrieveUsersTask().execute();
     }
 
-    public class RetrieveUsersTask extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... params) {
-            UserDAO.retrieveAllUsers(Friends.this, arrayList);
-            return null;
+    public class RetrieveUsersTask extends AsyncTask<Void, Void, String> {
+        protected String doInBackground(Void... params) {
+            return UserDAO.retrieveAllUsers(Friends.this);
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String json) {
+            Type collectionType = new TypeToken<ArrayList<User>>(){}.getType();
+            List<User> list = new Gson().fromJson(json, collectionType);
+            for (User u : list)
+                arrayList.add(u);
             adapter.notifyDataSetChanged();
         }
     }

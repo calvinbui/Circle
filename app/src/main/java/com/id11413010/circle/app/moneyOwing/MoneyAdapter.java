@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.R;
@@ -36,7 +35,7 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout moneyList;
+        ViewHolder holder;
         // the object at the current array position
         Money m = getItem(position);
         /*
@@ -44,23 +43,24 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
         the layout.
          */
         if(convertView == null) {
-            moneyList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, moneyList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.ower = (TextView)convertView.findViewById(R.id.owerFirstNamelist);
+            holder.lendor = (TextView)convertView.findViewById(R.id.lenderFirstNamelist);
+            holder.amount = (TextView)convertView.findViewById(R.id.moneyAmountOwing);
+            convertView.setTag(holder);
         } else {
-            moneyList = (RelativeLayout)convertView;
+            holder = (ViewHolder)convertView.getTag();
         }
 
-        //finds and stores a view that was identified by the id attribute
-        TextView ower = (TextView)moneyList.findViewById(R.id.owerFirstNamelist);
-        TextView lendor = (TextView)moneyList.findViewById(R.id.lenderFirstNamelist);
-        TextView amount = (TextView)moneyList.findViewById(R.id.moneyAmountOwing);
         //set the amount
-        amount.setText(Double.toString(m.getAmount()));
+        holder.amount.setText(String.format("%.2f", m.getAmount()));
         // retrieve owner and lendor first names
-        new GetUserNames(ower, lendor).execute(m.getFrom(), m.getTo());
+        new GetUserNames(holder.ower, holder.lendor).execute(m.getFrom(), m.getTo());
         //return the row
-        return moneyList;
+        return convertView;
     }
 
     /**
@@ -99,5 +99,14 @@ public class MoneyAdapter extends ArrayAdapter<Money> {
             owerName.setText(result[0]);
             lendorName.setText(result[1]);
         }
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView ower;
+        private TextView lendor;
+        private TextView amount;
     }
 }
