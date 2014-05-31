@@ -159,22 +159,27 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            String lsStart = "";
+            String lsInsert = "";
+            String lsEnd = "";
+            String lsText = "";
+
             Log.d("debug", moPattern.toString());
             Log.d("debug", "source: " + source + ", start: " + start + ", end:" + end + ", dest: " + dest + ", dstart: " + dstart + ", dend: " + dend);
 
-            String lsText = dest.toString();
+            lsText = dest.toString();
 
             // If the length is greater then 0, then insert the new character
             // into the original text for validation
             if (lsText.length() > 0) {
-                String lsStart = lsText.substring(0, dstart);
+                lsStart = lsText.substring(0, dstart);
                 Log.d("debug", "lsStart : " + lsStart);
                 // Check to see if they have deleted a character
                 if (source != "") {
-                    String lsInsert = source.toString();
+                    lsInsert = source.toString();
                     Log.d("debug", "lsInsert: " + lsInsert);
                 } // if
-                String lsEnd = lsText.substring(dend);
+                lsEnd = lsText.substring(dend);
                 Log.d("debug", "lsEnd   : " + lsEnd);
                 lsText = lsStart + lsInsert + lsEnd;
                 Log.d("debug", "lsText  : " + lsText);
