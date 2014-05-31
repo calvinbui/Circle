@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.Constants;
@@ -46,7 +45,7 @@ public class VotingViewAdapter extends ArrayAdapter<Question>{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout optionList;
+        ViewHolder holder;
         // the object at the current array position
         Question e = getItem(position);
 
@@ -55,26 +54,26 @@ public class VotingViewAdapter extends ArrayAdapter<Question>{
         the layout.
          */
         if(convertView == null) {
-            optionList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, optionList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.option = (TextView)convertView.findViewById(R.id.pollOption);
+            holder.progressBar = (ProgressBar)convertView.findViewById(R.id.votesBar);
+            holder.voteBtn = (Button)convertView.findViewById(R.id.voteButton);
+            convertView.setTag(holder);
         } else {
-            optionList = (RelativeLayout)convertView;
+            holder = (ViewHolder)convertView.getTag();
         }
 
-        //finds and stores a view that was identified by the id attribute
-        TextView option = (TextView)optionList.findViewById(R.id.pollOption);
-        final ProgressBar progressBar = (ProgressBar)optionList.findViewById(R.id.votesBar);
-        Button voteBtn = (Button)optionList.findViewById(R.id.voteButton);
-
         // get the amount of votes for each progress bar
-        new GetVotesTask(progressBar).execute(e.getId());
+        new GetVotesTask(holder.progressBar).execute(e.getId());
 
         // set the option's name/question
-        option.setText(e.getQuestion());
+        holder.option.setText(e.getQuestion());
 
         // set a listener onto the button to allow users to vote
-        voteBtn.setOnClickListener(new View.OnClickListener() {
+        holder.voteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // get the question at the row
@@ -84,7 +83,16 @@ public class VotingViewAdapter extends ArrayAdapter<Question>{
             }
         });
         // return the row
-        return optionList;
+        return convertView;
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView option;
+        private Button voteBtn;
+        private ProgressBar progressBar;
     }
 
     /**

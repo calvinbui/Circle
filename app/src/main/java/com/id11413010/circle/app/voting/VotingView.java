@@ -18,6 +18,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An activity which displays the poll options for the poll. Users can vote on poll options and
+ * see other votes.
+ */
 public class VotingView extends Activity {
     /**
      * ListView that will hold our items references back to main.xml
@@ -30,17 +34,22 @@ public class VotingView extends Activity {
     /**
      * List that will host our items and allow us to modify the VotingAdapter
      */
-    private TextView question;
     private ArrayList<Question> arrayList = null;
-    Intent intent;
+    /**
+     * The previous intent to open this activity
+     */
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting_view);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        // get the previous intent
         intent = getIntent();
+        // set the title
         setTitle(intent.getStringExtra(Constants.POLL_NAME));
-        question = (TextView)findViewById(R.id.pollQuestion);
+        // set the question to the textview
+        TextView question = (TextView)findViewById(R.id.pollQuestion);
         question.setText(intent.getStringExtra(Constants.POLL_NAME));
         listView = (ListView)findViewById(R.id.questionList);
         // initialise arrayList

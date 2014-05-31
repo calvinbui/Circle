@@ -68,7 +68,7 @@ public class MoneyOwing extends Activity {
                 // create a new alert dialog
                 final AlertDialog.Builder builder = new AlertDialog.Builder(MoneyOwing.this);
                 // set the title
-                builder.setTitle(Double.toString(item.getAmount()))
+                builder.setTitle(getText(R.string.dollarSign).toString() + Double.toString(item.getAmount()))
                 // set the message of the dialog
                 .setMessage(item.getDescription())
                 // set a button to cancel the dialog
@@ -91,7 +91,7 @@ public class MoneyOwing extends Activity {
                             dialogInterface.cancel();
                             Toast.makeText(getApplicationContext(), getString(R.string.moneyDeleted), Toast.LENGTH_SHORT).show();
                         } else {
-                            // if they are not the lender, toast the user that they cnanot delete the payment
+                            // if they are not the lender, toast the user that they cannot delete the payment
                             Toast.makeText(getApplicationContext(), getString(R.string.moneyNotUser), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -135,7 +135,7 @@ public class MoneyOwing extends Activity {
 
         @Override
         protected void onPostExecute(String json) {
-            // create a new list of oustanding payments objects from the json String
+            // create a new list of outstanding payments objects from the json String
             Type collectionType = new TypeToken<ArrayList<Money>>(){}.getType();
             List<Money> list = new Gson().fromJson(json, collectionType);
             // add each payment from the list into the array list

@@ -70,7 +70,6 @@ public class Voting extends Activity {
                 i.putExtra(Constants.POLL_NAME, item.getName());
                 // start the activity given the intent
                 startActivity(i);
-                finish();
             }
         });
     }

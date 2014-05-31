@@ -77,7 +77,7 @@
     <string name="oweReason">because&#8230;</string>
     <string name="title_activity_voting_adapter">VotingAdapter</string>
     <string name="owe">owes</string>
-    <string name="removeOwing">Paid (Delete)</string>
+    <string name="removeOwing">Remove</string>
     <string name="moneyNotUser">Only the creator can delete this</string>
     <string name="moneyDeleted">Paid!</string>
     <string name="newLeadeboardName">New Leaderboard Name</string>

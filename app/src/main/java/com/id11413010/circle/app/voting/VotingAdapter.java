@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.R;
@@ -35,7 +34,7 @@ public class VotingAdapter extends ArrayAdapter<Poll> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout pollList;
+        ViewHolder holder;
         // the object at the current array position
         Poll p = getItem(position);
 
@@ -44,17 +43,25 @@ public class VotingAdapter extends ArrayAdapter<Poll> {
         the layout.
          */
         if(convertView == null) {
-            pollList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, pollList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.question = (TextView)convertView.findViewById(R.id.votingList);
+            convertView.setTag(holder);
         } else {
-            pollList = (RelativeLayout)convertView;
+            holder = (ViewHolder)convertView.getTag();
         }
-        //finds and stores a view that was identified by the id attribute
-        TextView question = (TextView)pollList.findViewById(R.id.votingList);
         // set the question
-        question.setText(p.getName());
+        holder.question.setText(p.getName());
         // return the row
-        return pollList;
+        return convertView;
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView question;
     }
 }

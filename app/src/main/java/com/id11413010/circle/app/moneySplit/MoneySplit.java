@@ -10,7 +10,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -20,6 +23,8 @@ import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class is to calculate the divide a payment within a specified amount of individuals (friends).
@@ -75,6 +80,7 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
         };
         // set the TextWatcher listener onto the total price EditText
         totalPrice.addTextChangedListener(textWatcher);
+        totalPrice.setFilters(new InputFilter[]{new InputFilterCurrency(2)});
         // set a ValueChangeListener onto the NumberPicker to update the TextView upon value changes to the NumberPicker
         peopleCount.setOnValueChangedListener(this);
     }
@@ -113,22 +119,19 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Retrieves the amount of members within the circle.
      */
-    private class getCircleMembersCount extends AsyncTask<Void, Void, Void> {
-        private String amount;
-
+    private class getCircleMembersCount extends AsyncTask<Void, Void, String> {
         @Override
-        protected Void doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             // retrieves the circle ID from Shared Preferences
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
             String circle = sp.getString(Constants.CIRCLE, null);
             // retrieves the User's Circle ID stored within the Shared Preferences and store it
             // within the String circle.
-            amount = UserDAO.retrieveCircleMemberCount(circle);
-            return null;
+            return UserDAO.retrieveCircleMemberCount(circle);
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String amount) {
             // convert the amount of people from a String to an Integer
             int count = Integer.valueOf(amount);
             // set the minimum amount of the NumberPicker to 1 as there will always be at least one person paying the bill
@@ -141,4 +144,48 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
             peopleCount.setValue(1);
         }
     }
+
+    /**
+     * InputFilter to limit currency amount to two decimal places.
+     * http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext
+     */
+    private class InputFilterCurrency implements InputFilter {
+        private Pattern moPattern;
+
+        public InputFilterCurrency(int aiMinorUnits) {
+            // http://www.regexplanet.com/advanced/java/index.html
+            moPattern = Pattern.compile("[0-9]*+((\\.[0-9]{0," + aiMinorUnits + "})?)||(\\.)?");
+        } // InputFilterCurrency
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            Log.d("debug", moPattern.toString());
+            Log.d("debug", "source: " + source + ", start: " + start + ", end:" + end + ", dest: " + dest + ", dstart: " + dstart + ", dend: " + dend);
+
+            String lsText = dest.toString();
+
+            // If the length is greater then 0, then insert the new character
+            // into the original text for validation
+            if (lsText.length() > 0) {
+                String lsStart = lsText.substring(0, dstart);
+                Log.d("debug", "lsStart : " + lsStart);
+                // Check to see if they have deleted a character
+                if (source != "") {
+                    String lsInsert = source.toString();
+                    Log.d("debug", "lsInsert: " + lsInsert);
+                } // if
+                String lsEnd = lsText.substring(dend);
+                Log.d("debug", "lsEnd   : " + lsEnd);
+                lsText = lsStart + lsInsert + lsEnd;
+                Log.d("debug", "lsText  : " + lsText);
+            } // if
+
+            Matcher loMatcher = moPattern.matcher(lsText);
+            Log.d("debug", "loMatcher.matches(): " + loMatcher.matches() + ", lsText: " + lsText);
+            if (!loMatcher.matches()) {
+                return "";
+            }
+            return null;
+        } // CharSequence
+    } // InputFilterCurrency
 }
