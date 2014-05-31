@@ -11,7 +11,8 @@ import android.view.View;
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friends;
 import com.id11413010.circle.app.leaderboards.LeaderboardHome;
-import com.id11413010.circle.app.money.MoneyHome;
+import com.id11413010.circle.app.moneyOwing.MoneyOwing;
+import com.id11413010.circle.app.moneySplit.MoneySplit;
 import com.id11413010.circle.app.voting.Voting;
 
 /**
@@ -46,12 +47,21 @@ public class HomeScreen extends Activity {
     }
 
     /**
+     * A method called by the layout XML. Starts the Money owing activity based upon which button is press.
+     * @param v View object
+     */
+    public void openMoneyOwing(View v) {
+        // start the money owing activity
+        startActivity(new Intent(this, MoneyOwing.class));
+    }
+
+    /**
      * A method called by the layout XML. Starts the Money activity based upon which button is press.
      * @param v View object
      */
-    public void openMoney(View v) {
-        // start the money activity
-        startActivity(new Intent(this, MoneyHome.class));
+    public void openMoneySplit(View v) {
+        // start the money owing activity
+        startActivity(new Intent(this, MoneySplit.class));
     }
 
     /**
@@ -59,7 +69,7 @@ public class HomeScreen extends Activity {
      * @param v View object
      */
     public void openVoting(View v) {
-        // start the money activity
+        // start the voting activity
         startActivity(new Intent(this, Voting.class));
     }
 

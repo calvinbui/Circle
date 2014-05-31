@@ -18,14 +18,18 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.EventDAO;
 import com.id11413010.circle.app.pojo.Event;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This class is used to create a new Events. Users can fill out the details of their event which is
@@ -62,6 +66,14 @@ public class EventAdd extends Activity {
      * The EditTexts representing the details of the event being created by the user
      */
     private EditText details;
+    /**
+     * The starting time and date for the event, to compare with the ending time/date
+     */
+    private Calendar startDateTime;
+    /**
+     * The ending time and date for the event, to compare with the starting time/date
+     */
+    private Calendar endDateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +81,16 @@ public class EventAdd extends Activity {
         setContentView(R.layout.activity_event_add);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
-        name = (EditText)findViewById(R.id.eventName); //EditText for the event name
-        location = (EditText)findViewById(R.id.eventLocation); //EditText for event location
-        details = (EditText)findViewById(R.id.eventDescription); //EditText for event details
-        startDate = (TextView)findViewById(R.id.eventStartDate); //TextView for start date
-        endDate =(TextView)findViewById(R.id.eventEndDate); //TextView for end date
-        startTime = (TextView)findViewById(R.id.eventStartTime); //TextView for start time
-        endTime = (TextView)findViewById(R.id.eventEndTime); //TextView for end time
+        name = (EditText) findViewById(R.id.eventName); //EditText for the event name
+        location = (EditText) findViewById(R.id.eventLocation); //EditText for event location
+        details = (EditText) findViewById(R.id.eventDescription); //EditText for event details
+        startDate = (TextView) findViewById(R.id.eventStartDate); //TextView for start date
+        endDate = (TextView) findViewById(R.id.eventEndDate); //TextView for end date
+        startTime = (TextView) findViewById(R.id.eventStartTime); //TextView for start time
+        endTime = (TextView) findViewById(R.id.eventEndTime); //TextView for end time
+        // initialise the calendar
+        startDateTime = Calendar.getInstance();
+        endDateTime = Calendar.getInstance();
     }
 
     @Override
@@ -94,29 +109,56 @@ public class EventAdd extends Activity {
             when the user clicks on this option, it will execute an AsyncTask to add the event to
             the database.
              */
-            new CreateEventTask().execute();
+            if (validateFields()) {
+                new CreateEventTask().execute();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Validates all fields have been entered or chosen.
+     */
+    public boolean validateFields() {
+        // check if any fields are empty
+        if (name.getText().toString().equals("") || location.getText().toString().equals("") ||
+                details.getText().toString().equals("") || startDate.getText().toString().equals("")
+                || endDate.getText().toString().equals("") || startTime.getText().toString().equals("")
+                || endTime.getText().toString().equals("")) {
+            // create a toast with a message of what is missing.
+            // toast the user they should enter all fields
+            Toast.makeText(getApplicationContext(), getText(R.string.missingFields).toString(), Toast.LENGTH_LONG).show();
+            return false;
+        } else if (!isEndDateAfterStartDate()) {
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * Creates and shows a DatePickerDialog for the user to select a start or end date. Currently
      * attached to an onClick event within the XML.
      */
     public void pickEndDate(View v) {
-        // Process to get current date (today)
-        final Calendar c = Calendar.getInstance();
+        if (isStartEmpty()) {
+            // Process to get current date (today)
+            final Calendar c = Calendar.getInstance();
 
-        // Create a DatePickerDialog using the current date captured above as the starting position
-        DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year,int monthOfYear, int dayOfMonth) {
-                // Display selected date in TextView upon selection.
-                endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-            }
-        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-        // show the DatePickerDialog.
-        dpd.show();
+            // Create a DatePickerDialog using the current date captured above as the starting position
+            DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    // Display selected date in TextView upon selection.
+                    endDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    endDateTime.set(Calendar.MONTH, monthOfYear);
+                    endDateTime.set(Calendar.YEAR, year);
+                    endDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                }
+            }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            // show the DatePickerDialog.
+            dpd.show();
+        }
     }
 
     /**
@@ -133,9 +175,13 @@ public class EventAdd extends Activity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
+                        startDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        startDateTime.set(Calendar.MONTH, monthOfYear);
+                        startDateTime.set(Calendar.YEAR, year);
                         startDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
-                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)
+        );
         dpd.show();
     }
 
@@ -150,9 +196,18 @@ public class EventAdd extends Activity {
         // Create new TimePickerDialog using the time captured above as the starting position.
         TimePickerDialog tpd = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
-                // Display selected time in TextView
-                startTime.setText(hourOfDay + ":" + minute);
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                try {
+                    Date date = new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute);
+                    // Display Selected time in textbox
+                    DateFormat df = new SimpleDateFormat("HH:mm");
+                    // Display selected time in TextView
+                    startDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    startDateTime.set(Calendar.MINUTE, minute);
+                    startTime.setText(df.format(date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
         // show the the created TimePickerDialog
@@ -164,19 +219,51 @@ public class EventAdd extends Activity {
      * attached to an onClick event within the XML.
      */
     public void pickEndTime(View v) {
-        // Process to get Current Time
-        final Calendar c = Calendar.getInstance();
+        if (isStartEmpty() && isEndDateEmpty()) {
+            // Process to get Current Time
+            final Calendar c = Calendar.getInstance();
+            // Launch Time Picker Dialog
+            TimePickerDialog tpd = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            endDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                            endDateTime.set(Calendar.MINUTE, minute);
+                            try {
+                                Date date = new SimpleDateFormat("HH:mm").parse(hourOfDay + ":" + minute);
+                                // Display Selected time in textbox
+                                DateFormat df = new SimpleDateFormat("HH:mm");
+                                endTime.setText(df.format(date));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false
+            );
+            tpd.show();
+        }
+    }
 
-        // Launch Time Picker Dialog
-        TimePickerDialog tpd = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay,int minute) {
-                        // Display Selected time in textbox
-                        endTime.setText(hourOfDay + ":" + minute);
-                    }
-                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-        tpd.show();
+    private boolean isEndDateAfterStartDate() {
+        if (endDateTime.after(startDateTime)) {
+            return true;
+        }
+        Toast.makeText(this, getText(R.string.dateError), Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    private boolean isEndDateEmpty() {
+        if (endDate.getText().toString().equals(""))
+            return false;
+        return true;
+    }
+
+    private boolean isStartEmpty() {
+        if (startTime.getText().toString().equals("") || startDate.getText().toString().equals("")) {
+            Toast.makeText(this, getText(R.string.enterstarttimedate), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -218,7 +305,7 @@ public class EventAdd extends Activity {
             // create a new Event object containing event data.
             Event event = new Event(name.getText().toString(), details.getText().toString(),
                     location.getText().toString(), startDateString, endDateString, endTime.getText().toString(),
-                    startTime.getText().toString(),circle);
+                    startTime.getText().toString(), circle);
             // pass the object to the data-access-object class to add it to the database
             EventDAO.createEvent(event);
             return null;

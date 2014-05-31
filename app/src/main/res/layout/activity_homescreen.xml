@@ -34,7 +34,7 @@
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
             android:background="@null"
-            android:onClick="openMoney"
+            android:onClick="openMoneyOwing"
             android:src="@drawable/money" />
     </LinearLayout>
     <LinearLayout
@@ -60,12 +60,14 @@
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:id="@+id/btn_leaderboard"
+            android:id="@+id/btn_moneySplit"
             android:layout_marginBottom="5sp"
+            android:background="@null"
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="0sp"
-            />
+            android:onClick="openMoneySplit"
+            android:src="@drawable/moneysplit" />
 
 
     </LinearLayout>

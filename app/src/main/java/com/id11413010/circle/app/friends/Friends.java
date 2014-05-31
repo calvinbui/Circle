@@ -6,16 +6,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.pojo.User;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Friends extends Activity {
@@ -48,17 +44,14 @@ public class Friends extends Activity {
         new RetrieveUsersTask().execute();
     }
 
-    public class RetrieveUsersTask extends AsyncTask<Void, Void, String> {
-        protected String doInBackground(Void... params) {
-            return UserDAO.retrieveAllUsers(Friends.this);
+    public class RetrieveUsersTask extends AsyncTask<Void, Void, Void> {
+        protected Void doInBackground(Void... params) {
+            UserDAO.retrieveAllUsers(Friends.this, arrayList);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String json) {
-            Type collectionType = new TypeToken<ArrayList<User>>(){}.getType();
-            List<User> list = new Gson().fromJson(json, collectionType);
-            for (User u : list)
-                arrayList.add(u);
+        protected void onPostExecute(Void result) {
             adapter.notifyDataSetChanged();
         }
     }

@@ -5,10 +5,8 @@ package com.id11413010.circle.app.events;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,21 +15,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.EventDAO;
 import com.id11413010.circle.app.pojo.Event;
 
-import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 /**
  The class is used for listing the current and future 'events' each group of friends has created.
@@ -141,22 +134,16 @@ public class Events extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving Events from the database.
      */
-    public class retrieveEventsTask extends AsyncTask<Void, Void, String> {
+    public class retrieveEventsTask extends AsyncTask<Void, Void, Void> {
 
-        protected String doInBackground(Void... params) {
-            // retrieve circle id from shared preferences
-            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            return EventDAO.retrieveEvents(sp.getString(Constants.CIRCLE, null));
+        protected Void doInBackground(Void... params) {
+            // retrieve and store the events in an array list
+            EventDAO.retrieveEvents(Events.this, arrayList);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String json) {
-            // create a new list of event objects from the json String
-            Type collectionType = new TypeToken<ArrayList<Event>>(){}.getType();
-            List<Event> list = new Gson().fromJson(json, collectionType);
-            // add each event from the list into the array list
-            for (Event e : list)
-                arrayList.add(e);
+        protected void onPostExecute(Void results) {
             // sort the list based on start date
             sort();
             // notify the adapter that the underlying data has changed to update its view.

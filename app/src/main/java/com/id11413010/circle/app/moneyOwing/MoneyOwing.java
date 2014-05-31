@@ -1,4 +1,4 @@
-package com.id11413010.circle.app.money;
+package com.id11413010.circle.app.moneyOwing;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -117,7 +117,6 @@ public class MoneyOwing extends Activity {
         if (id == R.id.createMoneyOwing) {
             // start an activity to add a new money owing
             startActivity(new Intent(this, MoneyOwingAdd.class));
-            finish();
         }
         return super.onOptionsItemSelected(item);
     }

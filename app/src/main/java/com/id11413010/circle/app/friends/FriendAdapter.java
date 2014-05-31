@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.R;
@@ -34,7 +33,7 @@ public class FriendAdapter extends ArrayAdapter<User> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout userList;
+        ViewHolder holder;
         // the object at the current array position
         User u = getItem(position);
 
@@ -43,18 +42,28 @@ public class FriendAdapter extends ArrayAdapter<User> {
         the layout.
          */
         if(convertView == null) {
-            userList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, userList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.name = (TextView)convertView.findViewById(R.id.userListName);
+            // sets the tag associated with this view.
+            convertView.setTag(holder);
         } else {
-            userList = (RelativeLayout)convertView;
+            // gets the tag associated with this view.
+            holder = (ViewHolder)convertView.getTag();
         }
-        //finds and stores a view that was identified by the id attribute
-        TextView name = (TextView)userList.findViewById(R.id.userListName);
         //set the name
-        name.setText(u.getFirstName() + " " + u.getLastName());
+        holder.name.setText(u.getFirstName() + " " + u.getLastName());
         //return the row
-        return userList;
+        return convertView;
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView name;
     }
 
 }

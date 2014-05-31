@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.id11413010.circle.app.R;
@@ -38,7 +37,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // the layout of the list view containing widgets
-        RelativeLayout eventList;
+        ViewHolder holder;
         // the object at the current array position
         Event e = getItem(position);
 
@@ -47,32 +46,31 @@ public class EventAdapter extends ArrayAdapter<Event>{
         the layout.
          */
         if(convertView == null) {
-            eventList = new RelativeLayout(getContext());
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(resource, eventList, true);
+            convertView = inflater.inflate(resource, parent, false);
+            //finds and stores a view that was identified by the id attribute
+            holder.monthYear = (TextView)convertView.findViewById(R.id.eventListMonthYear);
+            holder.day = (TextView)convertView.findViewById(R.id.eventListDay);
+            holder.name = (TextView)convertView.findViewById(R.id.eventListName);
+            holder.time = (TextView)convertView.findViewById(R.id.eventListTime);
+            holder.location = (TextView)convertView.findViewById(R.id.eventListLocation);
+            convertView.setTag(holder);
         } else {
-            eventList = (RelativeLayout)convertView;
+            holder = (ViewHolder)convertView.getTag();
         }
-
-        //finds and stores a view that was identified by the id attribute
-        TextView monthYear = (TextView)eventList.findViewById(R.id.eventListMonthYear);
-        TextView day = (TextView)eventList.findViewById(R.id.eventListDay);
-        TextView name = (TextView)eventList.findViewById(R.id.eventListName);
-        TextView time = (TextView)eventList.findViewById(R.id.eventListTime);
-        TextView location = (TextView)eventList.findViewById(R.id.eventListLocation);
-
         // set the month
-        monthYear.setText(formatDate(e, "MMM-yyyy"));
+        holder.monthYear.setText(formatDate(e, "MMM-yyyy"));
         // set the day
-        day.setText(formatDate(e, "d"));
+        holder.day.setText(formatDate(e, "d"));
         // set the name
-        name.setText(e.getName());
+        holder.name.setText(e.getName());
         // set the time
-        time.setText(formatTime(e.getStartTime()) + " - " + formatTime(e.getEndTime()));
+        holder.time.setText(formatTime(e.getStartTime()) + " - " + formatTime(e.getEndTime()));
         // set the location
-        location.setText(e.getLocation());
+        holder.location.setText(e.getLocation());
         // return the row
-        return eventList;
+        return convertView;
     }
 
     /**
@@ -112,5 +110,16 @@ public class EventAdapter extends ArrayAdapter<Event>{
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * A ViewHolder design pattern. Caches widgets.
+     */
+    private static class ViewHolder {
+        private TextView monthYear;
+        private TextView day;
+        private TextView name;
+        private TextView time;
+        private TextView location;
     }
 }
