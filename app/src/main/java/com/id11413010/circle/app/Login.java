@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class Login extends Activity {
         //finds and stores a view that was identified by the id attribute
         emailET = (EditText)findViewById(R.id.username_et); //email EditText
         passwordET = (EditText)findViewById(R.id.password_et); //password EditText
+        Log.i(Constants.LOG, "Started Application");
     }
 
     /**

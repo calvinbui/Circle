@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -91,6 +92,7 @@ public class EventAdd extends Activity {
         // initialise the calendar
         startDateTime = Calendar.getInstance();
         endDateTime = Calendar.getInstance();
+        Log.i(Constants.LOG, "Started Event Add");
     }
 
     @Override
@@ -206,7 +208,7 @@ public class EventAdd extends Activity {
                     startDateTime.set(Calendar.MINUTE, minute);
                     startTime.setText(df.format(date));
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.e(Constants.LOG, "Event Add - SimpleDateFormat ParseException");
                 }
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
@@ -235,7 +237,7 @@ public class EventAdd extends Activity {
                                 DateFormat df = new SimpleDateFormat("HH:mm");
                                 endTime.setText(df.format(date));
                             } catch (ParseException e) {
-                                e.printStackTrace();
+                                Log.e(Constants.LOG, "Event Add - SimpleDateFormat ParseException");
                             }
                         }
                     }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false
@@ -294,7 +296,7 @@ public class EventAdd extends Activity {
                 startDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(startDate.getText().toString()));
                 endDateString = new SimpleDateFormat("yyyy-MM-dd").format(new SimpleDateFormat("dd-MM-yyyy").parse(endDate.getText().toString()));
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e(Constants.LOG, "Event Add - SimpleDateFormat exception");
             }
             // retrieves the User's Events ID stored within the Shared Preferences and store it within the String circle.
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);

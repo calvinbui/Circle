@@ -5,6 +5,7 @@ package com.id11413010.circle.app.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.id11413010.circle.app.Constants;
@@ -36,6 +37,7 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, user.getPassword())); //password
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, user.getCircle())); //circle
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("register.php", nameValuePairs);
     }
 
@@ -53,6 +55,7 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_EMAIL, username)); // username
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_PASSWORD, password)); // password
         // store the JSON response from the web service into a String
+        Log.i(Constants.LOG, "Passing array list to network task");
         String response = Network.httpConnection("login.php", nameValuePairs);
         // if the JSON response is empty return null
         if (response.equals("")) {
@@ -72,6 +75,7 @@ public class UserDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
         // return the String response from the web service containing the amount of users.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("circle_member_count.php", nameValuePairs);
     }
 
@@ -90,6 +94,7 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId)));
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
         // return the String response from the web service containing the users.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_all_users.php", nameValuePairs);
     }
 
@@ -103,6 +108,7 @@ public class UserDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId)));
         // return the String response from the web service containing the user's names.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_user_firstname.php", nameValuePairs);
     }
 }

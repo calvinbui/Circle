@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +62,7 @@ public class LeaderboardView extends ListActivity {
             ((DragNDropListView) listView).setRemoveListener(mRemoveListener);
             ((DragNDropListView) listView).setDragListener(mDragListener);
         }
+        Log.i(Constants.LOG, "Started Leaderboard View");
     }
 
     @Override

@@ -5,6 +5,7 @@ package com.id11413010.circle.app.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
@@ -34,6 +35,7 @@ public class PollDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, poll.getCircle())); //circle
         // start a network task with the page to access and information (array list) to process.
         // converts the String returned to an integer.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Integer.valueOf(Network.httpConnection("create_poll.php", nameValuePairs));
     }
 
@@ -50,6 +52,7 @@ public class PollDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); //circle id
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_all_polls.php", nameValuePairs);
     }
 
@@ -63,6 +66,7 @@ public class PollDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_NAME, question.getQuestion())); //name
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_POLL, Integer.toString(question.getPoll()))); //poll linked to
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("create_question.php", nameValuePairs);
     }
 
@@ -76,6 +80,7 @@ public class PollDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(pollID))); // poll id
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_poll_options.php", nameValuePairs);
     }
 
@@ -92,6 +97,7 @@ public class PollDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(user)));
         nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(option)));
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("create_vote.php", nameValuePairs);
     }
 
@@ -105,6 +111,7 @@ public class PollDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.OPTION_ID, Integer.toString(id)));
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Integer.valueOf(Network.httpConnection("get_votes.php", nameValuePairs));
     }
 }

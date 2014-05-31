@@ -54,6 +54,7 @@ public class MoneyOwingAdd extends Activity {
         description = (EditText) findViewById(R.id.moneyOwedDescription);
         // retrieve users in the circle from the database
         new RetrieveUsersTask().execute();
+        Log.i(Constants.LOG, "Started Money Owing Add");
     }
 
     @Override

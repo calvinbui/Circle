@@ -6,6 +6,7 @@ package com.id11413010.circle.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.id11413010.circle.app.events.Events;
@@ -26,6 +27,7 @@ public class HomeScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+        Log.i(Constants.LOG, "Started Homescreen");
     }
 
     /**

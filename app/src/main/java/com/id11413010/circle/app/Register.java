@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class Register extends Activity {
         email = (EditText)findViewById(R.id.emailRegister); //EditText for email
         password = (EditText)findViewById(R.id.passwordRegister); //EditText for password
         circle = (EditText)findViewById(R.id.circleRegister); //EditText for circle/group
+        Log.i(Constants.LOG, "Started Register Activity");
     }
 
     /**

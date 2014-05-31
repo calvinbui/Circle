@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.LeaderboardDAO;
 
@@ -30,6 +32,7 @@ public class LeaderboardAdd extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
         name = (EditText)findViewById(R.id.leaderboardNewName);
+        Log.i(Constants.LOG, "Started Leaderboard Add");
     }
 
 

@@ -1,5 +1,7 @@
 package com.id11413010.circle.app;
 
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -29,6 +31,7 @@ public class Network {
      * Returns a String of containing the web service's response.
      */
     public static String httpConnection(String request, List<NameValuePair> nameValuePairs) {
+
         // create a new HTTP client
         HttpClient httpclient = new DefaultHttpClient();
         // create a new http post to the specified URL
@@ -39,15 +42,17 @@ public class Network {
             // post the List to the URL
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             // store the response from the web service
+            Log.i(Constants.LOG, "Starting network call");
             HttpResponse response = httpclient.execute(httppost);
             // convert the HTML response to an entity, removing the HTTP and networking sections
+            Log.i(Constants.LOG, "Network response successful");
             HttpEntity entity = response.getEntity();
             // convert the response to a String
             htmlResponse = EntityUtils.toString(entity);
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            Log.e(Constants.LOG, "Network connection failure - ClientProtocolException");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(Constants.LOG, "Network connection failure - IOException");
         }
         // return the String
         return htmlResponse;

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class VotingAdd extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         //finds and stores a view that was identified by the id attribute
         question = (EditText)findViewById(R.id.question); //poll name
+        Log.i(Constants.LOG, "Started Voting Add");
     }
 
     /**

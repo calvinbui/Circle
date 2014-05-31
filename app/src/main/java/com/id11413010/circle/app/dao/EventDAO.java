@@ -5,6 +5,7 @@ package com.id11413010.circle.app.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
@@ -37,6 +38,7 @@ public class EventDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_ENDTIME, event.getEndTime())); // end time
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, event.getCircle())); // circle
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("create_event.php", nameValuePairs);
     }
 
@@ -50,6 +52,7 @@ public class EventDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, sp.getString(Constants.CIRCLE, null))); // circle
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_events.php", nameValuePairs);
     }
 }

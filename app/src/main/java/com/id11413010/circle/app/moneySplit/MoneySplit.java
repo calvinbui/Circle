@@ -83,6 +83,7 @@ public class MoneySplit extends Activity implements NumberPicker.OnValueChangeLi
         totalPrice.setFilters(new InputFilter[]{new InputFilterCurrency(2)});
         // set a ValueChangeListener onto the NumberPicker to update the TextView upon value changes to the NumberPicker
         peopleCount.setOnValueChangedListener(this);
+        Log.i(Constants.LOG, "Started Money Split");
     }
 
     /**

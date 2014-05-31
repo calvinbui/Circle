@@ -127,4 +127,8 @@ public class Constants {
      * Tag for Leaderboard name
      */
     public static final String POSITION = "position";
+    /**
+     * Tag for logs
+     */
+    public static final String LOG = "com.11413010.circle.app";
 }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.EventDAO;
@@ -85,6 +87,7 @@ public class Events extends Activity {
                 builder.show();
             }
         });
+        Log.i(Constants.LOG, "Started Events");
     }
 
     @Override
@@ -126,7 +129,7 @@ public class Events extends Activity {
                 try{
                     return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.e(Constants.LOG, "Event Add - SimpleDateFormat ParseException");
                 }
                 return i;
             }

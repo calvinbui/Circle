@@ -1,12 +1,14 @@
 package com.id11413010.circle.app.events;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.pojo.Event;
 
@@ -88,7 +90,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
             // return the date as a String
             return df.format(date);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(Constants.LOG, "EventAdapter - formatDate ParseException");
         }
         return null;
     }
@@ -107,7 +109,7 @@ public class EventAdapter extends ArrayAdapter<Event>{
             // return the time as a String
             return df.format(date);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(Constants.LOG, "EventAdapter - formatTime ParseException");
         }
         return null;
     }

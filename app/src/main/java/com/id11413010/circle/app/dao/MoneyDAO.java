@@ -2,6 +2,7 @@ package com.id11413010.circle.app.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
@@ -31,6 +32,7 @@ public class MoneyDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_AMOUNT, String.valueOf(money.getAmount()))); //amount owed
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_DESCRIPTION, money.getDescription())); //description of the payment
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("create_money_owing.php", nameValuePairs);
     }
 
@@ -47,6 +49,7 @@ public class MoneyDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); // circle
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_money_owing.php", nameValuePairs);
     }
 
@@ -59,6 +62,7 @@ public class MoneyDAO {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.MONEY_ID, Integer.toString(money.getId()))); // payment id
         // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("delete_money_owing.php", nameValuePairs);
     }
 }

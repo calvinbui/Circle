@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +43,7 @@ public class VotingAddQuestion extends Activity {
         pollID = intent.getIntExtra(Constants.DB_POLL, 0);
         //finds and stores a view that was identified by the id attribute
         question = (EditText)findViewById(R.id.question);
+        Log.i(Constants.LOG, "Started Voting Add Question");
     }
 
 
