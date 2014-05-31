@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.Network;
 import com.id11413010.circle.app.pojo.User;
@@ -14,6 +15,7 @@ import com.id11413010.circle.app.pojo.User;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,28 @@ public class UserDAO {
 
     /**
      * Retrieves all users in the a circle from the database
-     * @param context
+     * @return A JSON String containing all users within the circle
+     */
+    public static ArrayList<User> retrieveAllUsers(Context context, ArrayList<User> arrayList) {
+        // retrieve the circle ID from the local shared preferences
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        String circle = sp.getString(Constants.CIRCLE, null);
+        int userId = sp.getInt(Constants.USERID, 0);
+        // creates a list array which will contain information about the circle
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.USERID, Integer.toString(userId)));
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle));
+        // return the String response from the web service containing the users.
+        String json = Network.httpConnection("get_all_users.php", nameValuePairs);
+        Type collectionType = new TypeToken<ArrayList<User>>(){}.getType();
+        List<User> list = new Gson().fromJson(json, collectionType);
+        for (User u : list)
+            arrayList.add(u);
+        return arrayList;
+    }
+
+    /**
+     * Retrieves all users in the a circle from the database
      * @return A JSON String containing all users within the circle
      */
     public static String retrieveAllUsers(Context context) {
