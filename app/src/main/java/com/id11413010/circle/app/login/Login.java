@@ -85,8 +85,10 @@ public class Login extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             // if login unsuccessful, toast the user with an error message.
-            if (user == null)
+            if (user == null) {
                 Toast.makeText(getApplicationContext(), R.string.loginError, Toast.LENGTH_SHORT).show();
+                Log.i(Constants.LOG, "Incorrect Login");
+            }
             // If the login is successful, store session information into Shared Preferences.
             else if(user.getEmail().equals(emailET.getText().toString()) && user.getPassword().equals(passwordET.getText().toString())) {
                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
@@ -102,7 +104,7 @@ public class Login extends Activity {
                 // start the home screen activity
                 startActivity(new Intent(Login.this, HomeScreen.class));
                 finish();
-
+                Log.i(Constants.LOG, "Correct Login");
                 Toast.makeText(getApplicationContext(), getText(R.string.welcomeMsg).toString() + " " + user.getFirstName(), Toast.LENGTH_LONG).show();
 
             }
