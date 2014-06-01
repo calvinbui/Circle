@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/eventName"
+        android:singleLine="true"
         android:layout_below="@+id/eventInfo_label"
         android:hint="@string/eventName" />
 
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/eventLocation"
+        android:singleLine="true"
         android:layout_below="@+id/eventName"
         android:hint="@string/location" />
 
@@ -34,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:singleLine="true"
         android:ems="10"
         android:id="@+id/eventDescription"
         android:layout_below="@id/eventLocation"

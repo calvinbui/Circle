@@ -131,7 +131,13 @@ public class EventAdd extends Activity {
             // toast the user they should enter all fields
             Toast.makeText(getApplicationContext(), getText(R.string.missingFields).toString(), Toast.LENGTH_LONG).show();
             return false;
-        } else if (!isEndDateAfterStartDate()) {
+            // check if the start day is before this exact moment
+        } else if (startDateTime.before(Calendar.getInstance())) {
+            Toast.makeText(this, getText(R.string.dateError), Toast.LENGTH_SHORT).show();
+            return false;
+        } // check if the end date is after the start date
+        else if (startDateTime.after(endDateTime)) {
+            Toast.makeText(this, getText(R.string.dateError), Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -246,14 +252,6 @@ public class EventAdd extends Activity {
         }
     }
 
-    private boolean isEndDateAfterStartDate() {
-        if (endDateTime.after(startDateTime)) {
-            return true;
-        }
-        Toast.makeText(this, getText(R.string.dateError), Toast.LENGTH_SHORT).show();
-        return false;
-    }
-
     private boolean isEndDateEmpty() {
         if (endDate.getText().toString().equals(""))
             return false;
@@ -269,7 +267,7 @@ public class EventAdd extends Activity {
     }
 
     /**
-     * An AsyncTask which captures the information inputed by the User and sends it via Internet
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
      *

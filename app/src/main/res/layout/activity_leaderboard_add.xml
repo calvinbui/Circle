@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/leaderboardNewName"
+        android:singleLine="true"
         android:hint="@string/newLeadeboardName"
         android:layout_below="@+id/eventInfo_label"
         android:layout_alignParentLeft="true"

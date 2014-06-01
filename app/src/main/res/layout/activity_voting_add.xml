@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/question"
         android:hint="@string/questionAsk"
+        android:singleLine="true"
         android:layout_below="@+id/questionAsk"
         android:layout_centerHorizontal="true" />
 

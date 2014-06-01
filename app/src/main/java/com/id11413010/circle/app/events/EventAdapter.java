@@ -62,13 +62,13 @@ public class EventAdapter extends ArrayAdapter<Event>{
             holder = (ViewHolder)convertView.getTag();
         }
         // set the month
-        holder.monthYear.setText(formatDate(e, "MMM-yyyy"));
+        holder.monthYear.setText(formatDate(e.getStartDate(), "MMM-yyyy"));
         // set the day
-        holder.day.setText(formatDate(e, "d"));
+        holder.day.setText(formatDate(e.getStartDate(), "d"));
         // set the name
         holder.name.setText(e.getName());
         // set the time
-        holder.time.setText(formatTime(e.getStartTime()) + " - " + formatTime(e.getEndTime()));
+        holder.time.setText(formatDate(e.getStartDate(), "MMM d") + " " + formatTime(e.getStartTime()) + " - " + formatDate(e.getEndDate(), "MMM d") + " " +formatTime(e.getEndTime()));
         // set the location
         holder.location.setText(e.getLocation());
         // return the row
@@ -77,14 +77,14 @@ public class EventAdapter extends ArrayAdapter<Event>{
 
     /**
      * Format the date into a time readable by humans (dd-mm-yyyy)
-     * @param event The event object
+     * @param eventDate The event date to format
      * @param format the type of date to return
      * @return A String formatted date
      */
-    private String formatDate(Event event, String format) {
+    private String formatDate(String eventDate, String format) {
         try {
             // create a new date from the event's start date
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(event.getStartDate());
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(eventDate);
             // format the date into the specified format
             DateFormat df = new SimpleDateFormat(format);
             // return the date as a String

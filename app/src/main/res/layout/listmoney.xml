@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingRight="20dp"
     android:paddingBottom="20dp"
+    android:background="?android:attr/activatedBackgroundIndicator"
     android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:weightSum="1">

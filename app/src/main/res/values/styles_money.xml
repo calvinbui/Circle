@@ -15,8 +15,6 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
-
-     http://jgilfelt.github.io/android-actionbarstylegenerator/
 -->
 
 <resources>
@@ -31,8 +29,6 @@
         <item name="actionModeBackground">@drawable/cab_background_top_money</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_money</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Money</item>
-
-        
     </style>
 
     <style name="ActionBar.Solid.Money" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">

@@ -14,9 +14,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/eventListMonthYear"
             android:clickable="false"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="25dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:textColor="#ffff5851" />
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/eventListTime"
-        android:layout_marginLeft="140dp"
+        android:layout_marginLeft="100dp"
         android:layout_below="@+id/eventListName"
         android:singleLine="false" />
 
