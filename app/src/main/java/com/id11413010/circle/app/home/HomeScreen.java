@@ -4,7 +4,9 @@
 package com.id11413010.circle.app.home;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.events.Events;
 import com.id11413010.circle.app.friends.Friends;
 import com.id11413010.circle.app.leaderboards.LeaderboardHome;
+import com.id11413010.circle.app.login.Login;
 import com.id11413010.circle.app.moneyOwing.MoneyOwing;
 import com.id11413010.circle.app.moneySplit.MoneySplit;
 import com.id11413010.circle.app.voting.Voting;
@@ -37,7 +40,7 @@ public class HomeScreen extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.voting_add_question, menu);
+        getMenuInflater().inflate(R.menu.logout, menu);
         return true;
     }
 
@@ -47,9 +50,14 @@ public class HomeScreen extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.finishCreatingQuestions) {
-            // start the main Voting page if this menu button is pressed
-            startActivity(new Intent(this, Voting.class));
+        if (id == R.id.logoutBtn) {
+            Log.i(Constants.LOG, "Log out");
+            // start logout the user
+            startActivity(new Intent(this, Login.class));
+            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+            // clear the shared preferences
+            sp.edit().clear().commit();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
