@@ -35,10 +35,21 @@ import java.util.regex.Pattern;
  * Allow the user to add a new outstanding payment.
  */
 public class MoneyOwingAdd extends Activity {
+    /**
+     * A Spinner which will hold users within the circle
+     */
     private Spinner spinner;
-    private Integer userId;
+    /**
+     * List that will provide the user id for a user
+     */
     private List<Integer> userIdList;
+    /**
+     * An EditText representing the payment amount
+     */
     private EditText amount;
+    /**
+     * An EditText representing the payment description
+     */
     private EditText description;
 
     @Override
@@ -146,12 +157,11 @@ public class MoneyOwingAdd extends Activity {
         protected void onPreExecute() {
             // get the circle id and current user id from shared preferences
             SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            String circle = sp.getString(Constants.CIRCLE, null);
-            int currentUser = sp.getInt(Constants.USERID, 0);
-            // retrieve the chosen user from the spinner
-            userId = userIdList.get(spinner.getSelectedItemPosition());
-            // create a new money object with the obtained information
-            money = new Money(circle, currentUser, userId, Double.parseDouble(amount.getText().toString()), 0, description.getText().toString(), null);
+            /*
+            create a new money object with the obtained information, retrieve the chosen user from the spinner,
+            user id and circle from shared preferences
+             */
+            money = new Money(sp.getString(Constants.CIRCLE, null), sp.getInt(Constants.USERID, 0), userIdList.get(spinner.getSelectedItemPosition()), Double.parseDouble(amount.getText().toString()), 0, description.getText().toString(), null);
         }
 
         protected Void doInBackground(Void... params) {

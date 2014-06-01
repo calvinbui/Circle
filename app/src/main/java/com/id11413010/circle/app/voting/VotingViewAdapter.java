@@ -20,7 +20,9 @@ import com.id11413010.circle.app.pojo.Question;
 import java.util.List;
 
 /**
- *
+ * An adapter which acts as a bridge between an activity and database.
+ * Retrieves data form the database and updates a view for each item within a data set.
+ * Responsible for displaying Poll options.
  */
 public class VotingViewAdapter extends ArrayAdapter<Question>{
     /**
