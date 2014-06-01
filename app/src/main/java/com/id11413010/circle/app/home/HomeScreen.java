@@ -4,7 +4,9 @@
 package com.id11413010.circle.app.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -51,13 +53,32 @@ public class HomeScreen extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.logoutBtn) {
-            Log.i(Constants.LOG, "Log out");
-            // start logout the user
-            startActivity(new Intent(this, Login.class));
-            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-            // clear the shared preferences
-            sp.edit().clear().commit();
-            finish();
+            final AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreen.this);
+            // set the title
+            builder.setTitle(R.string.logout)
+                    // set the message of the dialog
+                    .setMessage(getString(R.string.logoutPrompt))
+                    // set a button to cancel the dialog
+                    .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })// set a button to logout
+                    .setPositiveButton(getString(R.string.logoutConfirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.i(Constants.LOG, "Log out");
+                            // start logout the user
+                            startActivity(new Intent(HomeScreen.this, Login.class));
+                            SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                            // clear the shared preferences
+                            sp.edit().clear().commit();
+                            finish();
+                        }
+                    });
+            // show the alert dialog
+            builder.show();
         }
         return super.onOptionsItemSelected(item);
     }

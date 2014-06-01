@@ -91,4 +91,6 @@
     <string name="descriptionHint">Lent money to purchase a burger</string>
     <string name="logout">Logout</string>
     <string name="noInternet">No Internet available. Please connect to WiFi or Mobile Data to use this application</string>
+    <string name="logoutPrompt">Do you want to log out?</string>
+    <string name="logoutConfirm">Log out</string>
 </resources>
