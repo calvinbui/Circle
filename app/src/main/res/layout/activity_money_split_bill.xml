@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/blankMoney"
-            android:id="@+id/splitPrice" />
+            android:id="@+id/splitPrice"
+            android:layout_marginLeft="5dp" />
     </LinearLayout>
 
 
@@ -40,7 +41,8 @@
         android:id="@+id/totalBill"
         android:layout_below="@id/linearLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" >
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,13 +52,21 @@
             android:id="@+id/textView3"
             android:layout_weight="0.8" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dollarSign"
+            android:id="@+id/textView" />
+
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/totalPrice"
-            android:layout_weight="0.1" />
+            android:layout_weight="0.78"
+            android:hint="@string/amountHint" />
 
     </LinearLayout>
 

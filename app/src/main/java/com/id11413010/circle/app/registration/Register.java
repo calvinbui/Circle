@@ -2,7 +2,7 @@
  * Copyright (C) Trungthi (Calvin) Bui 2014
  */
 
-package com.id11413010.circle.app;
+package com.id11413010.circle.app.registration;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.id11413010.circle.app.Constants;
+import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
+import com.id11413010.circle.app.login.Login;
 import com.id11413010.circle.app.pojo.User;
 
 /**

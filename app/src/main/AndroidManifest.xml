@@ -11,25 +11,25 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".HomeScreen"
+            android:name=".home.HomeScreen"
             android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".events.Events"
             android:label="@string/title_activity_events"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Event" >
         </activity>
         <activity
             android:name=".voting.Voting"
             android:label="@string/title_activity_voting"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Voting" >
         </activity>
         <activity
             android:name=".friends.Friends"
             android:label="@string/title_activity_friend"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Friends" >
         </activity>
         <activity
@@ -39,9 +39,9 @@
             android:theme="@style/Theme.Leaderboard" >
         </activity>
         <activity
-            android:name=".Register"
+            android:name=".registration.Register"
             android:label="@string/title_activity_register"
-            android:parentActivityName=".Login" >
+            android:parentActivityName=".login.Login" >
         </activity>
         <activity
             android:name=".events.EventAdd"
@@ -52,11 +52,11 @@
         <activity
             android:name=".moneySplit.MoneySplit"
             android:label="@string/title_activity_money__split__bill"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Moneycalc" >
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".login.Login"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -96,13 +96,13 @@
         <activity
             android:name=".moneyOwing.MoneyOwing"
             android:label="@string/title_activity_money_owing"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Money" >
         </activity>
         <activity
             android:name=".leaderboards.LeaderboardHome"
             android:label="@string/title_activity_leaderboard_home"
-            android:parentActivityName=".HomeScreen"
+            android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Leaderboard" >
         </activity>
         <service

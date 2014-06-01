@@ -14,7 +14,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.id11413010.circle.app.Constants;
-import com.id11413010.circle.app.HomeScreen;
+import com.id11413010.circle.app.home.HomeScreen;
 import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.LeaderboardDAO;
 import com.id11413010.circle.app.pojo.Leaderboard;
