@@ -101,5 +101,6 @@
     <string name="title_activity_event_past">Past Events</string>
     <string name="pastEvents">Past Events</string>
     <string name="pastPayments">Past Payments</string>
+    <string name="invalidEmail">Invalid Email</string>
 
 </resources>

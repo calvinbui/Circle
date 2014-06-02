@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -18,6 +19,9 @@ import com.id11413010.circle.app.R;
 import com.id11413010.circle.app.dao.UserDAO;
 import com.id11413010.circle.app.login.Login;
 import com.id11413010.circle.app.pojo.User;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This activity allows the user to create a new account. The new account will permit them access
@@ -92,6 +96,10 @@ public class Register extends Activity {
             makeToast(getText(R.string.emailMissing).toString());
             return false;
         }
+        else if(!isEmailValid(email.getText().toString())) {
+            makeToast(getString(R.string.invalidEmail));
+            return false;
+        }
         else if (password.getText().toString().equals("")) {
             makeToast(getText(R.string.passwordMissing).toString());
             return false;
@@ -137,5 +145,24 @@ public class Register extends Activity {
             // toast to notify the error registrating
                 Toast.makeText(getApplicationContext(), getString(R.string.errorRegistering), Toast.LENGTH_SHORT).show();
         }
+    }
+    /**
+     * method is used for checking valid email id format.
+     *  http://stackoverflow.com/questions/6119722/how-to-check-edittexts-text-is-email-address-or-not
+     * @param email
+     * @return boolean true for valid false for invalid
+     */
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 }
