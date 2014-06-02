@@ -253,9 +253,7 @@ public class EventAdd extends Activity {
     }
 
     private boolean isEndDateEmpty() {
-        if (endDate.getText().toString().equals(""))
-            return false;
-        return true;
+        return !endDate.getText().toString().equals("");
     }
 
     private boolean isStartEmpty() {

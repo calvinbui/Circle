@@ -1,7 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.id11413010.circle.app.leaderboards.LeaderboardAdd" >
+    tools:context="com.id11413010.circle.app.leaderboards.LeaderboardAdd">
     <item android:id="@+id/createLeaderboard"
         android:showAsAction="ifRoom"
         android:title="@string/done"/>

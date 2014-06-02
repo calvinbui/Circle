@@ -1,8 +1,5 @@
 package com.id11413010.circle.app.pojo;
 
-/**
- * Created by Calvin on 25/05/2014.
- */
 public class Ranking {
     private Integer id;
     private Integer leaderboard;

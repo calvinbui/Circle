@@ -38,23 +38,16 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, user.getCircle())); //circle
         // start a network task with the page to access and information (array list) to process.
         Log.i(Constants.LOG, "Passing array list to network task");
-        if (createdUserSuccessfully(Network.httpConnection("register.php", nameValuePairs)))
-            return true;
-        else
-            return false;
+        return createdUserSuccessfully(Network.httpConnection("register.php", nameValuePairs));
     }
 
     /**
-     * TODO
-     * @param result
-     * @return
+     * Checks if the user has registered successfully via the web service response
+     * @param result The web service response
+     * @return A boolean of whether the registration was successful
      */
     private static boolean createdUserSuccessfully(String result) {
-        if (result.equals("1")) {
-            return true;
-        } else {
-            return false;
-        }
+        return result.equals("1");
     }
 
     /**

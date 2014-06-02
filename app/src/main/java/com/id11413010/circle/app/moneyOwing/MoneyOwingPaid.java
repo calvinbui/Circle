@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Calvin on 2/06/2014.
+ * This class is used for listing the past payments users within a circle owe
+ * one another.
  */
 public class MoneyOwingPaid extends Activity {
     /**
@@ -86,7 +87,7 @@ public class MoneyOwingPaid extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving paid payments from the database.
      */
-    public class RetrievePaidMoneyTask extends AsyncTask<Void, Void, String> {
+    private class RetrievePaidMoneyTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... params) {
             // retrieve past payments from the database
             return MoneyDAO.retrievePaid(MoneyOwingPaid.this);

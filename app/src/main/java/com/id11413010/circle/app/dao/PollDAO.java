@@ -116,8 +116,8 @@ public class PollDAO {
     }
 
     /**
-     * todo
-     * @param poll
+     * Delete a poll from the user's circle
+     * @param poll The poll to delete
      */
     public static void deletePoll(Poll poll) {
         // creates a list array which will contain information about the poll

@@ -39,7 +39,7 @@ public class Network {
         // create a new http post to the specified URL
         HttpPost httppost = new HttpPost(Url + request);
         // initialise a String to hold the HTML response
-        String htmlResponse = new String();
+        String htmlResponse = "";
         try {
             // post the List to the URL
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

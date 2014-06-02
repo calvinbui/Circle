@@ -121,10 +121,7 @@ public class Register extends Activity {
             // create a new User object containing user data
             User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString(),circle.getText().toString(), null);
             // pass the object to the data-access-object class to add it to the database
-            if(UserDAO.createUser(user))
-                return true;
-            else
-                return false;
+            return UserDAO.createUser(user);
             //TODO
         }
 

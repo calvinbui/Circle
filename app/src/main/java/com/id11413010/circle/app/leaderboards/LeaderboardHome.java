@@ -171,7 +171,7 @@ public class LeaderboardHome extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving leaderboards from the database.
      */
-    public class RetrieveLeaderboardTask extends AsyncTask<Void, Void, String> {
+    private class RetrieveLeaderboardTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
             // retrieve all leaderboards in the database within the circle of friends

@@ -57,8 +57,8 @@ public class EventDAO {
     }
 
     /**
-     * todo
-     * @param event
+     * Delete and event from the user's circle.
+     * @param event The event to delete
      */
     public static void deleteEvent(Event event) {
         // creates a list array which will contain information about the event

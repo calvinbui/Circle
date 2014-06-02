@@ -4,4 +4,4 @@
     android:longClickable="true"
     android:background="?android:attr/activatedBackgroundIndicator"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/moneyList"></ListView>
+    android:id="@+id/moneyList"/>

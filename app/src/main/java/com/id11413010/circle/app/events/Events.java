@@ -205,7 +205,7 @@ public class Events extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving Events from the database.
      */
-    public class retrieveEventsTask extends AsyncTask<Void, Void, String> {
+    private class retrieveEventsTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
             // retrieve circle id from shared preferences

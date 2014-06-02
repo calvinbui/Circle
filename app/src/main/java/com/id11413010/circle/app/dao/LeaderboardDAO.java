@@ -86,8 +86,8 @@ public class LeaderboardDAO {
     }
 
     /**
-     * Todo
-     * @param leaderboard
+     * Delete a leaderboard from the user's circle
+     * @param leaderboard The leaderboard to delete
      */
     public static void deleteLeaderboard(Leaderboard leaderboard) {
         // creates a list array which will contain information about the leaderboard

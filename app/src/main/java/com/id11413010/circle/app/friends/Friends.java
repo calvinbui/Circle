@@ -54,7 +54,7 @@ public class Friends extends Activity {
         Log.i(Constants.LOG, "Started Friends");
     }
 
-    public class RetrieveUsersTask extends AsyncTask<Void, Void, String> {
+    private class RetrieveUsersTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... params) {
             return UserDAO.retrieveAllUsers(Friends.this);
         }

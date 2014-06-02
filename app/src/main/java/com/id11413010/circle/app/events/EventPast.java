@@ -118,7 +118,7 @@ public class EventPast extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for retrieving Events from the database.
      */
-    public class retrievePastEventsTask extends AsyncTask<Void, Void, String> {
+    private class retrievePastEventsTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
             // retrieve circle id from shared preferences

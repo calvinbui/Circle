@@ -178,7 +178,7 @@ public class MoneyOwing extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for outstanding payments from the database.
      */
-    public class RetrieveMoneyTask extends AsyncTask<Void, Void, String> {
+    private class RetrieveMoneyTask extends AsyncTask<Void, Void, String> {
         protected String doInBackground(Void... params) {
             // retrieve outstanding payments from the database
             return MoneyDAO.retrieveOwing(MoneyOwing.this);

@@ -172,7 +172,7 @@ public class Voting extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread. Responsible for Polls from the database.
      */
-    public class RetrievePollsTask extends AsyncTask<Void, Void, String> {
+    private class RetrievePollsTask extends AsyncTask<Void, Void, String> {
 
         protected String doInBackground(Void... params) {
             // return the polls from the database
