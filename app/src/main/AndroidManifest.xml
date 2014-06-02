@@ -3,7 +3,7 @@
     package="com.id11413010.circle.app" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -105,11 +105,26 @@
             android:parentActivityName=".home.HomeScreen"
             android:theme="@style/Theme.Leaderboard" >
         </activity>
+
         <service
             android:name=".network.NetworkCheck"
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".events.EventPast"
+            android:parentActivityName=".events.Events"
+            android:theme="@style/Theme.Event"
+            android:label="@string/title_activity_event_past" >
+        </activity>
+
+        <activity
+            android:name=".moneyOwing.MoneyOwingPaid"
+            android:parentActivityName=".moneyOwing.MoneyOwing"
+            android:theme="@style/Theme.Money"
+            android:label="@string/pastPayments" >
+        </activity>
     </application>
 
 </manifest>

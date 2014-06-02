@@ -28,7 +28,7 @@ public class UserDAO {
      * Creates a new user into the database by passing through User information.
      * @param user A User object which holds information
      */
-    public static void createUser(User user) {
+    public static boolean createUser(User user) {
         // creates a list array which will contain information about the User
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_FIRSTNAME, user.getFirstName())); // first name
@@ -38,7 +38,23 @@ public class UserDAO {
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, user.getCircle())); //circle
         // start a network task with the page to access and information (array list) to process.
         Log.i(Constants.LOG, "Passing array list to network task");
-        Network.httpConnection("register.php", nameValuePairs);
+        if (createdUserSuccessfully(Network.httpConnection("register.php", nameValuePairs)))
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * TODO
+     * @param result
+     * @return
+     */
+    private static boolean createdUserSuccessfully(String result) {
+        if (result.equals("1")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

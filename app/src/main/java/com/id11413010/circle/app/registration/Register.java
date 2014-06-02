@@ -116,20 +116,28 @@ public class Register extends Activity {
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
      */
-    private class RegisterTask extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... params) {
+    private class RegisterTask extends AsyncTask<Void, Void, Boolean> {
+        protected Boolean doInBackground(Void... params) {
             // create a new User object containing user data
             User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString(),circle.getText().toString(), null);
             // pass the object to the data-access-object class to add it to the database
-            UserDAO.createUser(user);
-            return null;
+            if(UserDAO.createUser(user))
+                return true;
+            else
+                return false;
+            //TODO
         }
 
+        //TODO
         @Override
-        protected void onPostExecute(Void result) {
-            // start the login activity, returning the user to the previous screen after registration
-            startActivity(new Intent(Register.this, Login.class));
-            finish();
+        protected void onPostExecute(Boolean result) {
+            if (result) {
+                // start the login activity, returning the user to the previous screen after registration
+                startActivity(new Intent(Register.this, Login.class));
+                finish();
+            }
+            else
+                Toast.makeText(getApplicationContext(), getString(R.string.errorRegistering), Toast.LENGTH_SHORT).show();
         }
     }
 }

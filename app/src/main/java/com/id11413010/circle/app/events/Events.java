@@ -36,8 +36,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- The class is used for listing the current and future 'events' each group of friends has created.
- Events are retrieved from a database and shown within a List Activity.
+ * The class is used for listing the current and future 'events' each group of friends has created.
+ * Events are retrieved from a database and shown within a List Activity.
  */
 public class Events extends Activity {
     /**
@@ -60,7 +60,7 @@ public class Events extends Activity {
         setContentView(R.layout.activity_event);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         // initialise list view
-        listView = (ListView)findViewById(R.id.eventList);
+        listView = (ListView) findViewById(R.id.eventList);
         // initialise arrayList
         arrayList = new ArrayList<Event>();
         // initialise our array adapter with references to this activity, the list activity and array list
@@ -75,17 +75,17 @@ public class Events extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg) {
                 // retrieve the Event object at the position clicked
-                Event item = (Event)adapterView.getItemAtPosition(position);
+                Event item = (Event) adapterView.getItemAtPosition(position);
                 // create a new alert dialog
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Events.this);
                 builder.setTitle(item.getName()) //set the title to the event name
-                .setMessage(item.getDescription()) //set the description to the event
-                // create a button to close the dialog
-                .setNeutralButton(R.string.oK, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                        .setMessage(item.getDescription()) //set the description to the event
+                                // create a button to close the dialog
+                        .setNeutralButton(R.string.oK, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
                 // show the dialog
                 builder.show();
             }
@@ -123,7 +123,7 @@ public class Events extends Activity {
                         switch (item.getItemId()) {
                             case R.id.deleteListObject:
                                 int pos = listView.getCheckedItemPosition();
-                                Event e = (Event)listView.getItemAtPosition(pos);
+                                Event e = (Event) listView.getItemAtPosition(pos);
                                 // delete the event
                                 new DeleteEventTask(e).execute();
                                 Toast.makeText(getApplicationContext(), getString(R.string.eventDeleted), Toast.LENGTH_SHORT).show();
@@ -141,7 +141,7 @@ public class Events extends Activity {
                         //workaround for some items not being unchecked.
                         //see http://stackoverflow.com/a/10542628/1366471
                         for (int i = 0; i < listView.getChildCount(); i++) {
-                            (listView.getChildAt(i).getBackground()).setState(new int[] { 0 });
+                            (listView.getChildAt(i).getBackground()).setState(new int[]{0});
                         }
                         listView.setChoiceMode(ListView.CHOICE_MODE_NONE);
                     }
@@ -170,13 +170,14 @@ public class Events extends Activity {
         if (id == R.id.addEventMenu) {
             // start an activity to add a new event
             startActivity(new Intent(this, EventAdd.class));
-        }
+        } else if (id == R.id.viewPastEvents)
+            // start an activity to view past events
+            startActivity(new Intent(this, EventPast.class));
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(this, HomeScreen.class));
         finish();
@@ -189,7 +190,7 @@ public class Events extends Activity {
         Collections.sort(arrayList, new Comparator<Event>() {
             public int compare(Event o1, Event o2) {
                 int i = 0;
-                try{
+                try {
                     return new SimpleDateFormat("yyyy-MM-dd").parse(o1.getStartDate()).compareTo(new SimpleDateFormat("yyyy-MM-dd").parse(o2.getStartDate()));
                 } catch (ParseException e) {
                     Log.e(Constants.LOG, "Event Add - SimpleDateFormat ParseException");
@@ -214,7 +215,8 @@ public class Events extends Activity {
         @Override
         protected void onPostExecute(String json) {
             // create a new list of event objects from the json String
-            Type collectionType = new TypeToken<ArrayList<Event>>(){}.getType();
+            Type collectionType = new TypeToken<ArrayList<Event>>() {
+            }.getType();
             List<Event> list = new Gson().fromJson(json, collectionType);
             // add each event from the list into the array list
             for (Event e : list)
@@ -229,7 +231,7 @@ public class Events extends Activity {
     /**
      * TODO
      */
-    private class DeleteEventTask extends AsyncTask<Void, Void, Void>{
+    private class DeleteEventTask extends AsyncTask<Void, Void, Void> {
         /**
          * A event object to delete
          */

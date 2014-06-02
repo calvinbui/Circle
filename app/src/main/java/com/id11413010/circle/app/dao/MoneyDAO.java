@@ -54,15 +54,32 @@ public class MoneyDAO {
     }
 
     /**
+     * Retrieve all outstanding payments within the user's group from the database
+     * @param context The application's context
+     * @return A JSON String containing all past payments within the database
+     */
+    public static String retrievePaid(Context context) {
+        // retrieve the user's circle id from the local shared preferences
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        String circle = sp.getString(Constants.CIRCLE, null);
+        // creates a list array which will contain information about the user's circle
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, circle)); // circle
+        // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
+        return Network.httpConnection("get_money_owing_paid.php", nameValuePairs);
+    }
+
+    /**
      * Update an outstanding payment within the database to paid. Updates the paid column of the row.
      * @param money The outstanding payment
      */
-    public static void deleteOwing(Money money) {
+    public static void updateOwing(Money money) {
         // creates a list array which will contain information about the outstanding payment
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.MONEY_ID, Integer.toString(money.getId()))); // payment id
         // start a network task with the page to access and information (array list) to process.
         Log.i(Constants.LOG, "Passing array list to network task");
-        Network.httpConnection("delete_money_owing.php", nameValuePairs);
+        Network.httpConnection("update_money_owing.php", nameValuePairs);
     }
 }

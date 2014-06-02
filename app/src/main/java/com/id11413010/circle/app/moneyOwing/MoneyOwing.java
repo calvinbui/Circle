@@ -167,6 +167,9 @@ public class MoneyOwing extends Activity {
             // start an activity to add a new money owing
             startActivity(new Intent(this, MoneyOwingAdd.class));
         }
+        else if (id == R.id.viewPastPayments)
+            // start an activity to view past payments
+            startActivity(new Intent(this, MoneyOwingPaid.class));
         return super.onOptionsItemSelected(item);
     }
 
@@ -206,7 +209,7 @@ public class MoneyOwing extends Activity {
 
         protected Void doInBackground(Void... params) {
             // delete the money object
-            MoneyDAO.deleteOwing(money);
+            MoneyDAO.updateOwing(money);
             return null;
         }
 

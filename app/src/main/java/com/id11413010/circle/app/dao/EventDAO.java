@@ -68,4 +68,18 @@ public class EventDAO {
         Log.i(Constants.LOG, "Passing array list to network task");
         Network.httpConnection("delete_event.php", nameValuePairs);
     }
+
+    /**
+     * Retrieve all past events within the user's circle.
+     * @return A Json String containing all the group's events
+     */
+    public static String retrievePastEvents(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        // creates a list array which will contain information about the event
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, sp.getString(Constants.CIRCLE, null))); // circle
+        // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
+        return Network.httpConnection("get_events_past.php", nameValuePairs);
+    }
 }
