@@ -114,4 +114,17 @@ public class PollDAO {
         Log.i(Constants.LOG, "Passing array list to network task");
         return Integer.valueOf(Network.httpConnection("get_votes.php", nameValuePairs));
     }
+
+    /**
+     * todo
+     * @param poll
+     */
+    public static void deletePoll(Poll poll) {
+        // creates a list array which will contain information about the poll
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.POLL_ID, Integer.toString(poll.getId()))); // event id
+        // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
+        Network.httpConnection("delete_poll.php", nameValuePairs);
+    }
 }

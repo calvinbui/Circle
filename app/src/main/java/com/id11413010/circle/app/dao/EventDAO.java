@@ -48,11 +48,24 @@ public class EventDAO {
      */
     public static String retrieveEvents(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-        // creates a list array which will contain information about the User
+        // creates a list array which will contain information about the event
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
         nameValuePairs.add(new BasicNameValuePair(Constants.DB_CIRCLE, sp.getString(Constants.CIRCLE, null))); // circle
         // start a network task with the page to access and information (array list) to process.
         Log.i(Constants.LOG, "Passing array list to network task");
         return Network.httpConnection("get_events.php", nameValuePairs);
+    }
+
+    /**
+     * todo
+     * @param event
+     */
+    public static void deleteEvent(Event event) {
+        // creates a list array which will contain information about the event
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.EVENT_ID, Integer.toString(event.getId()))); // event id
+        // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
+        Network.httpConnection("delete_event.php", nameValuePairs);
     }
 }

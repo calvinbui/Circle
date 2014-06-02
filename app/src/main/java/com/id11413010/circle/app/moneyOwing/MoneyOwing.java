@@ -43,7 +43,6 @@ public class MoneyOwing extends Activity {
      * List that will host our items and allow us to modify the UserAdapter
      */
     private ArrayList<Money> arrayList = null;
-    protected ActionMode mActionMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +86,13 @@ public class MoneyOwing extends Activity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                // only pick one item from the list
                 listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                // set the selected item as checked
                 listView.setItemChecked(i, true);
                 //final Money longItem = (Money)adapterView.getItemAtPosition(i);
 
-                mActionMode = startActionMode(new ActionMode.Callback() {
+                startActionMode(new ActionMode.Callback() {
                     // Called when the action mode is created; startActionMode() was called
                     @Override
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {

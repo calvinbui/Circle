@@ -54,7 +54,7 @@ public class MoneyDAO {
     }
 
     /**
-     * Update an oustanding payment within the database to paid. Updates the paid column of the row.
+     * Update an outstanding payment within the database to paid. Updates the paid column of the row.
      * @param money The outstanding payment
      */
     public static void deleteOwing(Money money) {

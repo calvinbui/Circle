@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.id11413010.circle.app.Constants;
 import com.id11413010.circle.app.network.Network;
+import com.id11413010.circle.app.pojo.Leaderboard;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -82,5 +83,18 @@ public class LeaderboardDAO {
             Log.i(Constants.LOG, "Passing array list to network task");
             Network.httpConnection("update_leaderboard_rankings.php", nameValuePairs);
         }
+    }
+
+    /**
+     * Todo
+     * @param leaderboard
+     */
+    public static void deleteLeaderboard(Leaderboard leaderboard) {
+        // creates a list array which will contain information about the leaderboard
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair(Constants.LEADERBOARD_ID, Integer.toString(leaderboard.getId()))); // event id
+        // start a network task with the page to access and information (array list) to process.
+        Log.i(Constants.LOG, "Passing array list to network task");
+        Network.httpConnection("delete_leaderboard.php", nameValuePairs);
     }
 }

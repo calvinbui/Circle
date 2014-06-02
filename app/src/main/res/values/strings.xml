@@ -94,4 +94,7 @@
     <string name="logoutPrompt">Do you want to log out?</string>
     <string name="logoutConfirm">Log out</string>
     <string name="internetRestored">Network has been restored</string>
+    <string name="eventDeleted">Event deleted</string>
+    <string name="pollDeleted">Poll deleted</string>
+    <string name="leaderboardDeleted">Leaderboard deleted</string>
 </resources>

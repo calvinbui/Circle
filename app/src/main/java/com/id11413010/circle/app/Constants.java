@@ -131,4 +131,8 @@ public class Constants {
      * Tag for logs
      */
     public static final String LOG = "com.11413010.circle.app";
+    /**
+     * Tag for Event ID
+     */
+    public static final String EVENT_ID = "eventId";
 }
