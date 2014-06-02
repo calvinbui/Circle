@@ -170,7 +170,7 @@ public class Voting extends Activity {
     /**
      * An AsyncTask which captures the information inputted by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
-     * thread. Responsible for Polls from the database.
+     * thread. Responsible for retrieving Polls from the database.
      */
     private class RetrievePollsTask extends AsyncTask<Void, Void, String> {
 
@@ -193,7 +193,9 @@ public class Voting extends Activity {
     }
 
     /**
-     * TODO
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for deleting a Poll from the database.
      */
     private class DeletePollTask extends AsyncTask<Void, Void, Void>{
         /**

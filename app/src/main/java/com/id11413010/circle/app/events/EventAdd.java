@@ -268,7 +268,7 @@ public class EventAdd extends Activity {
      * An AsyncTask which captures the information inputted by the User and sends it via Internet
      * to the a web service to be added into the database. Separates network activity from the main
      * thread.
-     *
+     * <p/>
      * Creates a new event into the database.
      */
     private class CreateEventTask extends AsyncTask<Void, Void, Void> {

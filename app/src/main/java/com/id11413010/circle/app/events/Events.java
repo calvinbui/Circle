@@ -229,7 +229,9 @@ public class Events extends Activity {
     }
 
     /**
-     * TODO
+     * An AsyncTask which captures the information inputted by the User and sends it via Internet
+     * to the a web service to be added into the database. Separates network activity from the main
+     * thread. Responsible for deleting an Event from the database.
      */
     private class DeleteEventTask extends AsyncTask<Void, Void, Void> {
         /**

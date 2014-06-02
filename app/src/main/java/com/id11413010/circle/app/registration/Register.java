@@ -122,18 +122,19 @@ public class Register extends Activity {
             User user = new User(firstName.getText().toString(),lastName.getText().toString(),email.getText().toString(),password.getText().toString(),circle.getText().toString(), null);
             // pass the object to the data-access-object class to add it to the database
             return UserDAO.createUser(user);
-            //TODO
         }
 
-        //TODO
         @Override
         protected void onPostExecute(Boolean result) {
+            // check if the user has successfully registered
             if (result) {
                 // start the login activity, returning the user to the previous screen after registration
                 startActivity(new Intent(Register.this, Login.class));
                 finish();
             }
+            // if the user has failed to register
             else
+            // toast to notify the error registrating
                 Toast.makeText(getApplicationContext(), getString(R.string.errorRegistering), Toast.LENGTH_SHORT).show();
         }
     }
