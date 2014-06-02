@@ -97,7 +97,7 @@ public class MoneyOwing extends Activity {
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                         // Inflate a menu resource providing context menu items
                         MenuInflater inflater = mode.getMenuInflater();
-                        inflater.inflate(R.menu.money_owing_action, menu);
+                        inflater.inflate(R.menu.action_mode_delete, menu);
                         return true;
                     }
 
@@ -112,7 +112,7 @@ public class MoneyOwing extends Activity {
                     @Override
                     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.deleteMoneyOwing:
+                            case R.id.deleteListObject:
                                 SharedPreferences sp = getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
                                 int pos = listView.getCheckedItemPosition();
                                 Money m = (Money)listView.getItemAtPosition(pos);

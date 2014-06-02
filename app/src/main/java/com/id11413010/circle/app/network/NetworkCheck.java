@@ -17,7 +17,10 @@ import com.id11413010.circle.app.R;
  * A service class for listening to Internet connectivity.
  */
 public class NetworkCheck extends Service {
+    private boolean isNetworkRestored;
+
     public NetworkCheck() {
+        isNetworkRestored = false;
     }
 
     @Override
@@ -53,7 +56,11 @@ public class NetworkCheck extends Service {
             if (noConnectivity) {
                 Toast.makeText(getApplicationContext(), getText(R.string.noInternet).toString(), Toast.LENGTH_LONG).show();
                 Log.i(Constants.LOG, "Network state: " + !noConnectivity);
+                isNetworkRestored = false;
             } else {
+                if (isNetworkRestored)
+                    Toast.makeText(getApplicationContext(), getString(R.string.internetRestored), Toast.LENGTH_LONG).show();
+                isNetworkRestored = true;
                 Log.i(Constants.LOG, "Network state: " + !noConnectivity);
             }
         }
