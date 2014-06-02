@@ -17,10 +17,16 @@ import com.id11413010.circle.app.R;
  * A service class for listening to Internet connectivity.
  */
 public class NetworkCheck extends Service {
-    private boolean isNetworkRestored;
+    /**
+     * A Boolean representing if the network has been restored since losing connection
+     */
+    private boolean isNetworkLost;
 
+    /**
+     * Constructor which initially sets the boolean to false as no network connection has been lost or recovered.
+     */
     public NetworkCheck() {
-        isNetworkRestored = false;
+        isNetworkLost = false;
     }
 
     @Override
@@ -52,15 +58,21 @@ public class NetworkCheck extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.i(Constants.LOG, "Network state changed.");
+            // a boolean representing if there is or isnt network connectivitiy
             boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
             if (noConnectivity) {
+                // toast the user that there is not network
                 Toast.makeText(getApplicationContext(), getText(R.string.noInternet).toString(), Toast.LENGTH_LONG).show();
                 Log.i(Constants.LOG, "Network state: " + !noConnectivity);
-                isNetworkRestored = false;
+                // set the boolean to true
+                isNetworkLost = true;
             } else {
-                if (isNetworkRestored)
+                // if the network was previous lost, toast the user that it has been restored
+                if (isNetworkLost)
+                    // toast the user that the network has been restored
                     Toast.makeText(getApplicationContext(), getString(R.string.internetRestored), Toast.LENGTH_LONG).show();
-                isNetworkRestored = true;
+                // set the boolean back to false and wait for the next disconnection
+                isNetworkLost = false;
                 Log.i(Constants.LOG, "Network state: " + !noConnectivity);
             }
         }

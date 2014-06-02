@@ -26,7 +26,7 @@ public class Network {
      * The URL for the web service.
      */
     //private static String Url = "http://calvinbui.no-ip.biz/android/";
-    private static String Url = "http://192.168.43.63/android/";
+    private static String Url = "http://192.168.42.193/android/";
 
     /**
      * Connection to the database through a HTTP Client.
